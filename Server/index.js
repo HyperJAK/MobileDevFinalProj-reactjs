@@ -1,11 +1,7 @@
-// eslint-disable-next-line no-undef
 const express = require ("express")
 const app = express()
-// eslint-disable-next-line no-undef
 const bodyParser = require('body-parser')
-// eslint-disable-next-line no-undef
 const cors=require('cors')
-// eslint-disable-next-line no-undef
 const mysql = require ('mysql2')
 
 

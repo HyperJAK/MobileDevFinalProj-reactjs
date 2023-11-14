@@ -2,11 +2,68 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Available Scripts for main web
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm start`  
+
+etc...(rest of command at bottom)
+
+# Mobile Dev Project
+Web created using ReactJs, it tests user login / logout to Db and implements multiple security layers for safe Data storage.
+
+<details>
+<summary>SQL Script for Db: (Needs to be edited)</summary>
+<br>  
+
+```sql
+create database compsecdb;
+use compsecdb;
+create table users(
+id int primary key auto_increment,
+name varchar(255),
+email varchar(255),
+title varchar(255),
+department varchar(255),
+status varchar(255),
+position varchar(255),
+ picture varchar(500),
+ allowed boolean
+);
+
+create table account(
+id int primary key auto_increment,
+email varchar(255),
+password varchar(400),
+users_id int,
+ FOREIGN KEY (users_id) REFERENCES users(id)
+);
+```
+
+</details>
+
+<details>
+<summary>Commands to run web and server:</summary>
+<br>
+-Web: for now its (not in server dir)
+
+```
+npm start 
+```
+
+<br>
+-Server: 
+
+```
+cd Server 
+```
+```
+npm run devStart
+```
+</details>
+
+#
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
