@@ -8,6 +8,9 @@ In the project directory, you can run:
 
 ### `npm start`  
 
+To install all dependencies from json package lock file run:
+### `npm install`
+
 etc...(rest of command at bottom)
 
 # Mobile Dev Project
