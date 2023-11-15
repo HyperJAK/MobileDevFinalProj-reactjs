@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LogIn from "./LogIn.js";
 import Registre from "./Register.js";

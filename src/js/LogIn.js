@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Container, Row, Col, Card} from 'react-bootstrap';
 import authImg from '../assets/auth.png'
+import {forEach} from "react-bootstrap/ElementChildren";
 
 
 export default function LogIn(Email,Password,setEmail,setPass,handleLoggin,handleRegistring,usersData){
@@ -12,7 +13,12 @@ export default function LogIn(Email,Password,setEmail,setPass,handleLoggin,handl
         if(user){
             handleLoggin()
         } else {
-            alert("Invalid email or password"); // You can replace this with your desired failure action
+            alert(`Invalid email or password`);
+            usersData.forEach(item => {
+                alert(item.email, item.password);
+            });
+
+
         }
     }
 
