@@ -28,22 +28,23 @@ app.use(express.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
 app.get("/api/get", (req,res)=> {
-    const sqlSelect = "SELECT * FROM users";
-    db.query(sqlSelect, (err, result)=>{
+    const id = req.body.id;
+    const sqlSelect = "SELECT * FROM users where id = ?";
+    db.query(sqlSelect, [id], (err, result)=>{
         res.send(result)
     });
 
 });
 
 app.get("/api/getUsers", (req, res) => {
-    const sqlSelectUsers = "SELECT email,password FROM account";
+    const sqlSelectUsers = "SELECT id,email,password FROM account";
     db.query(sqlSelectUsers, (err, result) => {
         res.send(result);
     });
 });
 
 
-app.post("/api/insert", (req,res)=>{
+app.post("/api/update", (req, res)=>{
 
 
     app.delete("/api/delete/:id", (req, res) => {
@@ -61,7 +62,7 @@ app.post("/api/insert", (req,res)=>{
     });
 
 
-
+    const id = req.body.id;
     const name=req.body.name;
     const email=req.body.email;
     const title=req.body.title;
@@ -71,8 +72,10 @@ app.post("/api/insert", (req,res)=>{
     const picture=req.body.picture;
     const allowed=req.body.allowed;
 
-    const sqlInsert = "INSERT INTO users (name,email,title,department,status,position,picture,allowed) VALUES (?,?,?,?,?,?,?,?)";
-    db.query(sqlInsert, [name,email,title,department,status,position,picture,allowed], (err, result)=>{
+    const sqlUpdate = "UPDATE users SET name=?, email=?, title=?, department=?, status=?, position=?, picture=?, allowed=? WHERE id = ?";
+
+    db.query(sqlUpdate, [name,email,title,department,status,position,picture,allowed, id], (err, result)=>{
+
     });
 
 });

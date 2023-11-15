@@ -14,10 +14,6 @@ export default function LogIn(Email,Password,setEmail,setPass,handleLoggin,handl
             handleLoggin()
         } else {
             alert(`Invalid email or password`);
-            usersData.forEach(item => {
-                alert(item.email, item.password);
-            });
-
 
         }
     }
