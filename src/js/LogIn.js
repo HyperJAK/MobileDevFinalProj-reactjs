@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Container, Row, Col, Card} from 'react-bootstrap';
 import authImg from '../assets/auth.png'
-import {forEach} from "react-bootstrap/ElementChildren";
+import '../css/Accounts.css';
 
 
 export default function LogIn(Email,Password,setEmail,setPass,handleLoggin,handleRegistring,usersData){
@@ -73,8 +73,8 @@ export default function LogIn(Email,Password,setEmail,setPass,handleLoggin,handl
                                                     Login
                                                 </Button>
                                             </div>
-                                            <p className="mb-5 pb-lg-2" style={{color: '#393f81'}}>
-                                                Don't have an account? <a onClick={handleRegistring} style={{color: '#393f81'}}>
+                                            <p className="mb-5 pb-lg-2" style={{color: 'whitesmoke'}}>
+                                                Don't have an account? <a id={'signUp_link'} onClick={handleRegistring}>
                                                 Register here
                                             </a>
                                             </p>

@@ -2,11 +2,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Container, Row, Col, Card} from 'react-bootstrap';
 import axios from "axios";
 import authImg from '../assets/auth.png'
+import '../css/Accounts.css';
 
 
-export default function Register(Email,Password,CPassword,setEmail,setPass,setCPass,handleLoggin,handleRegistring){
+export default function Register(Email,Password,CPassword,setEmail,setPass,setCPass,handleLoggin,handleRegistring,usersData){
 
     const handleR = () => {
+        //Checks if user already exists in Db
+        const user = usersData.find((item) => item.email === Email && item.password === Password);
+        if(user){
+
+        }
+
         if ((Email && Password && CPassword) && (Password===CPassword)) {
             axios.post('http://localhost:5174/api/insertUser', {
                 email: Email,
@@ -15,7 +22,7 @@ export default function Register(Email,Password,CPassword,setEmail,setPass,setCP
             setPass('')
             setCPass('')
             setEmail('')
-            alert("success !")
+            alert("Account created !")
 
         } else {
             alert('Please fill in all the required fields and make sure that your password is right');
@@ -64,10 +71,10 @@ export default function Register(Email,Password,CPassword,setEmail,setPass,setCP
                                                 <label className="form-label" htmlFor="form2Example27">
                                                     Password
                                                 </label>
-                                                <input value={CPassword} type="password" id="form2Example27"
+                                                <input value={CPassword} type="password" id="form2Example30"
                                                        className="form-control form-control-lg"
                                                        onChange={e=>{setCPass(e.target.value)}} />
-                                                <label className="form-label" htmlFor="form2Example27">
+                                                <label className="form-label" htmlFor="form2Example30">
                                                     Confirm Password
                                                 </label>
                                             </div>
@@ -76,8 +83,8 @@ export default function Register(Email,Password,CPassword,setEmail,setPass,setCP
                                                     Register
                                                 </Button>
                                             </div>
-                                            <p className="mb-5 pb-lg-2" style={{color: '#393f81'}}>
-                                                Have an Account? <a onClick={handleRegistring} style={{color: '#393f81'}}>
+                                            <p className="mb-5 pb-lg-2" style={{color: 'whitesmoke'}}>
+                                                Have an Account? <a  id={'signIn_link'} onClick={handleRegistring}>
                                                 Sign In
                                             </a>
                                             </p>

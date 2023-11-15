@@ -1,9 +1,11 @@
 import {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LogIn from "./LogIn.js";
-import Registre from "./Register.js";
+import Register from "./Register.js";
 import {useIdleTimer} from "react-idle-timer"
 import axios from "axios";
+import Home from "./HomePage/Home";
+import {Alert} from "./HomePage/AlertFunction";
 
 
 export default function App() {
@@ -73,8 +75,8 @@ export default function App() {
   if (isLoggin && !isRegistring) {
     return (LogIn(Email, Password, setEmail, setPass, handleLoggin, handleRegistring, usersData));
   } else if (isRegistring) {
-    return (Registre(Email, Password, CPassword, setEmail, setPass, setCPass, handleLoggin, handleRegistring))
-  } else {/*
+    return (Register(Email, Password, CPassword, setEmail, setPass, setCPass, handleLoggin, handleRegistring, usersData))
+  } else {
     return (<>
           <Home tableData={tableData} setTableData={setTableData} handleLoggin={handleLoggin} setEmail={setEmail} setPass={setPass} setCPass={setCPass}/>
           <Alert
@@ -83,7 +85,7 @@ export default function App() {
           />
         </>
     );
-    */
+
   }
 }
 

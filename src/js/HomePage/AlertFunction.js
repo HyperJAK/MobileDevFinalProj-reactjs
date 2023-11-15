@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Modal} from "react-bootstrap";
 
-export default function Alert({showSessionExpiredModal, handleCloseSessionExpiredModal}){
+export function Alert({showSessionExpiredModal, handleCloseSessionExpiredModal}) {
     return (<>
         <Modal show={showSessionExpiredModal} centered>
             <Modal.Header closeButton>

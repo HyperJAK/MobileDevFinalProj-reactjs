@@ -8,6 +8,7 @@ export default function Home({tableData,setTableData,handleLoggin,setEmail,setPa
     const [showInputFields, setShowInputFields] = useState(false);
 
     const handlelogout = () => {
+        // eslint-disable-next-line no-unused-expressions
         setCPass(''),
         setEmail(''),
         setPass(''),
