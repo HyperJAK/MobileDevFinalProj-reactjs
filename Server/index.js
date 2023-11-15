@@ -4,23 +4,23 @@ const bodyParser = require('body-parser')
 const cors=require('cors')
 const mysql = require ('mysql2')
 
-
 const db = mysql.createPool({
     host: "localhost",
     user: "JAK",
-    password: "jak1",
-    database: "CompSecDb",
-  });
+    password:"jak1",
+    database:"compsecdb"
+
+})
 
 db.getConnection((err, connection) => {
-if (err) {
-    console.error('Error getting connection from pool:', err);
-    return;
-}
+    if (err) {
+        console.error('Error getting connection from pool:', err);
+        return;
+    }
 
-console.log('Connected to the database');
+    console.log('Connected to the database');
 
-connection.release();
+    connection.release();
 });
 
 app.use(cors())
@@ -35,25 +35,20 @@ app.get("/api/get", (req,res)=> {
 
 });
 
-app.get("/api/getUsers", (res) => {
-    const sqlSelectUsers = "SELECT email, password FROM account";
+app.get("/api/getUsers", (req, res) => {
+    const sqlSelectUsers = "SELECT email,password FROM account";
     db.query(sqlSelectUsers, (err, result) => {
-        if (err) {
-            console.error("Error fetching users:", err);
-            return res.status(500).send("Internal Server Error");
-        }
-
-        const usersArray = Array.isArray(result) ? result : [result];
-        res.send(usersArray);
+        res.send(result);
     });
 });
 
 
-app.post("/api/insert", (req)=>{
+app.post("/api/insert", (req,res)=>{
+
 
     app.delete("/api/delete/:id", (req, res) => {
         const idToDelete = req.params.id;
-        const sqlDelete = "DELETE FROM users WHERE id = (?)";
+        const sqlDelete = "DELETE FROM account WHERE id = (?)";
 
         db.query(sqlDelete, idToDelete, (err, result) => {
             if (err) {
@@ -82,12 +77,11 @@ app.post("/api/insert", (req)=>{
 
 });
 
-app.post("/api/insertUser", (req) => {
-    const email = req.body.mail;
+app.post("/api/insertUser", (req, res) => {
+    const email = req.body.email;
     const password = req.body.pass;
 
     const sqlInsertUser = "INSERT INTO account (email, password) VALUES (?, ?)";
-
     db.query(sqlInsertUser, [email, password], (err, result) => {
     });
 });
