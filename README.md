@@ -109,6 +109,12 @@ npm run devStart
 
 #
 
+
+# Overview
+![image](https://github.com/HyperJAK/MobileDevFinalProj-reactjs/assets/63348015/1949981d-9085-4e94-9087-74828df35ebf)  
+![image](https://github.com/HyperJAK/MobileDevFinalProj-reactjs/assets/63348015/56f5c1b1-6ab7-423f-a6da-cd562f154e4d)  
+
+
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
