@@ -8,7 +8,7 @@ const db = mysql.createPool({
     host: "localhost",
     user: "JAK",
     password:"jak1",
-    database:"compsecdb"
+    database:"mobiledevdb"
 
 })
 
