@@ -6,8 +6,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:  
 
-To install all dependencies from json package lock file run:
+To install all dependencies from default json package lock file run:
 ### `npm install` 
+To install all dependencies for Server:
+### `cd server`
+### `npm install`
 
 
 etc...(rest of command at bottom)
