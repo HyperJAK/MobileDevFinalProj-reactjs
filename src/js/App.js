@@ -22,17 +22,19 @@ export default function App() {
 
 
   useEffect(() => {
-    // Fetch table data
-    axios.get('http://localhost:5174/api/get').then((response) => {
-      setTableData(response.data);
-    });
 
     axios.get('http://localhost:5174/api/getUsers').then((response) => {
       setUsersData(response.data);
     });
 
 
-  }, [isLoggin,isRegistring] );
+    // Fetch table data
+    axios.get('http://localhost:5174/api/get').then((response) => {
+      setTableData(response.data);
+    });
+
+
+  }, [isLoggin] );
 
   function handleLoggin() {
     if (Email === "jak" && Password === "jak1") {
@@ -78,7 +80,7 @@ export default function App() {
     return (Register(Email, Password, CPassword, setEmail, setPass, setCPass, handleLoggin, handleRegistring, usersData))
   } else {
     return (<>
-          <Home tableData={tableData} setTableData={setTableData} handleLoggin={handleLoggin} setEmail={setEmail} setPass={setPass} setCPass={setCPass}/>
+          <Home Email={Email} tableData={tableData} setTableData={setTableData} handleLoggin={handleLoggin} setEmail={setEmail} setPass={setPass} setCPass={setCPass} userData={usersData} />
           <Alert
               showSessionExpiredModal={showSessionExpiredModal}
               handleCloseSessionExpiredModal={handleCloseSessionExpiredModal}

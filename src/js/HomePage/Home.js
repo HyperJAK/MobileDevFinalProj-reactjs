@@ -2,10 +2,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {useState} from 'react';
 import axios from "axios";
 
-export default function Home({tableData,setTableData,handleLoggin,setEmail,setPass,setCPass}) {
-
-
+export default function Home({Email,tableData,setTableData,handleLoggin,setEmail,setPass,setCPass,userData}) {
     const [showInputFields, setShowInputFields] = useState(false);
+
+    const findUser = userData.find((item) => item.email === Email);
+    const userId = findUser ? findUser.id : null;
 
     const handlelogout = () => {
         // eslint-disable-next-line no-unused-expressions
@@ -54,7 +55,8 @@ export default function Home({tableData,setTableData,handleLoggin,setEmail,setPa
     const handleSaveButtonClick = async () => {
 
         if (formData.name && formData.email && formData.title) {
-                 axios.post('http://localhost:5174/api/insert', {
+                 axios.post('http://localhost:5174/api/update', {
+                     id: userId,
                     name: formData.name,
                     email: formData.email,
                     title: formData.title,
