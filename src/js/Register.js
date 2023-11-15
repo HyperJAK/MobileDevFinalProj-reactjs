@@ -9,10 +9,6 @@ export default function Register(Email,Password,CPassword,setEmail,setPass,setCP
 
     const handleR = () => {
         //Checks if user already exists in Db
-        const user = usersData.find((item) => item.email === Email && item.password === Password);
-        if(user){
-
-        }
 
         if ((Email && Password && CPassword) && (Password===CPassword)) {
             axios.post('http://localhost:5174/api/insertUser', {
