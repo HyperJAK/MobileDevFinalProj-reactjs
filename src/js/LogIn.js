@@ -4,31 +4,7 @@ import authImg from '../assets/auth.png'
 import '../css/Accounts.css';
 
 
-<<<<<<< Updated upstream
-export default function LogIn(Email,Password,setEmail,setPass,handleLoggin,handleRegistring,usersData){
-
-
-    function loginhandle() {
-        const user = usersData.find((item) => item.email === Email && item.password === Password);
-
-        if(user){
-            handleLoggin()
-        } else {
-            alert(`Invalid email or password`);
-            usersData.forEach(item => {
-                alert(item.email, item.password);
-            });
-
-
-        }
-    }
-
-
-
-
-=======
 export default function LogIn(Email,Password,setEmail,setPass,handleLoggin,handleRegistring,usersData,user){
->>>>>>> Stashed changes
 
     return(
         <section style={{ backgroundColor: '#d0bec3', backgroundSize: 'cover', height: '100vh', overflow: 'auto' }}>

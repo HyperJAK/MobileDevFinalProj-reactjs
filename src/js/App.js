@@ -22,22 +22,12 @@ export default function App() {
 
 
 
-<<<<<<< Updated upstream
-  useEffect(() => {
-    // Fetch table data
-    axios.get('http://localhost:5174/api/get').then((response) => {
-      setTableData(response.data);
-    });
-=======
   // useEffect(() => {
->>>>>>> Stashed changes
 
   //   axios.get('http://localhost:4000/getUsers').then((response) => {
   //     setUsersData(response.data);
   //   });
 
-<<<<<<< Updated upstream
-=======
   //   const findUser = usersData.find((item) => item.email === email);
   //   const userId = findUser ? findUser.id : null;
   //   console.log(userId);
@@ -55,9 +45,8 @@ export default function App() {
 
   //console.log(usersData);
 
->>>>>>> Stashed changes
 
-  }, [isLoggin,isRegistring] );
+  //}, [isLoggin,isRegistring] );
 
 const handleLoggin = async e => {
     e.preventDefault();
@@ -140,11 +129,7 @@ const handleLoggin = async e => {
     return (Register(email, password, CPassword, setEmail, setPass, setCPass, handleSignup, handleRegistring, usersData))
   } else {
     return (<>
-<<<<<<< Updated upstream
-          <Home tableData={tableData} setTableData={setTableData} handleLoggin={handleLoggin} setEmail={setEmail} setPass={setPass} setCPass={setCPass}/>
-=======
           <Home Email={email} tableData={tableData} setTableData={setTableData} handleLoggin={handleLoggin} setEmail={setEmail} setPass={setPass} setCPass={setCPass} userData={usersData} user={user}/>
->>>>>>> Stashed changes
           <Alert
               showSessionExpiredModal={showSessionExpiredModal}
               handleCloseSessionExpiredModal={handleCloseSessionExpiredModal}
