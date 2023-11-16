@@ -11,35 +11,97 @@ import {Alert} from "./HomePage/AlertFunction";
 export default function App() {
 
   const [isLoggin, setIsLoggin] = useState(true);
-  const [Email, setEmail] = useState("");
-  const [Password, setPass] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPass] = useState("");
   const [CPassword, setCPass] = useState("");
   const [isRegistring, setIsRegistring] = useState(false);
   const [showSessionExpiredModal, setShowSessionExpiredModal] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [usersData, setUsersData] = useState([]);
+  const [user, setUser] = useState([{id:null, email:null, password:null}]);
 
 
 
+<<<<<<< Updated upstream
   useEffect(() => {
     // Fetch table data
     axios.get('http://localhost:5174/api/get').then((response) => {
       setTableData(response.data);
     });
+=======
+  // useEffect(() => {
+>>>>>>> Stashed changes
 
-    axios.get('http://localhost:5174/api/getUsers').then((response) => {
-      setUsersData(response.data);
-    });
+  //   axios.get('http://localhost:4000/getUsers').then((response) => {
+  //     setUsersData(response.data);
+  //   });
 
+<<<<<<< Updated upstream
+=======
+  //   const findUser = usersData.find((item) => item.email === email);
+  //   const userId = findUser ? findUser.id : null;
+  //   console.log(userId);
+
+  //   axios.post('http://localhost:4000/getUsers', { userId })
+  //       .then(response => {
+  //         setUsersData(response.data);
+  //       })
+  //       .catch(error => {
+  //         console.error('Error fetching users data:', error);
+  //       });
+
+
+  // }, [isLoggin] );
+
+  //console.log(usersData);
+
+>>>>>>> Stashed changes
 
   }, [isLoggin,isRegistring] );
 
-  function handleLoggin() {
-    if (Email === "jak" && Password === "jak1") {
-      setIsLoggin(!isLoggin);
-    } else {
-      setIsLoggin(!isLoggin);
+const handleLoggin = async e => {
+    e.preventDefault();
+    const userInfo = { email, password };
+    // send the username and password to the server
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/login",
+        userInfo
+      );
+      console.log(response);
+      setUser(
+        response.data.data.id,
+        response.data.data.username,
+        response.data.data.password
+        )
+      alert(response.data.message)
+    }catch(error){
+      alert(error.response.data.error);
     }
+  }
+
+  const handleSignup = async e => {
+    const userInfo = {email, password};
+    if(password===CPassword){
+      try {
+        const response = await axios.post(
+          "http://localhost:4000/signup",
+          userInfo
+        );
+        //console.log(response.data.message)
+        setUser(
+          response.data.data.email,
+          response.data.data.password
+          )
+        alert(response.data.message)
+      }catch(error){
+        //alert(error.response.data.error);
+        alert(error)
+      }
+    }else{
+      alert('Confirmation does not match password.')
+    }
+    
   }
 
   const handleOnIdle = () => {
@@ -73,12 +135,16 @@ export default function App() {
 
 
   if (isLoggin && !isRegistring) {
-    return (LogIn(Email, Password, setEmail, setPass, handleLoggin, handleRegistring, usersData));
+    return (LogIn(email, password, setEmail, setPass, handleLoggin, handleRegistring, usersData));
   } else if (isRegistring) {
-    return (Register(Email, Password, CPassword, setEmail, setPass, setCPass, handleLoggin, handleRegistring, usersData))
+    return (Register(email, password, CPassword, setEmail, setPass, setCPass, handleSignup, handleRegistring, usersData))
   } else {
     return (<>
+<<<<<<< Updated upstream
           <Home tableData={tableData} setTableData={setTableData} handleLoggin={handleLoggin} setEmail={setEmail} setPass={setPass} setCPass={setCPass}/>
+=======
+          <Home Email={email} tableData={tableData} setTableData={setTableData} handleLoggin={handleLoggin} setEmail={setEmail} setPass={setPass} setCPass={setCPass} userData={usersData} user={user}/>
+>>>>>>> Stashed changes
           <Alert
               showSessionExpiredModal={showSessionExpiredModal}
               handleCloseSessionExpiredModal={handleCloseSessionExpiredModal}

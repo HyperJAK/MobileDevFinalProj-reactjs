@@ -4,6 +4,7 @@ import authImg from '../assets/auth.png'
 import '../css/Accounts.css';
 
 
+<<<<<<< Updated upstream
 export default function LogIn(Email,Password,setEmail,setPass,handleLoggin,handleRegistring,usersData){
 
 
@@ -25,6 +26,9 @@ export default function LogIn(Email,Password,setEmail,setPass,handleLoggin,handl
 
 
 
+=======
+export default function LogIn(Email,Password,setEmail,setPass,handleLoggin,handleRegistring,usersData,user){
+>>>>>>> Stashed changes
 
     return(
         <section style={{ backgroundColor: '#d0bec3', backgroundSize: 'cover', height: '100vh', overflow: 'auto' }}>
@@ -69,7 +73,7 @@ export default function LogIn(Email,Password,setEmail,setPass,handleLoggin,handl
                                                 </label>
                                             </div>
                                             <div className="pt-1 mb-4">
-                                                <Button variant="dark" size="lg" onClick={loginhandle}>
+                                                <Button variant="dark" size="lg" onClick={handleLoggin}>
                                                     Login
                                                 </Button>
                                             </div>

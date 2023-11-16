@@ -5,25 +5,9 @@ import authImg from '../assets/auth.png'
 import '../css/Accounts.css';
 
 
-export default function Register(Email,Password,CPassword,setEmail,setPass,setCPass,handleLoggin,handleRegistring,usersData){
+export default function Register(Email,Password,CPassword,setEmail,setPass,setCPass,handleSignup,handleRegistring,usersData){
 
-    const handleR = () => {
-        //Checks if user already exists in Db
-
-        if ((Email && Password && CPassword) && (Password===CPassword)) {
-            axios.post('http://localhost:5174/api/insertUser', {
-                email: Email,
-                pass: Password,
-            })
-            setPass('')
-            setCPass('')
-            setEmail('')
-            alert("Account created !")
-
-        } else {
-            alert('Please fill in all the required fields and make sure that your password is right');
-        }
-    };
+    
 
 
     return(
@@ -75,7 +59,7 @@ export default function Register(Email,Password,CPassword,setEmail,setPass,setCP
                                                 </label>
                                             </div>
                                             <div className="pt-1 mb-4">
-                                                <Button variant="dark" size="lg" onClick={handleR}>
+                                                <Button variant="dark" size="lg" onClick={handleSignup}>
                                                     Register
                                                 </Button>
                                             </div>
