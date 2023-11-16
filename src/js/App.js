@@ -131,7 +131,7 @@ const handleLoggin = async e => {
   } else {
     return (<>
     <Navigation />
-          <Home Email={email} tableData={tableData} setTableData={setTableData} handleLoggin={handleLoggin} setEmail={setEmail} setPass={setPass} setCPass={setCPass} userData={usersData} user={user}/>
+          <Trips Email={email} tableData={tableData} setTableData={setTableData} handleLoggin={handleLoggin} setEmail={setEmail} setPass={setPass} setCPass={setCPass} userData={usersData} user={user}/>
           <Alert
               showSessionExpiredModal={showSessionExpiredModal}
               handleCloseSessionExpiredModal={handleCloseSessionExpiredModal}
