@@ -5,13 +5,15 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts for main web
 
-In the project directory, you can run:  
+In the project directory, you can run:
 
 To install all dependencies from default json package lock file run:
-### `npm install` 
-To install all dependencies for Server:
-### `cd server`
 ### `npm install`
+## To install all dependencies for Server:
+### First clone server from: `https://github.com/PeekMe01/MobileDevServer`
+## Then open cmd and run: `npm install`
+## OR: Run `Install.cmd` file
+### Finally run `Run.cmd` or manually open cmd and type: `npm run start`
 
 
 etc...(rest of command at bottom)
@@ -112,7 +114,7 @@ npm run devStart
 
 # Overview
 ![image](https://github.com/HyperJAK/MobileDevFinalProj-reactjs/assets/63348015/1949981d-9085-4e94-9087-74828df35ebf)  
-![image](https://github.com/HyperJAK/MobileDevFinalProj-reactjs/assets/63348015/56f5c1b1-6ab7-423f-a6da-cd562f154e4d)  
+![image](https://github.com/HyperJAK/MobileDevFinalProj-reactjs/assets/63348015/56f5c1b1-6ab7-423f-a6da-cd562f154e4d)
 
 
 Runs the app in the development mode.\

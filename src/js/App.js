@@ -11,11 +11,11 @@ import Navigation from "./Nav/Navigation";
 
 export default function App() {
 
-  const [isLoggin, setIsLoggin] = useState(true);
+  const [isLogIn, setIsLogIn] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPass] = useState("");
   const [CPassword, setCPass] = useState("");
-  const [isRegistring, setIsRegistring] = useState(false);
+  const [isRegistering, setIsRegistering] = useState(false);
   const [showSessionExpiredModal, setShowSessionExpiredModal] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [usersData, setUsersData] = useState([]);
@@ -42,12 +42,12 @@ export default function App() {
   //       });
 
 
-  // }, [isLoggin] );
+  // }, [isLogIn] );
 
   //console.log(usersData);
 
 
-  //}, [isLoggin,isRegistring] );
+  //}, [isLogIn,isRegistering] );
 
 const handleLoggin = async e => {
     e.preventDefault();
@@ -95,7 +95,7 @@ const handleLoggin = async e => {
   }
 
   const handleOnIdle = () => {
-    if (!isRegistring && !isLoggin) {
+    if (!isRegistering && !isLogIn) {
       setShowSessionExpiredModal(true);
     }
   };
@@ -112,21 +112,21 @@ const handleLoggin = async e => {
     return () => {
       setShowSessionExpiredModal(false)
     };
-  }, [isLoggin, isRegistring, reset]);
+  }, [isLogIn, isRegistering, reset]);
 
   function handleRegistring() {
-    setIsRegistring(!isRegistring);
+    setIsRegistering(!isRegistering);
   }
 
   const handleCloseSessionExpiredModal = () => {
-    setIsLoggin(true);
-    setIsRegistring(false);
+    setIsLogIn(true);
+    setIsRegistering(false);
   };
 
 
-  if (isLoggin && !isRegistring) {
+  if (isLogIn && !isRegistering) {
     return (LogIn(email, password, setEmail, setPass, handleLoggin, handleRegistring, usersData));
-  } else if (isRegistring) {
+  } else if (isRegistering) {
     return (Register(email, password, CPassword, setEmail, setPass, setCPass, handleSignup, handleRegistring, usersData))
   } else {
     return (<>
