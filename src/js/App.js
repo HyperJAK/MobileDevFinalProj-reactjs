@@ -4,8 +4,9 @@ import LogIn from "./Validation/LogIn.js";
 import Register from "./Validation/Register.js";
 import {useIdleTimer} from "react-idle-timer"
 import axios from "axios";
-import Home from "./HomePage/Home";
+import Trips from "./HomePage/Trips";
 import {Alert} from "./HomePage/AlertFunction";
+import Navigation from "./Nav/Navigation";
 
 
 export default function App() {
@@ -51,7 +52,7 @@ export default function App() {
   };
 
   const {reset} = useIdleTimer({
-    timeout: 60000,
+    timeout: 600000,
     onIdle: handleOnIdle,
   });
 
@@ -80,7 +81,7 @@ export default function App() {
     return (Register(Email, Password, CPassword, setEmail, setPass, setCPass, handleLoggin, handleRegistring, usersData))
   } else {
     return (<>
-          <Home Email={Email} tableData={tableData} setTableData={setTableData} handleLoggin={handleLoggin} setEmail={setEmail} setPass={setPass} setCPass={setCPass} userData={usersData} />
+          <Navigation />
           <Alert
               showSessionExpiredModal={showSessionExpiredModal}
               handleCloseSessionExpiredModal={handleCloseSessionExpiredModal}

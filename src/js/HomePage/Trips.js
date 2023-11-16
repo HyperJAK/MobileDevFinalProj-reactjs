@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {useState} from 'react';
 import axios from "axios";
 
-export default function Home({Email,tableData,setTableData,handleLoggin,setEmail,setPass,setCPass,userData}) {
+export default function Trips({Email,tableData,setTableData,handleLoggin,setEmail,setPass,setCPass,userData}) {
     const [showInputFields, setShowInputFields] = useState(false);
 
     const findUser = userData.find((item) => item.email === Email);
