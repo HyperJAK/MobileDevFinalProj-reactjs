@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import LogIn from "./LogIn.js";
-import Register from "./Register.js";
+import LogIn from "./Validation/LogIn.js";
+import Register from "./Validation/Register.js";
 import {useIdleTimer} from "react-idle-timer"
 import axios from "axios";
 import Home from "./HomePage/Home";

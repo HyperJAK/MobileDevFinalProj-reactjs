@@ -1,29 +1,25 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Container, Row, Col, Card} from 'react-bootstrap';
-import axios from "axios";
-import authImg from '../assets/auth.png'
-import '../css/Accounts.css';
+import authImg from '../../assets/auth.png'
+import '../../css/Accounts.css';
 
 
-export default function Register(Email,Password,CPassword,setEmail,setPass,setCPass,handleLoggin,handleRegistring,usersData){
+export default function LogIn(Email,Password,setEmail,setPass,handleLoggin,handleRegistring,usersData){
 
-    const handleR = () => {
-        //Checks if user already exists in Db
 
-        if ((Email && Password && CPassword) && (Password===CPassword)) {
-            axios.post('http://localhost:5174/api/insertUser', {
-                email: Email,
-                pass: Password,
-            })
-            setPass('')
-            setCPass('')
-            setEmail('')
-            alert("Account created !")
+    function loginhandle() {
+        const user = usersData.find((item) => item.email === Email && item.password === Password);
 
+        if(user){
+            handleLoggin()
         } else {
-            alert('Please fill in all the required fields and make sure that your password is right');
+            alert(`Invalid email or password`);
+
         }
-    };
+    }
+
+
+
 
 
     return(
@@ -47,7 +43,7 @@ export default function Register(Email,Password,CPassword,setEmail,setPass,setCP
                                             <div className="d-flex align-items-center mb-3 pb-1">
                                                 <i className="fas fa-cubes fa-2x me-3"
                                                    style={{color: '#ff6219'}}></i>
-                                                <span className="h1 fw-bold mb-0">Sign Up</span>
+                                                <span className="h1 fw-bold mb-0">Sign In</span>
                                             </div>
                                             <h5 className="fw-normal mb-3 pb-3" style={{letterSpacing: '1px'}}>
                                                 Sign into your account
@@ -67,21 +63,15 @@ export default function Register(Email,Password,CPassword,setEmail,setPass,setCP
                                                 <label className="form-label" htmlFor="form2Example27">
                                                     Password
                                                 </label>
-                                                <input value={CPassword} type="password" id="form2Example30"
-                                                       className="form-control form-control-lg"
-                                                       onChange={e=>{setCPass(e.target.value)}} />
-                                                <label className="form-label" htmlFor="form2Example30">
-                                                    Confirm Password
-                                                </label>
                                             </div>
                                             <div className="pt-1 mb-4">
-                                                <Button variant="dark" size="lg" onClick={handleR}>
-                                                    Register
+                                                <Button variant="dark" size="lg" onClick={loginhandle}>
+                                                    Login
                                                 </Button>
                                             </div>
                                             <p className="mb-5 pb-lg-2" style={{color: 'whitesmoke'}}>
-                                                Have an Account? <a  id={'signIn_link'} onClick={handleRegistring}>
-                                                Sign In
+                                                Don't have an account? <a id={'signUp_link'} onClick={handleRegistring}>
+                                                Register here
                                             </a>
                                             </p>
                                             <a href="#!" className="small text-muted">
@@ -98,7 +88,6 @@ export default function Register(Email,Password,CPassword,setEmail,setPass,setCP
                     </Col>
                 </Row>
             </Container>
-        </section>
-    );
+        </section>);
 
 }
