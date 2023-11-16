@@ -1,8 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Container, Row, Col, Card} from 'react-bootstrap';
 import axios from "axios";
-import authImg from '../assets/auth.png'
-import '../css/Accounts.css';
+import authImg from '../../assets/auth.png'
+import '../../css/Accounts.css';
 
 
 export default function Register(Email,Password,CPassword,setEmail,setPass,setCPass,handleSignup,handleRegistring,usersData){

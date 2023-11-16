@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Container, Row, Col, Card} from 'react-bootstrap';
-import authImg from '../assets/auth.png'
-import '../css/Accounts.css';
+import authImg from '../../assets/auth.png'
+import '../../css/Accounts.css';
 
 
 export default function LogIn(Email,Password,setEmail,setPass,handleLoggin,handleRegistring,usersData,user){

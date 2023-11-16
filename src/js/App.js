@@ -1,11 +1,12 @@
 import {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import LogIn from "./LogIn.js";
-import Register from "./Register.js";
+import LogIn from "./Validation/LogIn.js";
+import Register from "./Validation/Register.js";
 import {useIdleTimer} from "react-idle-timer"
 import axios from "axios";
-import Home from "./HomePage/Home";
+import Trips from "./HomePage/Trips";
 import {Alert} from "./HomePage/AlertFunction";
+import Navigation from "./Nav/Navigation";
 
 
 export default function App() {
@@ -100,7 +101,7 @@ const handleLoggin = async e => {
   };
 
   const {reset} = useIdleTimer({
-    timeout: 60000,
+    timeout: 600000,
     onIdle: handleOnIdle,
   });
 
@@ -129,6 +130,7 @@ const handleLoggin = async e => {
     return (Register(email, password, CPassword, setEmail, setPass, setCPass, handleSignup, handleRegistring, usersData))
   } else {
     return (<>
+    <Navigation />
           <Home Email={email} tableData={tableData} setTableData={setTableData} handleLoggin={handleLoggin} setEmail={setEmail} setPass={setPass} setCPass={setCPass} userData={usersData} user={user}/>
           <Alert
               showSessionExpiredModal={showSessionExpiredModal}
