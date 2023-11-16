@@ -29,26 +29,66 @@ Web created using ReactJs, it tests user login / logout to Db and implements mul
 ```sql
 create database mobileDevdb;
 use mobileDevdb;
-create table users(
-id int primary key auto_increment,
-name varchar(255),
-email varchar(255),
-title varchar(255),
-department varchar(255),
-status varchar(255),
-position varchar(255),
- picture varchar(500),
- allowed boolean
-);
 
 create table account(
 id int primary key auto_increment,
 email varchar(255),
-password varchar(400),
-users_id int,
- FOREIGN KEY (users_id) REFERENCES users(id)
+password varchar(400)
 );
 
+create table location(
+id int primary key auto_increment,
+address varchar(512),
+city varchar(255),
+latitude double,
+longitude double,
+description varchar(512),
+timeZone varchar(255)
+);
+
+create table hotels(
+hotelId int primary key auto_increment,
+name varchar(255),
+rating float,
+description varchar(9999),
+location int,
+imageHDUrl varchar(512),
+imageUrl varchar(512),
+FOREIGN KEY (location) REFERENCES location(id)
+);
+
+create table rooms(
+roomId int primary key auto_increment,
+price float,
+size varchar(100),
+hotelId int,
+FOREIGN KEY (hotelId) REFERENCES hotels(hotelId)
+);
+
+create table flights(
+flightId int primary key auto_increment,
+name varchar(255),
+departure_location int,
+destination int,
+departure_time varchar(255),
+FOREIGN KEY (departure_location) REFERENCES location(id),
+FOREIGN KEY (destination) REFERENCES location(id)
+);
+
+
+create table trips(
+id int primary key auto_increment,
+trip_name varchar(255),
+user_id int ,
+flight_id int,
+booked_roomId int,
+FOREIGN KEY (user_id) REFERENCES account(id),
+FOREIGN KEY (flight_id) REFERENCES flights(flightId),
+FOREIGN KEY (booked_roomId) REFERENCES rooms(roomId)
+);
+
+-- Drop the trigger if it exists
+DROP TRIGGER IF EXISTS denyDuplicateAccount;
 DELIMITER //
 CREATE TRIGGER denyDuplicateAccount
 BEFORE INSERT 
@@ -58,24 +98,6 @@ BEGIN
     DECLARE duplicateCount INT;
 
     SELECT COUNT(*) INTO duplicateCount FROM account WHERE email = NEW.email;
-
-    IF duplicateCount > 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Duplicate entry is not allowed';
-    END IF;
-END;
-//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER denyDuplicateUser 
-BEFORE INSERT 
-ON account 
-FOR EACH ROW 
-BEGIN
-    DECLARE duplicateCount INT;
-
-    SELECT COUNT(*) INTO duplicateCount FROM users WHERE email = NEW.email;
 
     IF duplicateCount > 0 THEN
         SIGNAL SQLSTATE '45000'
