@@ -12,7 +12,7 @@ const SwitchElementButtons = () => {
     height: 80px;
       border-radius: 10px;
       border: 1px solid black;
-      background-color: #106cfc;
+      background-color: #08243c;
       color: whitesmoke;
       font-family: Roboto;
       font-size: large;
