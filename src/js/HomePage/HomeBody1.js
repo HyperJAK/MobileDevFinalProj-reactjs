@@ -1,36 +1,52 @@
-import imgSrc from "../../assets/4.jpg";
 import styled from 'styled-components';
-
-const Div = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: space-evenly;
-    `;
+import Container from "react-bootstrap/Container";
+import {Button} from "react-bootstrap";
 
 
-const HomeImage = ()=> {
-    const imgSrc = require('../../assets/4.jpg');
 
-    const Img = styled.img`
-        max-width: 65%;
-        margin: 0 auto;
-        display: block;
-        border-radius: 20px;
-    `;
 
-    return <Img src={imgSrc} alt="None"></Img>;
+
+const SwitchElementButtons = () => {
+
+    const Button = styled.button`
+    height: 80px;
+      border-radius: 10px;
+      border: 1px solid black;
+      background-color: #106cfc;
+      color: whitesmoke;
+      font-family: Roboto;
+      font-size: large;
+      max-width: 600px;
+`;
+
+
+    return(
+
+        <Container style={{ maxWidth: '1200px', marginTop: '50px', marginBottom: '50px'}}>
+            <div className="d-flex justify-content-between gap-3">
+                <Button variant="primary" className="flex-fill">Flights</Button>
+                <Button variant="secondary" className="flex-fill">Hotels</Button>
+                <Button variant="success" className="flex-fill">Trips</Button>
+            </div>
+        </Container>
+
+    );
+
 }
+
+
+
+
+
 
 export default function HomeBody1({from, to, returnDate, departDate, setFrom, setTo, setDepartDate, setReturnDate, handleHomeQuickInputSearch}){
 
 
 
     return(
-        <Div>
-
-            <HomeImage />
-        </Div>
+        <div>
+            <SwitchElementButtons />
+        </div>
 
     );
 
