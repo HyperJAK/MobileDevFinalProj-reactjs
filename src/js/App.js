@@ -7,7 +7,7 @@ import axios from "axios";
 import Trips from "./HomePage/Trips";
 import {Alert} from "./HomePage/AlertFunction";
 import Navigation from "./Nav/Navigation";
-import {Home} from "./HomePage/Home";
+import Home from "./HomePage/Home";
 
 
 export default function App() {
@@ -111,6 +111,13 @@ const handleLoggin = async e => {
     }
   };
 
+const handleHomeQuickInputSearch = async e =>{
+
+  //The values of these fields (to, from, departDate, returnDate) will change based on the input in Home so far.
+  //So use these fields to fill db
+
+}
+
   const {reset} = useIdleTimer({
     timeout: 600000,
     onIdle: handleOnIdle,
@@ -143,7 +150,7 @@ const handleLoggin = async e => {
   } else {
     return (<>
     <Navigation />
-          <Home from={from} to={to} departDate={departDate} returnDate={returnDate} setFrom={setFrom} setTo={setTo} setDepartDate={setDepartDate} setReturnDate={setReturnDate} />
+          <Home from={from} to={to} departDate={departDate} returnDate={returnDate} setFrom={setFrom} setTo={setTo} setDepartDate={setDepartDate} setReturnDate={setReturnDate} handleHomeQuickInputSearch={handleHomeQuickInputSearch} />
         </>
     );
 
