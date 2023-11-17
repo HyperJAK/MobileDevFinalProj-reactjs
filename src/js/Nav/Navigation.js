@@ -78,7 +78,7 @@ const NaviItems = ({handleNavButtonSelect})=> {
             </Nav.Item>
             <Nav.Item>
                 <Nav.Link eventKey="link-1">
-                    Cars
+                    Trips
                 </Nav.Link>
             </Nav.Item>
         </Nav>

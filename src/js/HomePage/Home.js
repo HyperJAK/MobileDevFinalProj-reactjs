@@ -1,7 +1,9 @@
 import imgSrc from "../../assets/4.jpg";
 import {Button, FloatingLabel, Form} from "react-bootstrap";
 import * as url from "url";
-
+import HomeBody1 from "./HomeBody1";
+import HomeBody2 from "./HomeBody2";
+import styled from "styled-components";
 
 
 
@@ -51,14 +53,14 @@ const QuickInputSearch = ({name, handleHomeQuickInputSearch}) =>{
     );
 }
 
-const QuickPlanDiv = ({from, to, returnDate, departDate, setFrom, setTo, setDepartDate, setReturnDate}) =>{
+const QuickPlanDiv = ({from, to, returnDate, departDate, setFrom, setTo, setDepartDate, setReturnDate, handleHomeQuickInputSearch}) =>{
 
     const parentDiv_style = {
         display: 'flex',
         flexDirection: 'column',
         flexWrap: 'nowrap',
         width: '100%',
-        height: '500px',
+        height: '550px',
         margin: '0 auto',
         gap: '50px',
         paddingTop: '100px',
@@ -90,10 +92,10 @@ const QuickPlanDiv = ({from, to, returnDate, departDate, setFrom, setTo, setDepa
             <div style={childDiv_style}>
                 <QuickInputField name='From' elementToShow={from} elementToChange={setFrom}/>
                 <QuickInputField name='To' elementToShow={to} elementToChange={setTo}/>
-                <QuickInputField name='Rand'/>
-                <QuickInputField name='Rand'/>
-                <QuickInputField name='Rand'/>
-                <QuickInputSearch name='Search'/>
+                <QuickInputField name='Depart Date'/>
+                <QuickInputField name='Return Date'/>
+                <QuickInputField name='Flight Class'/>
+                <QuickInputSearch name='Search' handleHomeQuickInputSearch={handleHomeQuickInputSearch}/>
 
 
 
@@ -112,29 +114,17 @@ const QuickPlanDiv = ({from, to, returnDate, departDate, setFrom, setTo, setDepa
 }
 
 
-const HomeImage = ()=> {
-    const imgSrc = require('../../assets/4.jpg');
-
-    const maxWidthImageStyle = {
-        maxWidth: '65%',
-        maxHeight: 'auto',
-        margin: '0 auto',
-        display: 'block',
-        borderRadius: '20px'
-    };
-
-    return <img src={imgSrc} style={maxWidthImageStyle}></img>;
-}
-
-export const Home = ({from, to, returnDate, departDate, setFrom, setTo, setDepartDate, setReturnDate}) =>{
+export default function Home({from, to, returnDate, departDate, setFrom, setTo, setDepartDate, setReturnDate, handleHomeQuickInputSearch}){
 
 
 
  return(
      <div style={FullNav_style}>
 
-         <QuickPlanDiv from={from} to={to} departDate={departDate} returnDate={returnDate} setFrom={setFrom} setTo={setTo} setDepartDate={setDepartDate} setReturnDate={setReturnDate}/>
-         <HomeImage />
+         <QuickPlanDiv from={from} to={to} departDate={departDate} returnDate={returnDate} setFrom={setFrom} setTo={setTo} setDepartDate={setDepartDate} setReturnDate={setReturnDate} handleHomeQuickInputSearch={handleHomeQuickInputSearch}/>
+
+             <HomeBody1 />
+             <HomeBody2 />
 
      </div>
 
