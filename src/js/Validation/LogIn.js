@@ -58,7 +58,7 @@ export default function LogIn(Email,Password,setEmail,setPass,handleLoggin,handl
                                                     Login
                                                 </Button>
                                             </div>
-                                            <p className="mb-5 pb-lg-2" style={{color: 'whitesmoke'}}>
+                                            <p className="mb-5 pb-lg-2" style={{color: 'rgba(52, 52, 52, 0.8)'}}>
                                                 Don't have an account? <a id={'signUp_link'} onClick={handleRegistring}>
                                                 Register here
                                             </a>
