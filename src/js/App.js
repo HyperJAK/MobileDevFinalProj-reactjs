@@ -8,6 +8,7 @@ import Trips from "./HomePage/Trips";
 import {Alert} from "./HomePage/AlertFunction";
 import Navigation from "./Nav/Navigation";
 import Home from "./HomePage/Home";
+import Hotel from './HotelPage/Hotel.js';
 
 
 export default function App() {
@@ -150,7 +151,8 @@ const handleHomeQuickInputSearch = async e =>{
   } else {
     return (<>
     <Navigation />
-          <Home from={from} to={to} departDate={departDate} returnDate={returnDate} setFrom={setFrom} setTo={setTo} setDepartDate={setDepartDate} setReturnDate={setReturnDate} handleHomeQuickInputSearch={handleHomeQuickInputSearch} />
+          {/* <Home from={from} to={to} departDate={departDate} returnDate={returnDate} setFrom={setFrom} setTo={setTo} setDepartDate={setDepartDate} setReturnDate={setReturnDate} handleHomeQuickInputSearch={handleHomeQuickInputSearch} /> */}
+          <Hotel />
         </>
     );
 
