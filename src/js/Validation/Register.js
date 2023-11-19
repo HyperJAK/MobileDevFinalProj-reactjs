@@ -63,7 +63,7 @@ export default function Register(Email,Password,CPassword,setEmail,setPass,setCP
                                                     Register
                                                 </Button>
                                             </div>
-                                            <p className="mb-5 pb-lg-2" style={{color: 'whitesmoke'}}>
+                                            <p className="mb-5 pb-lg-2" style={{color: 'rgba(52, 52, 52, 0.8)'}}>
                                                 Have an Account? <a  id={'signIn_link'} onClick={handleRegistring}>
                                                 Sign In
                                             </a>
