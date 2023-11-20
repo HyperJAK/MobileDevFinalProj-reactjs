@@ -30,7 +30,6 @@ export default function HomeBody2({from, to, returnDate, departDate, setFrom, se
 
     return(
         <Div>
-
             <HomeImage />
         </Div>
 
