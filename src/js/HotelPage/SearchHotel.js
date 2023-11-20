@@ -35,7 +35,6 @@ export default function SearchHotel() {
       
       <div style={childDiv_style}>
                 <h1 style={{fontFamily: 'Playfair Display', color: 'whitesmoke', textShadow: '0px 0px 10px rgba(0, 0, 0, 0.75)'}}><strong>Find the right hotel today</strong></h1>
-
             </div>
             <div style={childDiv_style}>
                 <SearchBar />
