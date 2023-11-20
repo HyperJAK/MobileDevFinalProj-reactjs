@@ -16,9 +16,40 @@ const FullNav_style = {
     justifyContent: 'space-between'
 }
 
+const svgIcon_style = {
+    width:'50px',
+    height:'50px',
+    borderRadius: '10px',
+    border: '2px solid green'
+}
 
+
+const InsideTopNav_style = {
+    display: 'flex',
+    flexWrap: 'nowrap',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: 'blue'
+}
+
+const InsideBottomNav_style = {
+    marginTop: '50px',
+    display: 'flex',
+    flexWrap: 'nowrap',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: 'yellow'
+}
+
+const BottomNavButtons_style = {
+    width: '100px',
+padding: '20px',
+    borderRadius: '10px'
+
+}
 
 const Navi = ({setIsLogIn})=> {
+padding: '20px',
     return (
         <>
         <Navbar bg="primary" data-bs-theme="dark">

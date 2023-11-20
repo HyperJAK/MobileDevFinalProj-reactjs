@@ -4,7 +4,7 @@ import './css/index.css';
 import App from './js/App';
 import reportWebVitals from './reportWebVitals';
 import {Auth0Provider} from "@auth0/auth0-react";
-
+import HomePage from './js/HomePage/Home'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Auth0Provider
@@ -15,7 +15,7 @@ root.render(
         }}
     >
   <React.StrictMode>
-    <App />
+    <Hotel/>
   </React.StrictMode>
     </Auth0Provider>
 );
