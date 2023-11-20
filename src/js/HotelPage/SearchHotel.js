@@ -1,7 +1,7 @@
 import React from 'react'
 import hotelImg1 from '../../assets/hotelImg.jpg'
 
-import './hotel.css'
+import './css/hotel.css'
 import SearchBar from './SearchBar'
 import styled from 'styled-components';
 

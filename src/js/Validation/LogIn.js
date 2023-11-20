@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Container, Row, Col, Card, FloatingLabel} from 'react-bootstrap';
 import authImg from '../../assets/auth.png'
-import '../../css/Accounts.css';
+import './css/Accounts.css';
 import { Form } from 'react-bootstrap';
 
 const EmailAndPass = ({ Email, Password, setEmail, setPass }) => {
