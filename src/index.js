@@ -15,7 +15,7 @@ root.render(
         }}
     >
   <React.StrictMode>
-    <Hotel/>
+    <App />
   </React.StrictMode>
     </Auth0Provider>
 );

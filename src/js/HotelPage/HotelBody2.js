@@ -1,5 +1,6 @@
 import React from 'react';
 import hotelImg2 from '../../assets/hotelImg2.jpg';
+import styled from "styled-components";
 
 const containerStyle = {
     display: 'flex',
@@ -10,13 +11,15 @@ const containerStyle = {
     flexWrap: 'wrap',
     background: 'rgba(52, 52, 52, 0.1)',
     borderRadius: '30px',
-    alignItems: 'center',
+    alignItems: 'center'
 };
 
-const imageStyle = {
-    borderRadius: '30px 0 0 30px',
-    flex: 1,
-};
+const Img = styled.img`
+        flex: 1;
+        width: 40%;
+        height: 500px;
+        border-radius: 30px 0 0 30px;
+    `;
 
 const textStyle = {
     fontSize: '1.4rem',
@@ -31,9 +34,8 @@ export default function HotelBody2() {
 
     return (
         <div style={containerStyle}>
-            <img src={hotelImg2} width={'40%'} style={imageStyle} alt="hotel"></img>
+            <Img src={hotelImg2} alt="hotel"></Img>
             <p style={textStyle}>
-                {textFiller}
                 {textFiller}
             </p>
         </div>

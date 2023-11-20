@@ -49,7 +49,7 @@ padding: '20px',
 }
 
 const Navi = ({setIsLogIn})=> {
-padding: '20px',
+
     return (
         <>
         <Navbar bg="primary" data-bs-theme="dark">
@@ -84,9 +84,6 @@ const NaviItems = ({handleNavButtonSelect})=> {
         </Nav>
     );
 }
-
-
-
 
 
 

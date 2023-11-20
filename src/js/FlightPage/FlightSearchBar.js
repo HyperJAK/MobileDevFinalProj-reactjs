@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import flightcss from './flight.module.css'
+import flightcss from './css/flight.module.css'
 const FlightSearchBar = () => {
     const searchBox = {
         backgroundColor: '#08243c',//#e1d699

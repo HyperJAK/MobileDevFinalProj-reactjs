@@ -9,6 +9,9 @@ import {Alert} from "./HomePage/AlertFunction";
 import {Navigation} from "./Nav/Navigation";
 import Home from "./HomePage/Home";
 import Hotel from './HotelPage/Hotel.js';
+import Flight from "./FlightPage/Flight";
+import styled from "styled-components";
+
 
 
 export default function App() {
@@ -91,9 +94,12 @@ export default function App() {
     return (SignUp(email, password, CPassword, setEmail, setPass, setCPass, handleRegistring, setIsLogIn, setUser))
   } else {
     return (<>
-          <Navigation setIsLogIn={setIsLogIn}/>
+
+        <Navigation setIsLogIn={setIsLogIn}/>
           <Home />
           <Hotel />
+          <Flight />
+
         </>
     );
 
