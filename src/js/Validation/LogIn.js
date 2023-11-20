@@ -5,23 +5,7 @@ import './css/Accounts.css';
 import { Form } from 'react-bootstrap';
 import axios from "axios";
 import {ValidAlphaInput, ValidEmail, ValidPassword} from "../Utilities";
-
-
-
-
-const EmailAndPass = ({ email, password, setEmail, setPass }) => {
-    return (
-        <>
-            <FloatingLabel controlId="floatingInput" label="Email address" className="mb-3">
-                <Form.Control style={{ border: ValidEmail(email) ? '1px solid black' : '1px solid red' }} type="email" placeholder="name@example.com" value={email} onChange={e => setEmail(e.target.value)} />
-            </FloatingLabel>
-            <FloatingLabel controlId="floatingPassword" label="Password">
-                <Form.Control style={{ border: ValidPassword(password) ? '1px solid black' : '1px solid red' }} type="password" placeholder="Password" value={password} onChange={e => setPass(e.target.value)} />
-            </FloatingLabel>
-        </>
-    );
-};
-
+import {EmailAndPass} from "./css/EmailAndPass";
 
 
 export default function LogIn(email,password,setEmail,setPass,handleRegistring,setIsLogIn,setUser){
@@ -51,6 +35,7 @@ export default function LogIn(email,password,setEmail,setPass,handleRegistring,s
         }
 
         else{
+            // nothin~
 
         }
 

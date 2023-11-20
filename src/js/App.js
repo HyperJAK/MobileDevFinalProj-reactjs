@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LogIn from "./Validation/LogIn.js";
-import Register from "./Validation/Register.js";
+import SignUp from "./Validation/SignUp.js";
 import {useIdleTimer} from "react-idle-timer"
 import axios from "axios";
 import Trips from "./TripsPage/Trips";
@@ -85,7 +85,7 @@ export default function App() {
   if (isLogIn && !isRegistering) {
     return (LogIn(email, password, setEmail, setPass, handleRegistring, setIsLogIn, setUser));
   } else if (isRegistering) {
-    return (Register(email, password, CPassword, setEmail, setPass, setCPass, handleRegistring, setUser))
+    return (SignUp(email, password, CPassword, setEmail, setPass, setCPass, handleRegistring, setUser))
   } else {
     return (<>
           <Navigation />

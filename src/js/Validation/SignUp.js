@@ -1,36 +1,39 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Button, Container, Row, Col, Card} from 'react-bootstrap';
+import {Button, Container, Row, Col, Card, Form, FloatingLabel} from 'react-bootstrap';
 import axios from "axios";
 import authImg from '../../assets/auth.png'
 import './css/Accounts.css';
+import {ValidEmail, ValidPassword} from "../Utilities";
+import {EmailAndPass} from "./css/EmailAndPass";
 
 
-export default function Register(email,password,CPassword,setEmail,setPass,setCPass,handleRegistring,setUser){
-
-
-
+export default function SignUp(email, password, cPassword, setEmail, setPass, setCPass, handleRegistring, setUser){
 
     const handleSignup = async e => {
-        const userInfo = {email, password};
-        if(password===CPassword){
-            try {
-                const response = await axios.post(
-                    "http://localhost:4000/signup",
-                    userInfo
-                );
-                //console.log(response.data.message)
-                setUser(
-                    response.data.data.email,
-                    response.data.data.password
-                )
-                alert(response.data.message)
 
-            }catch(error){
-                //alert(error.response.data.error);
-                alert(error)
-            }
-        }else{
-            alert('Confirmation does not match password.')
+        if(ValidEmail(email) && ValidPassword(password) && password === cPassword) {
+            const userInfo = {email, password};
+
+                try {
+                    const response = await axios.post(
+                        "http://localhost:4000/signup",
+                        userInfo
+                    );
+                    //console.log(response.data.message)
+                    setUser(
+                        response.data.data.email,
+                        response.data.data.password
+                    )
+                    alert(response.data.message)
+
+                } catch (error) {
+                    //alert(error.response.data.error);
+                    alert(error)
+                }
+
+        }
+        else{
+            // nothin~
         }
 
     }
@@ -63,26 +66,13 @@ export default function Register(email,password,CPassword,setEmail,setPass,setCP
                                                 Sign into your account
                                             </h5>
                                             <div className="form-outline mb-4">
-                                                <input value={email} type="email" id="form2Example17"
-                                                       className="form-control form-control-lg"
-                                                       onChange={e=>{setEmail(e.target.value)}}/>
-                                                <label className="form-label" htmlFor="form2Example17">
-                                                    Email address
-                                                </label>
-                                            </div>
-                                            <div className="form-outline mb-4">
-                                                <input value={password} type="password" id="form2Example27"
-                                                       className="form-control form-control-lg"
-                                                       onChange={e=>{setPass(e.target.value)}} />
-                                                <label className="form-label" htmlFor="form2Example27">
-                                                    Password
-                                                </label>
-                                                <input value={CPassword} type="password" id="form2Example30"
-                                                       className="form-control form-control-lg"
-                                                       onChange={e=>{setCPass(e.target.value)}} />
-                                                <label className="form-label" htmlFor="form2Example30">
-                                                    Confirm Password
-                                                </label>
+
+                                                <EmailAndPass email={email} password={password} setEmail={setEmail} setPass={setPass} />
+
+                                                <FloatingLabel controlId="floatingPassword" label="Confirm Password">
+                                                    <Form.Control style={{ border: cPassword === password ? '1px solid black' : '1px solid red', marginTop: '20px'}} type="password" placeholder="Confirm Password" value={cPassword} onChange={e => setCPass(e.target.value)} />
+                                                </FloatingLabel>
+
                                             </div>
                                             <div className="pt-1 mb-4">
                                                 <Button variant="dark" size="lg" onClick={handleSignup}>
