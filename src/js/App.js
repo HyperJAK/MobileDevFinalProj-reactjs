@@ -52,8 +52,6 @@ export default function App() {
 
   //}, [isLogIn,isRegistering] );
 
-
-  
   const handleOnIdle = () => {
     if (!isRegistering && !isLogIn) {
       setShowSessionExpiredModal(true);

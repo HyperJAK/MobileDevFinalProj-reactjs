@@ -4,15 +4,19 @@ import authImg from '../../assets/auth.png'
 import './css/Accounts.css';
 import { Form } from 'react-bootstrap';
 import axios from "axios";
+import {ValidAlphaInput, ValidEmail, ValidPassword} from "../Utilities";
 
-const EmailAndPass = ({ Email, Password, setEmail, setPass }) => {
+
+
+
+const EmailAndPass = ({ email, password, setEmail, setPass }) => {
     return (
         <>
             <FloatingLabel controlId="floatingInput" label="Email address" className="mb-3">
-                <Form.Control type="email" placeholder="name@example.com" value={Email} onChange={e => setEmail(e.target.value)} />
+                <Form.Control style={{ border: ValidEmail(email) ? '1px solid black' : '1px solid red' }} type="email" placeholder="name@example.com" value={email} onChange={e => setEmail(e.target.value)} />
             </FloatingLabel>
             <FloatingLabel controlId="floatingPassword" label="Password">
-                <Form.Control type="password" placeholder="Password" value={Password} onChange={e => setPass(e.target.value)} />
+                <Form.Control style={{ border: ValidPassword(password) ? '1px solid black' : '1px solid red' }} type="password" placeholder="Password" value={password} onChange={e => setPass(e.target.value)} />
             </FloatingLabel>
         </>
     );
@@ -23,31 +27,33 @@ const EmailAndPass = ({ Email, Password, setEmail, setPass }) => {
 export default function LogIn(email,password,setEmail,setPass,handleRegistring,setIsLogIn,setUser){
 
 
-
-
-
-
-
     const handleLoggin = async e => {
         e.preventDefault();
-        const userInfo = { email, password };
-        // send the username and password to the server
-        try {
-            const response = await axios.post(
-                "http://localhost:4000/login",
-                userInfo
-            );
-            console.log(response);
-            setUser(
-                response.data.data.id,
-                response.data.data.username,
-                response.data.data.password
-            )
-            alert(response.data.message)
-            setIsLogIn();
-        }catch(error){
-            alert(error.response.data.error);
+        if(ValidEmail(email) && ValidPassword(password)){
+            const userInfo = { email, password };
+            // send the username and password to the server
+            try {
+                const response = await axios.post(
+                    "http://localhost:4000/login",
+                    userInfo
+                );
+                console.log(response);
+                setUser(
+                    response.data.data.id,
+                    response.data.data.username,
+                    response.data.data.password
+                )
+                alert(response.data.message)
+                setIsLogIn();
+            }catch(error){
+                alert(error.response.data.error);
+            }
         }
+
+        else{
+
+        }
+
     }
 
 
@@ -82,7 +88,7 @@ export default function LogIn(email,password,setEmail,setPass,handleRegistring,s
 
                                             </div>
 
-                                            <EmailAndPass Email={email} Password={password} setEmail={setEmail} setPass={setPass} />
+                                            <EmailAndPass email={email} password={password} setEmail={setEmail} setPass={setPass} />
 
                                             <div className="pt-1 mb-4">
                                                 <Button variant="dark" size="lg" onClick={handleLoggin}>
