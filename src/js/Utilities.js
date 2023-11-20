@@ -1,8 +1,44 @@
+import {AES, enc} from "crypto-js";
+
 export function ValidAlphaInput(input){
     const inputRegex = /^[a-zA-Z]+$/;
     const isValid = inputRegex.test(input);
 
     return isValid;
+}
+
+export async function EncryptPassword(pass) {
+
+    const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY;
+
+    const plaintext = pass;
+    const secretKey = encryptionKey;
+
+
+    // Encrypt id
+    const ciphertext = await AES.encrypt(plaintext, secretKey).toString();
+
+    // Decrypt
+    const bytes = await AES.decrypt(ciphertext, secretKey);
+    const decryptedText = bytes.toString(enc.Utf8);
+
+    return ciphertext;
+
+}
+
+export async function DecryptPassword(pass) {
+
+    const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY;
+
+    const plaintext = pass;
+    const secretKey = encryptionKey;
+
+    // Decrypt
+    const bytes = await AES.decrypt(plaintext, secretKey);
+    const decryptedText = bytes.toString(enc.Utf8);
+
+    return decryptedText;
+
 }
 
 export function ValidPassword(pass){

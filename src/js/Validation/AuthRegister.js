@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Button } from "react-bootstrap";
 import { AES, enc } from "crypto-js";
+import {EncryptPassword} from "../Utilities";
 
 export const AuthRegister = ({setIsLogIn}) =>{
     const [isHovered, setIsHovered] = useState(false);
@@ -23,24 +24,8 @@ export const AuthRegister = ({setIsLogIn}) =>{
         const fetchData = async () => {
             try {
                 if (isAuthenticated && user?.sub) { // Check if user and user.sub are defined
-                    const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY;
-                    console.log(user.sub);
-
-                    const plaintext = user.sub;
-                    const secretKey = encryptionKey;
-
-                    console.log(encryptionKey)
-
-                    // Encrypt id
-                    const ciphertext = await AES.encrypt(plaintext, secretKey).toString();
-                    console.log("Encrypted:", ciphertext);
-
-                    // Decrypt
-                    const bytes = await AES.decrypt(ciphertext, secretKey);
-                    const decryptedText = bytes.toString(enc.Utf8);
-                    console.log("Decrypted:", decryptedText);
-
-                    setDecryptedText(decryptedText);
+                    const encrypted = await EncryptPassword(user.sub)
+                    console.log(encrypted)
 
                     // Try comparing encrypted key and email to the database
 
@@ -48,7 +33,7 @@ export const AuthRegister = ({setIsLogIn}) =>{
                     // Set user pfp and username to the database
 
                     // Else, set user isLoggedIn
-                    setIsLogIn();
+                    setIsLogIn(false);
                 }
             } catch (error) {
                 console.error(error);
