@@ -3,6 +3,7 @@ import {Button, Container, Row, Col, Card, FloatingLabel} from 'react-bootstrap'
 import authImg from '../../assets/auth.png'
 import './css/Accounts.css';
 import { Form } from 'react-bootstrap';
+import axios from "axios";
 
 const EmailAndPass = ({ Email, Password, setEmail, setPass }) => {
     return (
@@ -17,7 +18,37 @@ const EmailAndPass = ({ Email, Password, setEmail, setPass }) => {
     );
 };
 
-export default function LogIn(Email,Password,setEmail,setPass,handleLoggin,handleRegistring,usersData,user){
+
+
+export default function LogIn(email,password,setEmail,setPass,handleRegistring,setIsLogIn,setUser){
+
+
+
+
+
+
+
+    const handleLoggin = async e => {
+        e.preventDefault();
+        const userInfo = { email, password };
+        // send the username and password to the server
+        try {
+            const response = await axios.post(
+                "http://localhost:4000/login",
+                userInfo
+            );
+            console.log(response);
+            setUser(
+                response.data.data.id,
+                response.data.data.username,
+                response.data.data.password
+            )
+            alert(response.data.message)
+            setIsLogIn();
+        }catch(error){
+            alert(error.response.data.error);
+        }
+    }
 
 
 
@@ -51,7 +82,7 @@ export default function LogIn(Email,Password,setEmail,setPass,handleLoggin,handl
 
                                             </div>
 
-                                            <EmailAndPass Email={Email} Password={Password} setEmail={setEmail} setPass={setPass} />
+                                            <EmailAndPass Email={email} Password={password} setEmail={setEmail} setPass={setPass} />
 
                                             <div className="pt-1 mb-4">
                                                 <Button variant="dark" size="lg" onClick={handleLoggin}>

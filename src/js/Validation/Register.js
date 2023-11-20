@@ -5,9 +5,35 @@ import authImg from '../../assets/auth.png'
 import './css/Accounts.css';
 
 
-export default function Register(Email,Password,CPassword,setEmail,setPass,setCPass,handleSignup,handleRegistring,usersData){
+export default function Register(email,password,CPassword,setEmail,setPass,setCPass,handleRegistring,setUser){
 
-    
+
+
+
+    const handleSignup = async e => {
+        const userInfo = {email, password};
+        if(password===CPassword){
+            try {
+                const response = await axios.post(
+                    "http://localhost:4000/signup",
+                    userInfo
+                );
+                //console.log(response.data.message)
+                setUser(
+                    response.data.data.email,
+                    response.data.data.password
+                )
+                alert(response.data.message)
+
+            }catch(error){
+                //alert(error.response.data.error);
+                alert(error)
+            }
+        }else{
+            alert('Confirmation does not match password.')
+        }
+
+    }
 
 
     return(
@@ -37,7 +63,7 @@ export default function Register(Email,Password,CPassword,setEmail,setPass,setCP
                                                 Sign into your account
                                             </h5>
                                             <div className="form-outline mb-4">
-                                                <input value={Email} type="email" id="form2Example17"
+                                                <input value={email} type="email" id="form2Example17"
                                                        className="form-control form-control-lg"
                                                        onChange={e=>{setEmail(e.target.value)}}/>
                                                 <label className="form-label" htmlFor="form2Example17">
@@ -45,7 +71,7 @@ export default function Register(Email,Password,CPassword,setEmail,setPass,setCP
                                                 </label>
                                             </div>
                                             <div className="form-outline mb-4">
-                                                <input value={Password} type="password" id="form2Example27"
+                                                <input value={password} type="password" id="form2Example27"
                                                        className="form-control form-control-lg"
                                                        onChange={e=>{setPass(e.target.value)}} />
                                                 <label className="form-label" htmlFor="form2Example27">

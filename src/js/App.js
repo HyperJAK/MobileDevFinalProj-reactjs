@@ -52,53 +52,8 @@ export default function App() {
 
   //}, [isLogIn,isRegistering] );
 
-const handleLoggin = async e => {
-    e.preventDefault();
-    const userInfo = { email, password };
-    // send the username and password to the server
-    try {
-      const response = await axios.post(
-        "http://localhost:4000/login",
-        userInfo
-      );
-      console.log(response);
-      setUser(
-        response.data.data.id,
-        response.data.data.username,
-        response.data.data.password
-        )
-      alert(response.data.message)
-      setIsLogIn();
-    }catch(error){
-      alert(error.response.data.error);
-    }
-  }
 
-  const handleSignup = async e => {
-    const userInfo = {email, password};
-    if(password===CPassword){
-      try {
-        const response = await axios.post(
-          "http://localhost:4000/signup",
-          userInfo
-        );
-        //console.log(response.data.message)
-        setUser(
-          response.data.data.email,
-          response.data.data.password
-          )
-        alert(response.data.message)
-
-      }catch(error){
-        //alert(error.response.data.error);
-        alert(error)
-      }
-    }else{
-      alert('Confirmation does not match password.')
-    }
-    
-  }
-
+  
   const handleOnIdle = () => {
     if (!isRegistering && !isLogIn) {
       setShowSessionExpiredModal(true);
@@ -130,13 +85,13 @@ const handleLoggin = async e => {
 
 
   if (isLogIn && !isRegistering) {
-    return (LogIn(email, password, setEmail, setPass, handleLoggin, handleRegistring, usersData));
+    return (LogIn(email, password, setEmail, setPass, handleRegistring, setIsLogIn, setUser));
   } else if (isRegistering) {
-    return (Register(email, password, CPassword, setEmail, setPass, setCPass, handleSignup, handleRegistring, usersData))
+    return (Register(email, password, CPassword, setEmail, setPass, setCPass, handleRegistring, setUser))
   } else {
     return (<>
-    <Navigation />
-          { <Home /> }
+          <Navigation />
+          <Home />
           <Hotel />
         </>
     );
