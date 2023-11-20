@@ -1,7 +1,6 @@
-import React,{useState} from 'react'
-
-export default function SearchBar() {
-
+import React, { useState } from 'react'
+import flightcss from './flight.module.css'
+const FlightSearchBar = () => {
     const searchBox = {
         backgroundColor: '#08243c',//#e1d699
         display: 'flex',
@@ -31,31 +30,31 @@ export default function SearchBar() {
   return (
     <div style={searchBox}>
       <div style={searchSection}>
-        <small>Where do you want to stay?</small>
-        <input style={{ width: '400px' }} type='text' placeholder='Enter destination or hotel name' 
-        className='hotelSearchBox' value={destinationState} onChange={(e)=>{setDestinationState(e.target.value)}}></input>
+        <small>Where do you want to Go?</small>
+        <input style={{ width: '400px' }} type='text' placeholder='Enter destination or Flight name' className={flightcss.FlightSearchBox} value={destinationState} onChange={(e)=>setDestinationState(e.target.value)}></input>
       </div>
       <div style={searchSection}>
         <small>Check-in</small>
-        <input type='date' className='hotelSearchBox' 
-        value={date1state} onChange={(e)=>{setDate1State(e.target.value)}}></input>
+        <input type='date' className={flightcss.FlightSearchBox} value={date1state} onChange={(e)=>setDate1State(e.target.value)}></input>
       </div>
       <div style={searchSection}>
         <small>Check-out</small>
-        <input type='date' className='hotelSearchBox'
-         value={date2state} onChange={(e)=>{setDate2State(e.target.value)}}></input>
+        <input type='date' className={flightcss.FlightSearchBox} value={date2state} onChange={(e)=>setDate2State(e.target.value)}></input>
       </div>
       <div style={searchSection}>
         <small>Number of people</small>
-        <input className='hotelSearchBox' type='number' value={NumberOfPeopleState} 
-        onChange={(e)=>{setNumberOfPeopleState(e.target.value)}} min={1}></input>
+        <input className={flightcss.FlightSearchBox} type='number' value={NumberOfPeopleState} min={1}  onChange={(e) => {
+            setNumberOfPeopleState(e.target.value);
+        }}></input>
       </div>
       <div style={searchSection}>
         <small style={{color:'#08243c'}}>.</small>
-        <input className='hotelSearchBox' style={{fontFamily: 'Playfair Display',fontSize:'1.1rem,backgroundColor:white'}} 
-         type='button' value='Search' onClick={()=>{console.log(`${destinationState} ${date1state} ${date2state} ${NumberOfPeopleState}`)}}
-          />
+        <input className={flightcss.FlightSearchBox} style={{fontFamily: 'Playfair Display',fontSize:'1.1rem'}} id={flightcss.btn} type='button' value='Search'
+            onClick={()=>{console.log(`${destinationState} ${date1state} ${date2state} ${NumberOfPeopleState}`)}}
+        />
       </div>
     </div>
   )
 }
+
+export default FlightSearchBar

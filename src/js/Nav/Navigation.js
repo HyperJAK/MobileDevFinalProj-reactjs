@@ -42,7 +42,7 @@ const InsideBottomNav_style = {
 
 const BottomNavButtons_style = {
     width: '100px',
-padding: '20px',
+    padding: '20px',
     borderRadius: '10px'
 
 }

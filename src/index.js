@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom/client';
 import './css/index.css';
 import App from './js/App';
 import reportWebVitals from './reportWebVitals';
-
+import Hotel from './js/HotelPage/Hotel';
+import HomePage from './js/HomePage/Home'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Hotel/>
   </React.StrictMode>
 );
 

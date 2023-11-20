@@ -1,15 +1,15 @@
 import React from 'react'
-import SearchHotel from './SearchHotel'
+import SearchFlight from './SearchFlight'
 import HomeBody1 from '../HomePage/HomeBody1'
-import HotelBody2 from './HotelBody2'
+import FlightBody2 from './FlightBody2'
 import Navigation from '../Nav/Navigation'
-export default function Hotel() {
+export default function Flight() {
   return (
     <>
         <Navigation/>
-        <SearchHotel />
+        <SearchFlight />
         <HomeBody1 />
-        <HotelBody2 />
+        <FlightBody2 />
     </>
   )
 }
