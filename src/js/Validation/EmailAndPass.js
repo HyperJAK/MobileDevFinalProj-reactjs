@@ -1,5 +1,5 @@
 import {FloatingLabel, Form} from "react-bootstrap";
-import {ValidEmail, ValidPassword} from "../../Utilities";
+import {ValidEmail, ValidPassword} from "../Utilities";
 
 export const EmailAndPass = ({ email, password, setEmail, setPass }) => {
     return (

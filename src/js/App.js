@@ -6,7 +6,7 @@ import {useIdleTimer} from "react-idle-timer"
 import axios from "axios";
 import Trips from "./TripsPage/Trips";
 import {Alert} from "./HomePage/AlertFunction";
-import Navigation from "./Nav/Navigation";
+import {Navigation} from "./Nav/Navigation";
 import Home from "./HomePage/Home";
 import Hotel from './HotelPage/Hotel.js';
 
@@ -81,14 +81,17 @@ export default function App() {
     setIsRegistering(false);
   };
 
+  console.log(isLogIn)
+  console.log(isRegistering)
+
 
   if (isLogIn && !isRegistering) {
     return (LogIn(email, password, setEmail, setPass, handleRegistring, setIsLogIn, setUser));
   } else if (isRegistering) {
-    return (SignUp(email, password, CPassword, setEmail, setPass, setCPass, handleRegistring, setUser))
+    return (SignUp(email, password, CPassword, setEmail, setPass, setCPass, handleRegistring, setIsLogIn, setUser))
   } else {
     return (<>
-          <Navigation />
+          <Navigation setIsLogIn={setIsLogIn}/>
           <Home />
           <Hotel />
         </>

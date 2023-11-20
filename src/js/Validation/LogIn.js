@@ -5,7 +5,8 @@ import './css/Accounts.css';
 import { Form } from 'react-bootstrap';
 import axios from "axios";
 import {ValidAlphaInput, ValidEmail, ValidPassword} from "../Utilities";
-import {EmailAndPass} from "./css/EmailAndPass";
+import {EmailAndPass} from "./EmailAndPass";
+import {AuthRegister} from "./AuthRegister";
 
 
 export default function LogIn(email,password,setEmail,setPass,handleRegistring,setIsLogIn,setUser){
@@ -28,7 +29,7 @@ export default function LogIn(email,password,setEmail,setPass,handleRegistring,s
                     response.data.data.password
                 )
                 alert(response.data.message)
-                setIsLogIn();
+                setIsLogIn(false);
             }catch(error){
                 alert(error.response.data.error);
             }
@@ -76,10 +77,12 @@ export default function LogIn(email,password,setEmail,setPass,handleRegistring,s
                                             <EmailAndPass email={email} password={password} setEmail={setEmail} setPass={setPass} />
 
                                             <div className="pt-1 mb-4">
-                                                <Button variant="dark" size="lg" onClick={handleLoggin}>
+                                                <Button style={{marginTop: '15px'}} variant="dark" size="lg" onClick={handleLoggin}>
                                                     Login
                                                 </Button>
                                             </div>
+
+                                            <AuthRegister setIsLogIn={setIsLogIn}/>
                                             <p className="mb-5 pb-lg-2" style={{color: 'rgba(52, 52, 52, 0.8)'}}>
                                                 Don't have an account? <a id={'signUp_link'} onClick={handleRegistring}>
                                                 Register here

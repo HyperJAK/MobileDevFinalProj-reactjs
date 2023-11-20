@@ -4,10 +4,11 @@ import axios from "axios";
 import authImg from '../../assets/auth.png'
 import './css/Accounts.css';
 import {ValidEmail, ValidPassword} from "../Utilities";
-import {EmailAndPass} from "./css/EmailAndPass";
+import {EmailAndPass} from "./EmailAndPass";
+import {AuthRegister} from "./AuthRegister";
 
 
-export default function SignUp(email, password, cPassword, setEmail, setPass, setCPass, handleRegistring, setUser){
+export default function SignUp(email, password, cPassword, setEmail, setPass, setCPass, handleRegistring, setIsLogIn, setUser){
 
     const handleSignup = async e => {
 
@@ -76,9 +77,12 @@ export default function SignUp(email, password, cPassword, setEmail, setPass, se
                                             </div>
                                             <div className="pt-1 mb-4">
                                                 <Button variant="dark" size="lg" onClick={handleSignup}>
-                                                    Register
+                                                    SignUp
                                                 </Button>
                                             </div>
+
+                                            <AuthRegister setIsLogIn={setIsLogIn}/>
+
                                             <p className="mb-5 pb-lg-2" style={{color: 'rgba(52, 52, 52, 0.8)'}}>
                                                 Have an Account? <a  id={'signIn_link'} onClick={handleRegistring}>
                                                 Sign In
