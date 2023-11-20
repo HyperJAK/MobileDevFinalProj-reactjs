@@ -15,8 +15,8 @@ export const LogOut = ({setIsLogIn}) => {
         marginTop: "15px",
         borderRadius: "30px",
         height: "60px",
-        color: isHovered ? "black" : "white",
-        border: "1px solid red",
+        color: isHovered ? "white" : "white",
+        border: "1px solid black",
         backgroundColor: isHovered ? "#333333" : "transparent",
     };
 
