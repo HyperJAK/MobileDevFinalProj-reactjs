@@ -39,7 +39,7 @@ const SwitchElementButtons = () => {
 
 
 
-export default function HomeBody1({from, to, returnDate, departDate, setFrom, setTo, setDepartDate, setReturnDate, handleHomeQuickInputSearch}){
+export default function HomeBody1(){
 
 
 

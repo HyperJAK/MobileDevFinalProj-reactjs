@@ -24,13 +24,12 @@ const HomeImage = ()=> {
     return <Img src={imgSrc} alt="None"></Img>;
 }
 
-export default function HomeBody2({from, to, returnDate, departDate, setFrom, setTo, setDepartDate, setReturnDate, handleHomeQuickInputSearch}){
+export default function HomeBody2(){
 
 
 
     return(
         <Div>
-
             <HomeImage />
         </Div>
 

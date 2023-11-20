@@ -1,23 +1,46 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Container, Row, Col, Card, FloatingLabel} from 'react-bootstrap';
 import authImg from '../../assets/auth.png'
-import '../../css/Accounts.css';
+import './css/Accounts.css';
 import { Form } from 'react-bootstrap';
+import axios from "axios";
+import {ValidAlphaInput, ValidEmail, ValidPassword} from "../Utilities";
+import {EmailAndPass} from "./EmailAndPass";
+import {AuthRegister} from "./AuthRegister";
 
-const EmailAndPass = ({ Email, Password, setEmail, setPass }) => {
-    return (
-        <>
-            <FloatingLabel controlId="floatingInput" label="Email address" className="mb-3">
-                <Form.Control type="email" placeholder="name@example.com" value={Email} onChange={e => setEmail(e.target.value)} />
-            </FloatingLabel>
-            <FloatingLabel controlId="floatingPassword" label="Password">
-                <Form.Control type="password" placeholder="Password" value={Password} onChange={e => setPass(e.target.value)} />
-            </FloatingLabel>
-        </>
-    );
-};
 
-export default function LogIn(Email,Password,setEmail,setPass,handleLoggin,handleRegistring,usersData,user){
+export default function LogIn(email,password,setEmail,setPass,handleRegistring,setIsLogIn,setUser){
+
+
+    const handleLoggin = async e => {
+        e.preventDefault();
+        if(ValidEmail(email) && ValidPassword(password)){
+            const userInfo = { email, password };
+            // send the username and password to the server
+            try {
+                const response = await axios.post(
+                    "http://localhost:4000/login",
+                    userInfo
+                );
+                console.log(response);
+                setUser(
+                    response.data.data.id,
+                    response.data.data.username,
+                    response.data.data.password
+                )
+                alert(response.data.message)
+                setIsLogIn(false);
+            }catch(error){
+                alert(error.response.data.error);
+            }
+        }
+
+        else{
+            // nothin~
+
+        }
+
+    }
 
 
 
@@ -51,13 +74,15 @@ export default function LogIn(Email,Password,setEmail,setPass,handleLoggin,handl
 
                                             </div>
 
-                                            <EmailAndPass Email={Email} Password={Password} setEmail={setEmail} setPass={setPass} />
+                                            <EmailAndPass email={email} password={password} setEmail={setEmail} setPass={setPass} />
 
                                             <div className="pt-1 mb-4">
-                                                <Button variant="dark" size="lg" onClick={handleLoggin}>
+                                                <Button style={{marginTop: '15px'}} variant="dark" size="lg" onClick={handleLoggin}>
                                                     Login
                                                 </Button>
                                             </div>
+
+                                            <AuthRegister setIsLogIn={setIsLogIn}/>
                                             <p className="mb-5 pb-lg-2" style={{color: 'rgba(52, 52, 52, 0.8)'}}>
                                                 Don't have an account? <a id={'signUp_link'} onClick={handleRegistring}>
                                                 Register here

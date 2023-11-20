@@ -1,12 +1,11 @@
 import React from 'react'
-import hotelImg1 from '../../assets/hotelImg.jpg'
-
-import './css/hotel.css'
-import SearchBar from './SearchBar'
+import FlightImg1 from '../../assets/FlightImg1.jpeg'
+import FlightSearchBar from './FlightSearchBar'
 import styled from 'styled-components';
 
-export default function SearchHotel() {
 
+
+export default function SearchFlight(){
     const parentDiv_style = {
         display: 'flex',
         flexDirection: 'column',
@@ -16,7 +15,7 @@ export default function SearchHotel() {
         margin: '40px auto',
         gap: '50px',
         paddingTop: '100px',
-        backgroundImage: `url(${hotelImg1})`,
+        backgroundImage: `url(${FlightImg1})`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         borderRadius: '30px'
@@ -34,10 +33,11 @@ export default function SearchHotel() {
     <div style={parentDiv_style}>
       
       <div style={childDiv_style}>
-                <h1 style={{fontFamily: 'Playfair Display', color: 'whitesmoke', textShadow: '0px 0px 10px rgba(0, 0, 0, 0.75)'}}><strong>Find the right hotel today</strong></h1>
+                <h1 style={{fontFamily: 'Playfair Display', color: 'whitesmoke', textShadow: '0px 0px 10px rgba(0, 0, 0, 0.75)'}}><strong>Find the right Flight today</strong></h1>
+
             </div>
             <div style={childDiv_style}>
-                <SearchBar />
+                <FlightSearchBar />
             </div>
 
     </div>

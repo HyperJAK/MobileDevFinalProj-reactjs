@@ -1,14 +1,17 @@
 import {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LogIn from "./Validation/LogIn.js";
-import Register from "./Validation/Register.js";
+import SignUp from "./Validation/SignUp.js";
 import {useIdleTimer} from "react-idle-timer"
 import axios from "axios";
-import Trips from "./HomePage/Trips";
+import Trips from "./TripsPage/Trips";
 import {Alert} from "./HomePage/AlertFunction";
-import Navigation from "./Nav/Navigation";
+import {Navigation} from "./Nav/Navigation";
 import Home from "./HomePage/Home";
 import Hotel from './HotelPage/Hotel.js';
+import Flight from "./FlightPage/Flight";
+import styled from "styled-components";
+
 
 
 export default function App() {
@@ -23,13 +26,6 @@ export default function App() {
   const [tableData, setTableData] = useState([]);
   const [usersData, setUsersData] = useState([]);
   const [user, setUser] = useState([{id:null, email:null, password:null}]);
-
-
-//For Home/Quick Plan Trip div
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
-  const [departDate, setDepartDate] = useState("");
-  const [returnDate, setReturnDate] = useState("");
 
 
 
@@ -59,65 +55,11 @@ export default function App() {
 
   //}, [isLogIn,isRegistering] );
 
-const handleLoggin = async e => {
-    e.preventDefault();
-    const userInfo = { email, password };
-    // send the username and password to the server
-    try {
-      const response = await axios.post(
-        "http://localhost:4000/login",
-        userInfo
-      );
-      console.log(response);
-      setUser(
-        response.data.data.id,
-        response.data.data.username,
-        response.data.data.password
-        )
-      alert(response.data.message)
-      setIsLogIn();
-    }catch(error){
-      alert(error.response.data.error);
-    }
-  }
-
-  const handleSignup = async e => {
-    const userInfo = {email, password};
-    if(password===CPassword){
-      try {
-        const response = await axios.post(
-          "http://localhost:4000/signup",
-          userInfo
-        );
-        //console.log(response.data.message)
-        setUser(
-          response.data.data.email,
-          response.data.data.password
-          )
-        alert(response.data.message)
-
-      }catch(error){
-        //alert(error.response.data.error);
-        alert(error)
-      }
-    }else{
-      alert('Confirmation does not match password.')
-    }
-    
-  }
-
   const handleOnIdle = () => {
     if (!isRegistering && !isLogIn) {
       setShowSessionExpiredModal(true);
     }
   };
-
-const handleHomeQuickInputSearch = async e =>{
-
-  //The values of these fields (to, from, departDate, returnDate) will change based on the input in Home so far.
-  //So use these fields to fill db
-
-}
 
   const {reset} = useIdleTimer({
     timeout: 600000,
@@ -141,18 +83,23 @@ const handleHomeQuickInputSearch = async e =>{
     setIsLogIn(true);
     setIsRegistering(false);
   };
-  console.log(from);
+
+  console.log(isLogIn)
+  console.log(isRegistering)
 
 
   if (isLogIn && !isRegistering) {
-    return (LogIn(email, password, setEmail, setPass, handleLoggin, handleRegistring, usersData));
+    return (LogIn(email, password, setEmail, setPass, handleRegistring, setIsLogIn, setUser));
   } else if (isRegistering) {
-    return (Register(email, password, CPassword, setEmail, setPass, setCPass, handleSignup, handleRegistring, usersData))
+    return (SignUp(email, password, CPassword, setEmail, setPass, setCPass, handleRegistring, setIsLogIn, setUser))
   } else {
     return (<>
-    <Navigation />
-          {/* <Home from={from} to={to} departDate={departDate} returnDate={returnDate} setFrom={setFrom} setTo={setTo} setDepartDate={setDepartDate} setReturnDate={setReturnDate} handleHomeQuickInputSearch={handleHomeQuickInputSearch} /> */}
+
+        <Navigation setIsLogIn={setIsLogIn}/>
+          <Home />
           <Hotel />
+          <Flight />
+
         </>
     );
 

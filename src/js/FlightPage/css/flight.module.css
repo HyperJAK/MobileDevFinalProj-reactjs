@@ -1,0 +1,9 @@
+.FlightSearchBox{
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+}
+#btn{
+    padding:10px 15px;
+    background-color: white;
+}

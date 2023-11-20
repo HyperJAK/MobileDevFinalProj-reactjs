@@ -1,13 +1,43 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Button, Container, Row, Col, Card} from 'react-bootstrap';
+import {Button, Container, Row, Col, Card, Form, FloatingLabel} from 'react-bootstrap';
 import axios from "axios";
 import authImg from '../../assets/auth.png'
-import '../../css/Accounts.css';
+import './css/Accounts.css';
+import {ValidEmail, ValidPassword} from "../Utilities";
+import {EmailAndPass} from "./EmailAndPass";
+import {AuthRegister} from "./AuthRegister";
 
 
-export default function Register(Email,Password,CPassword,setEmail,setPass,setCPass,handleSignup,handleRegistring,usersData){
+export default function SignUp(email, password, cPassword, setEmail, setPass, setCPass, handleRegistring, setIsLogIn, setUser){
 
-    
+    const handleSignup = async e => {
+
+        if(ValidEmail(email) && ValidPassword(password) && password === cPassword) {
+            const userInfo = {email, password};
+
+                try {
+                    const response = await axios.post(
+                        "http://localhost:4000/signup",
+                        userInfo
+                    );
+                    //console.log(response.data.message)
+                    setUser(
+                        response.data.data.email,
+                        response.data.data.password
+                    )
+                    alert(response.data.message)
+
+                } catch (error) {
+                    //alert(error.response.data.error);
+                    alert(error)
+                }
+
+        }
+        else{
+            // nothin~
+        }
+
+    }
 
 
     return(
@@ -37,32 +67,22 @@ export default function Register(Email,Password,CPassword,setEmail,setPass,setCP
                                                 Sign into your account
                                             </h5>
                                             <div className="form-outline mb-4">
-                                                <input value={Email} type="email" id="form2Example17"
-                                                       className="form-control form-control-lg"
-                                                       onChange={e=>{setEmail(e.target.value)}}/>
-                                                <label className="form-label" htmlFor="form2Example17">
-                                                    Email address
-                                                </label>
-                                            </div>
-                                            <div className="form-outline mb-4">
-                                                <input value={Password} type="password" id="form2Example27"
-                                                       className="form-control form-control-lg"
-                                                       onChange={e=>{setPass(e.target.value)}} />
-                                                <label className="form-label" htmlFor="form2Example27">
-                                                    Password
-                                                </label>
-                                                <input value={CPassword} type="password" id="form2Example30"
-                                                       className="form-control form-control-lg"
-                                                       onChange={e=>{setCPass(e.target.value)}} />
-                                                <label className="form-label" htmlFor="form2Example30">
-                                                    Confirm Password
-                                                </label>
+
+                                                <EmailAndPass email={email} password={password} setEmail={setEmail} setPass={setPass} />
+
+                                                <FloatingLabel controlId="floatingPassword" label="Confirm Password">
+                                                    <Form.Control style={{ border: cPassword === password ? '1px solid black' : '1px solid red', marginTop: '20px'}} type="password" placeholder="Confirm Password" value={cPassword} onChange={e => setCPass(e.target.value)} />
+                                                </FloatingLabel>
+
                                             </div>
                                             <div className="pt-1 mb-4">
                                                 <Button variant="dark" size="lg" onClick={handleSignup}>
-                                                    Register
+                                                    SignUp
                                                 </Button>
                                             </div>
+
+                                            <AuthRegister setIsLogIn={setIsLogIn}/>
+
                                             <p className="mb-5 pb-lg-2" style={{color: 'rgba(52, 52, 52, 0.8)'}}>
                                                 Have an Account? <a  id={'signIn_link'} onClick={handleRegistring}>
                                                 Sign In

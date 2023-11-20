@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Image from 'react-bootstrap/Image';
+import {LogOut} from "../Validation/LogOut";
 
 
 
@@ -15,6 +16,13 @@ const FullNav_style = {
     justifyContent: 'space-between'
 }
 
+const svgIcon_style = {
+    width:'50px',
+    height:'50px',
+    borderRadius: '10px',
+    border: '2px solid green'
+}
+
 
 const InsideTopNav_style = {
     display: 'flex',
@@ -22,13 +30,6 @@ const InsideTopNav_style = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: 'blue'
-}
-
-const svgIcon_style = {
-    width:'50px',
-    height:'50px',
-    borderRadius: '10px',
-    border: '2px solid green'
 }
 
 const InsideBottomNav_style = {
@@ -47,12 +48,8 @@ padding: '20px',
 
 }
 
+const Navi = ({setIsLogIn})=> {
 
-
-
-
-
-const Navi = ()=> {
     return (
         <>
         <Navbar bg="primary" data-bs-theme="dark">
@@ -60,6 +57,9 @@ const Navi = ()=> {
                 <Navbar.Brand style={{fontSize:'32px'}} href="#home">Go Trip</Navbar.Brand>
                 <Nav className="me-auto">
                     <NaviItems />
+                </Nav>
+                <Nav>
+                    <LogOut setIsLogIn={setIsLogIn}/>
                 </Nav>
             </Container>
         </Navbar>
@@ -89,10 +89,7 @@ const NaviItems = ({handleNavButtonSelect})=> {
 
 
 
-
-
-
-export default function Navigation(){
+export const Navigation = ({setIsLogIn})=>{
 
 
 /*    const GlobeSvg = () =>{
@@ -144,7 +141,7 @@ export default function Navigation(){
 
 
     return(
-          <Navi />
+          <Navi setIsLogIn={setIsLogIn}/>
     );
 
 }
