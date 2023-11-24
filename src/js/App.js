@@ -27,6 +27,7 @@ export default function App() {
   const [tableData, setTableData] = useState([]);
   const [usersData, setUsersData] = useState([]);
   const [user, setUser] = useState([{id:null, email:null, password:null}]);
+  const [currentScreen, setCurrentScreen] = ('home')
 
 
 
