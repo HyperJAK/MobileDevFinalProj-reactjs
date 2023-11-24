@@ -1,41 +1,43 @@
-import imgSrc from "../../assets/4.jpg";
-import styled from 'styled-components';
+import React from 'react';
+import homeInfoImg from '../../assets/4.jpg';
+import styled from "styled-components";
 
-const Div = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: space-evenly;
-    `;
+const containerStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '90%',
+    margin: '0 auto',
+    gap: 10,
+    flexWrap: 'wrap',
+    background: 'rgba(52, 52, 52, 0.1)',
+    borderRadius: '30px',
+    alignItems: 'center'
+};
 
-
-const HomeImage = ()=> {
-    const imgSrc = require('../../assets/4.jpg');
-
-    const Img = styled.img`
-        width: 70%;
+const Img = styled.img`
+        flex: 1;
+        width: 40%;
         height: 500px;
-        margin: 0 auto;
-        display: block;
-        border-radius: 20px;
-      max-width: 1000px;
+        border-radius: 30px 0 0 30px;
     `;
 
-    return <Img src={imgSrc} alt="None"></Img>;
-}
+const textStyle = {
+    fontSize: '1.4rem',
+    fontFamily: 'Roboto',
+    flex: 2,
+    padding: '10px',
+};
 
-export default function HomeBody2(){
+export default function HotelBody2() {
+    const textFiller =
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.';
 
-
-
-    return(
-        <Div>
-            <HomeImage />
-        </Div>
-
+    return (
+        <div style={containerStyle}>
+            <Img src={homeInfoImg} alt="hotel"></Img>
+            <p style={textStyle}>
+                {textFiller}
+            </p>
+        </div>
     );
-
-
-
-
 }

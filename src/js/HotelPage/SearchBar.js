@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import flightcss from "../FlightPage/css/flight.module.css";
 
 export default function SearchBar() {
     const searchBoxStyles = {
@@ -48,11 +49,11 @@ export default function SearchBar() {
             </div>
             <div style={searchSectionStyles}>
                 <small>Check-in</small>
-                <input type='date' value={reservationDate} onChange={(e) => { setReservationDate(e.target.value); }}></input>
+                <input type='date' className={flightcss.FlightSearchBox} value={reservationDate} onChange={(e)=>setReservationDate(e.target.value)}></input>
             </div>
             <div style={searchSectionStyles}>
                 <small>Check-out</small>
-                <input type='date' value={reservationDate} onChange={(e) => { setLeaveDate(e.target.value); }}></input>
+                <input type='date' className={flightcss.FlightSearchBox} value={leaveDate} onChange={(e)=>setLeaveDate(e.target.value)}></input>
             </div>
             <div style={searchSectionStyles}>
                 <small>Number of people</small>
