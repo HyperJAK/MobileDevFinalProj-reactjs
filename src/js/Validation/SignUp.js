@@ -3,7 +3,7 @@ import {Button, Container, Row, Col, Card, Form, FloatingLabel} from 'react-boot
 import axios from "axios";
 import authImg from '../../assets/auth.png'
 import './css/Accounts.css';
-import {ValidEmail, ValidPassword} from "../Utilities";
+import {EncryptPassword, ValidEmail, ValidPassword, SignUpFunc} from "../Utilities";
 import {EmailAndPass} from "./EmailAndPass";
 import {AuthRegister} from "./AuthRegister";
 
@@ -13,24 +13,16 @@ export default function SignUp(email, password, cPassword, setEmail, setPass, se
     const handleSignup = async e => {
 
         if(ValidEmail(email) && ValidPassword(password) && password === cPassword) {
-            const userInfo = {email, password};
+            const encryptedPass = await EncryptPassword(password);
+            const userInfo = {email, encryptedPass};
+            console.log("Signing up")
 
-                try {
-                    const response = await axios.post(
-                        "http://localhost:4000/signup",
-                        userInfo
-                    );
-                    //console.log(response.data.message)
-                    setUser(
-                        response.data.data.email,
-                        response.data.data.password
-                    )
-                    alert(response.data.message)
+            try{
+                await SignUpFunc(userInfo, setUser);
+            }catch(error){
+                alert(error.response.data.error);
+            }
 
-                } catch (error) {
-                    //alert(error.response.data.error);
-                    alert(error)
-                }
 
         }
         else{
@@ -81,7 +73,7 @@ export default function SignUp(email, password, cPassword, setEmail, setPass, se
                                                 </Button>
                                             </div>
 
-                                            <AuthRegister setIsLogIn={setIsLogIn}/>
+                                            <AuthRegister setIsLogIn={setIsLogIn} setUser={setUser}/>
 
                                             <p className="mb-5 pb-lg-2" style={{color: 'rgba(52, 52, 52, 0.8)'}}>
                                                 Have an Account? <a  id={'signIn_link'} onClick={handleRegistring}>
