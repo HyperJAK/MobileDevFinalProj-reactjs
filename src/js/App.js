@@ -11,6 +11,9 @@ import Home from "./HomePage/Home";
 import Hotel from './HotelPage/Hotel.js';
 import Flight from "./FlightPage/Flight";
 import styled from "styled-components";
+import {Credits} from "./Credits/Credits";
+import {EncryptPassword, SignInFunc, ValidEmail, ValidPassword} from "./Utilities";
+import {UserSettings} from "./Profile/UserSettings";
 
 
 
@@ -25,7 +28,8 @@ export default function App() {
   const [showSessionExpiredModal, setShowSessionExpiredModal] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [usersData, setUsersData] = useState([]);
-  const [user, setUser] = useState([{id:null, email:null, password:null}]);
+  const [user, setUser] = useState([{id:null, username: null, email:null, password:null}]);
+ const [currentScreen, setCurrentScreen] = useState('home');
 
 
 
@@ -55,14 +59,81 @@ export default function App() {
 
   //}, [isLogIn,isRegistering] );
 
+  const handleLoggin = async e => {
+    if(e!=null){
+        e.preventDefault();
+    }
+    if(ValidEmail(email) && ValidPassword(password)){
+        const userInfo = { email, password };
+        // send the username and password to the server
+        try {
+            const encryptedPass = await EncryptPassword(password);
+            const userInfo = {email, encryptedPass};
+
+
+            try {
+                await SignInFunc(userInfo, setUser);
+                setIsLogIn(false);
+            } catch (error) {
+                alert(error.response.data.error);
+            }
+
+
+            setCurrentScreen('home')
+            // save the user email and password to local storage and on useeffect use the data to log him back in
+            var serializedObject = JSON.stringify({
+                email: userInfo.email,
+                password: encryptedPass,
+              });
+            var serializedString = JSON.stringify({
+                currentScreen: 'home'
+            });
+              // Store the user in local storage
+              localStorage.setItem('userInfo', serializedObject);
+              localStorage.setItem('currentScreen', serializedString)
+            setIsLogIn(false);
+        }catch(error){
+            alert(error.response.data.error);
+        }
+    }
+
+    else{
+        // nothin~
+
+    }
+
+}
+
+  // get user info back and test them on the database to log him back in
+  useEffect( () => {
+    var userLocalStorage = localStorage.getItem('userInfo');
+    var currentScreenLocalStorage = localStorage.getItem('currentScreen')
+
+    if (userLocalStorage !== null && currentScreenLocalStorage !== null) {
+      // The item exists, so you can proceed to remove it
+
+      setEmail(JSON.parse(localStorage.getItem('userInfo')).email)
+      setPass(JSON.parse(localStorage.getItem('userInfo')).password)
+
+      //handleLoggin()
+
+      //setCurrentScreen(JSON.parse(localStorage.getItem('currentScreen')).lastScreen)
+
+    } else {
+      // The item doesn't exist or has already been removed
+      console.log('Item not found in localStorage.');
+    }
+  }, [isLogIn])
+
   const handleOnIdle = () => {
-    if (!isRegistering && !isLogIn) {
+    if (currentScreen!='login'||currentScreen!='signup') {
       setShowSessionExpiredModal(true);
+      setCurrentScreen('login')
     }
   };
 
   const {reset} = useIdleTimer({
-    timeout: 600000,
+    timeout: 60000,
     onIdle: handleOnIdle,
   });
 
@@ -88,21 +159,46 @@ export default function App() {
   console.log(isRegistering)
 
 
-  if (isLogIn && !isRegistering) {
-    return (LogIn(email, password, setEmail, setPass, handleRegistring, setIsLogIn, setUser));
-  } else if (isRegistering) {
-    return (SignUp(email, password, CPassword, setEmail, setPass, setCPass, handleRegistring, setIsLogIn, setUser))
-  } else {
+  if (currentScreen==='login') {
+    return (LogIn(email, password, setEmail, setPass, handleRegistring, setIsLogIn, setUser, setCurrentScreen, handleLoggin));
+  } else if (currentScreen==='signup') {
+    return (SignUp(email, password, CPassword, setEmail, setPass, setCPass, handleRegistring, setIsLogIn, setUser, setCurrentScreen))
+  } else if (currentScreen==='home') {
     return (<>
 
-        <Navigation setIsLogIn={setIsLogIn}/>
+        <Navigation setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen}/>
           <Home />
-          <Hotel />
-          <Flight />
+          <Credits />
 
         </>
     );
+  } else if (currentScreen==='hotel') {
+    return (
+      <>
+          <Navigation setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
+        <Hotel setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
+          <Credits />
+      </>
+    )
+  } else if (currentScreen==='flight') {
+    return (
+      <>
+        <Navigation setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
+        <Flight setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
+          <Credits />
+      </>
+    )
+  }
 
+  else if (currentScreen==='trip') {
+      return (
+          <>
+              <Navigation setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
+              <Trips setCurrentScreen={setCurrentScreen} currentScreen={currentScreen} user={user}/>
+              <UserSettings user={user} setUser={setUser}/>
+              <Credits />
+          </>
+      )
   }
 }
 

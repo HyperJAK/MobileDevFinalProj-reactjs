@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Button } from "react-bootstrap";
 import { AES, enc } from "crypto-js";
-import {EncryptPassword} from "../Utilities";
+import {EncryptPassword, SignInFunc, SignUpFunc, ValidEmail, ValidPassword} from "../Utilities";
+import axios from "axios";
 
-export const AuthRegister = ({setIsLogIn}) =>{
+export const AuthRegister = ({setIsLogIn, setUser}) =>{
     const [isHovered, setIsHovered] = useState(false);
     const [decryptedText, setDecryptedText] = useState(null);
 
@@ -22,10 +23,26 @@ export const AuthRegister = ({setIsLogIn}) =>{
 
     useEffect(() => {
         const fetchData = async () => {
+
+        if (isAuthenticated && user?.sub) { // Check if user and user.sub are defined
+            const encryptedPass = await EncryptPassword(user.sub)
+            const email = user.email
+            console.log(encryptedPass)
+            console.log(email)
+
+
+
+            const userInfo = { email, encryptedPass };
+            // send the username and password to the server
             try {
-                if (isAuthenticated && user?.sub) { // Check if user and user.sub are defined
-                    const encrypted = await EncryptPassword(user.sub)
-                    console.log(encrypted)
+                await SignInFunc(userInfo, setUser);
+                setIsLogIn(false);
+
+            }finally {
+                await SignUpFunc(userInfo, setUser);
+                setIsLogIn(false);
+            }
+
 
                     // Try comparing encrypted key and email to the database
 
@@ -33,11 +50,9 @@ export const AuthRegister = ({setIsLogIn}) =>{
                     // Set user pfp and username to the database
 
                     // Else, set user isLoggedIn
-                    setIsLogIn(false);
+
                 }
-            } catch (error) {
-                console.error(error);
-            }
+
         };
 
         fetchData();

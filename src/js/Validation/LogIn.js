@@ -4,43 +4,12 @@ import authImg from '../../assets/auth.png'
 import './css/Accounts.css';
 import { Form } from 'react-bootstrap';
 import axios from "axios";
-import {ValidAlphaInput, ValidEmail, ValidPassword} from "../Utilities";
+import {EncryptPassword, SignInFunc, ValidAlphaInput, ValidEmail, ValidPassword} from "../Utilities";
 import {EmailAndPass} from "./EmailAndPass";
 import {AuthRegister} from "./AuthRegister";
 
 
-export default function LogIn(email,password,setEmail,setPass,handleRegistring,setIsLogIn,setUser){
-
-
-    const handleLoggin = async e => {
-        e.preventDefault();
-        if(ValidEmail(email) && ValidPassword(password)){
-            const userInfo = { email, password };
-            // send the username and password to the server
-            try {
-                const response = await axios.post(
-                    "http://localhost:4000/login",
-                    userInfo
-                );
-                console.log(response);
-                setUser(
-                    response.data.data.id,
-                    response.data.data.username,
-                    response.data.data.password
-                )
-                alert(response.data.message)
-                setIsLogIn(false);
-            }catch(error){
-                alert(error.response.data.error);
-            }
-        }
-
-        else{
-            // nothin~
-
-        }
-
-    }
+export default async function LogIn(email, password, setEmail, setPass, handleRegistring, setIsLogIn, setUser, setCurrentScreen, {HandleLogging}) {
 
 
 
@@ -77,12 +46,12 @@ export default function LogIn(email,password,setEmail,setPass,handleRegistring,s
                                             <EmailAndPass email={email} password={password} setEmail={setEmail} setPass={setPass} />
 
                                             <div className="pt-1 mb-4">
-                                                <Button style={{marginTop: '15px'}} variant="dark" size="lg" onClick={handleLoggin}>
+                                                <Button style={{marginTop: '15px'}} variant="dark" size="lg" onClick={HandleLogging}>
                                                     Login
                                                 </Button>
                                             </div>
 
-                                            <AuthRegister setIsLogIn={setIsLogIn}/>
+                                            <AuthRegister setIsLogIn={setIsLogIn} setUser={setUser}/>
                                             <p className="mb-5 pb-lg-2" style={{color: 'rgba(52, 52, 52, 0.8)'}}>
                                                 Don't have an account? <a id={'signUp_link'} onClick={handleRegistring}>
                                                 Register here

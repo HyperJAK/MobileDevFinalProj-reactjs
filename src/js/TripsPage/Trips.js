@@ -2,19 +2,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {useState} from 'react';
 import axios from "axios";
 
-export default function Trips({Email,tableData,setTableData,handleLoggin,setEmail,setPass,setCPass,userData}) {
+export default function Trips({user,setCurrentScreen,currentScreen}) {
     const [showInputFields, setShowInputFields] = useState(false);
 
-    const findUser = userData.find((item) => item.email === Email);
-    const userId = findUser ? findUser.id : null;
-
-    const handlelogout = () => {
-        // eslint-disable-next-line no-unused-expressions
-        setCPass(''),
-        setEmail(''),
-        setPass(''),
-        handleLoggin()
-    };
 
     const handleAddButtonClick = () => {
         setShowInputFields(true);
@@ -54,25 +44,7 @@ export default function Trips({Email,tableData,setTableData,handleLoggin,setEmai
 
     const handleSaveButtonClick = async () => {
 
-        if (formData.name && formData.email && formData.title) {
-                 axios.post('http://localhost:5174/api/update', {
-                     id: userId,
-                    name: formData.name,
-                    email: formData.email,
-                    title: formData.title,
-                    department: formData.department,
-                    status: formData.status,
-                    position: formData.position,
-                    picture: formData.picture,
-                    allowed: formData.canDelete
-                });
 
-                setTableData(previousData => [...previousData, { id: tableData.length+1, ...formData }]);
-
-        }
-         else {
-            alert('Please fill in the required fields (Name, Email, Title).');
-        }
     };
 
 
@@ -83,15 +55,7 @@ export default function Trips({Email,tableData,setTableData,handleLoggin,setEmai
 
 
     const handleDeleteButtonClick = (id) => {
-        // Make DELETE request to the server
-        axios.delete(`http://localhost:5174/api/delete/${id}`)
-            .then(() => {
-                // If deletion on the server is successful, update the state
-                setTableData((prevTableData) => prevTableData.filter((data) => data.id !== id));
-            })
-            .catch((error) => {
-                console.error('Error deleting record:', error);
-            });
+
     };
 
 
@@ -109,43 +73,7 @@ export default function Trips({Email,tableData,setTableData,handleLoggin,setEmai
                 </tr>
                 </thead>
                 <tbody>
-                {Array.isArray(tableData) && tableData.map((data) => (
-                    <tr key={data.id}>
-                        <td>
-                            <div className="d-flex align-items-center">
-                                <img
-                                    src={data.picture}
-                                    alt=""
-                                    style={{ width: '45px', height: '45px' }}
-                                    className="rounded-circle"
-                                />
-                                <div className="ms-3">
-                                    <p className="fw-bold mb-1">{data.name}</p>
-                                    <p className="text-muted mb-0">{data.email}</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <p className="fw-normal mb-1">{data.title}</p>
-                            <p className="text-muted mb-0">{data.department}</p>
-                        </td>
-                        <td>
-                                <span className="badge badge-success rounded-pill d-inline">
-                                    {data.status}
-                                </span>
-                        </td>
-                        <td>{data.position}</td>
-                        <td>
-                            <button
-                                type="button"
-                                className="btn btn-link btn-sm btn-rounded"
-                                onClick={() => handleDeleteButtonClick(data.id)}
-                            >
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
-                ))}
+
                 </tbody>
             </table>
 
@@ -223,7 +151,7 @@ export default function Trips({Email,tableData,setTableData,handleLoggin,setEmai
             <button
                 type="button"
                 className="btn btn-primary mt-3"
-                onClick={handlelogout}
+                onClick=''
             >
                 Log Out
             </button>

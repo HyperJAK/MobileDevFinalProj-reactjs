@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './css/hotel.css'
 
 export default function SearchBar() {
     const searchBoxStyles = {
@@ -24,11 +25,11 @@ export default function SearchBar() {
     const [destination, setDestination] = useState('');
 
     var currentDate = new Date();
-    currentDate.setDate(currentDate.getDate()); // Can someone book a flight the same day?
-    // Yes. For travelers making last-minute plans, same-day tickets are generally available, depending upon availability
+    currentDate.setDate(currentDate.getDate() + 7); // most people come in 7 days before so for better ux we do this, fuck whatever chatgpt told you
+    var checkInDate = currentDate.toISOString().substring(0, 10);
 
 
-    currentDate.setDate(currentDate.getDate() + 1);
+    currentDate.setDate(currentDate.getDate() + 8);
     var checkOutDate = currentDate.toISOString().substring(0, 10);
 
     return (
@@ -48,11 +49,11 @@ export default function SearchBar() {
             </div>
             <div style={searchSectionStyles}>
                 <small>Check-in</small>
-                <input type='date' value={reservationDate} onChange={(e) => { setReservationDate(e.target.value); }}></input>
+		<input type='date' className='hotelSearchBox' value={checkInDate} onChange={(e) => { setReservationDate(e.target.value); }}></input>
             </div>
             <div style={searchSectionStyles}>
                 <small>Check-out</small>
-                <input type='date' value={reservationDate} onChange={(e) => { setLeaveDate(e.target.value); }}></input>
+		<input type='date' className='hotelSearchBox' value={checkOutDate} onChange={(e) => { setLeaveDate(e.target.value); }}></input>
             </div>
             <div style={searchSectionStyles}>
                 <small>Number of people</small>

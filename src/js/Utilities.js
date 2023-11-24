@@ -1,4 +1,5 @@
 import {AES, enc} from "crypto-js";
+import axios from "axios";
 
 export function ValidAlphaInput(input){
     const inputRegex = /^[a-zA-Z]+$/;
@@ -67,4 +68,56 @@ export function ValidEmail(email){
     const isValid = emailRegex.test(email);
 
     return isValid;
+}
+
+
+export async function SignInFunc(userInfo, setUser){
+
+    console.log(userInfo.encryptedPass)
+    try {
+        const response = await axios.post(
+            "http://localhost:4000/login",
+            userInfo
+        );
+
+        const dbMail = response.data.data.email;
+        const decryptedDbPass =  DecryptPassword(response.data.data.password);
+        const decryptedLocalPass = DecryptPassword(userInfo.encryptedPass);
+
+        if((decryptedDbPass === decryptedLocalPass) && (dbMail === userInfo.email)){
+            setUser(
+                response.data.data.id,
+                response.data.data.username,
+                response.data.data.password
+            )
+
+            alert(response.data.message)
+        }
+
+
+    }catch(error){
+        alert(error.response.data.error);
+    }
+
+}
+
+
+export async function SignUpFunc(userInfo, setUser) {
+
+    try {
+        const response = await axios.post(
+            "http://localhost:4000/signup",
+            userInfo
+        );
+        //console.log(response.data.message)
+        setUser(
+            response.data.data.email,
+            response.data.data.password
+        )
+        alert(response.data.message)
+
+    } catch (error) {
+        //alert(error.response.data.error);
+        alert(error)
+    }
 }
