@@ -11,6 +11,7 @@ import Home from "./HomePage/Home";
 import Hotel from './HotelPage/Hotel.js';
 import Flight from "./FlightPage/Flight";
 import styled from "styled-components";
+import {Credits} from "./Credits/Credits";
 
 
 
@@ -99,6 +100,7 @@ export default function App() {
           <Home />
           <Hotel />
           <Flight />
+          <Credits />
 
         </>
     );
