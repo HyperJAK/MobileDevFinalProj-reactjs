@@ -65,7 +65,7 @@ const Navi = ({setIsLogIn,setCurrentScreen, currentScreen})=> {
                     <NaviItems setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
                 </Nav>
                 <Nav>
-                    <LogOut setIsLogIn={setIsLogIn}/>
+                    <LogOut setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen}/>
                 </Nav>
             </Container>
         </Navbar>
@@ -80,7 +80,7 @@ const NaviItems = ({handleNavButtonSelect,setCurrentScreen, currentScreen})=> {
                 <Nav.Link eventKey="link-1" onClick={()=>{
                         setCurrentScreen('flight')
                         var serializedString = JSON.stringify({
-                            lastScreen: currentScreen,
+                            lastScreen: 'flight',
                           });
                         localStorage.setItem('currentScreen', serializedString);
                     }} >Flights</Nav.Link>
@@ -89,13 +89,19 @@ const NaviItems = ({handleNavButtonSelect,setCurrentScreen, currentScreen})=> {
                 <Nav.Link eventKey="link-1" onClick={()=>{
                         setCurrentScreen('hotel')
                         var serializedString = JSON.stringify({
-                            lastScreen: currentScreen,
+                            lastScreen: 'hotel',
                           });
                         localStorage.setItem('currentScreen', serializedString);
                     }} >Hotels</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link eventKey="link-1">
+                <Nav.Link eventKey="link-1" onClick={() => {
+                    setCurrentScreen('trip')
+                    var serializedString = JSON.stringify({
+                    lastScreen: 'trip',
+                });
+                    localStorage.setItem('currentScreen', serializedString);
+                }}>
                     Trips
                 </Nav.Link>
             </Nav.Item>
@@ -107,7 +113,7 @@ const NaviItems = ({handleNavButtonSelect,setCurrentScreen, currentScreen})=> {
 
 
 
-export const Navigation = ({setIsLogIn,setCurrentScreen, currentScreen})=>{
+export const Navigation = ({setIsLogIn,setCurrentScreen,currentScreen})=>{
 
 
 /*    const GlobeSvg = () =>{
