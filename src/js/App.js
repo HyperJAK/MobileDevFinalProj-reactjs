@@ -12,6 +12,7 @@ import Hotel from './HotelPage/Hotel.js';
 import Flight from "./FlightPage/Flight";
 import styled from "styled-components";
 import {Credits} from "./Credits/Credits";
+import {EncryptPassword, SignInFunc, ValidEmail, ValidPassword} from "./Utilities";
 
 
 
@@ -27,7 +28,7 @@ export default function App() {
   const [tableData, setTableData] = useState([]);
   const [usersData, setUsersData] = useState([]);
   const [user, setUser] = useState([{id:null, email:null, password:null}]);
- const [currentScreen, setCurrentScreen] = ('home')
+ const [currentScreen, setCurrentScreen] = useState('home');
 
 
 
@@ -58,28 +59,30 @@ export default function App() {
   //}, [isLogIn,isRegistering] );
 
   const handleLoggin = async e => {
-    if(e!=null) e.preventDefault();
+    if(e!=null){
+        e.preventDefault();
+    }
     if(ValidEmail(email) && ValidPassword(password)){
         const userInfo = { email, password };
         // send the username and password to the server
         try {
-            const response = await axios.post(
-                "http://localhost:4000/login",
-                userInfo
-            );
-            console.log(response);
+            const encryptedPass = await EncryptPassword(password);
+            const userInfo = {email, encryptedPass};
 
-            setUser(
-                response.data.data.id,
-                response.data.data.username,
-                response.data.data.password
-            )
-            alert(response.data.message)
+
+            try {
+                await SignInFunc(userInfo, setUser);
+                setIsLogIn(false);
+            } catch (error) {
+                alert(error.response.data.error);
+            }
+
+
             setCurrentScreen('home')
             // save the user email and password to local storage and on useeffect use the data to log him back in
             var serializedObject = JSON.stringify({
-                email: response.data.data.email,
-                password: response.data.data.password,
+                email: userInfo.email,
+                password: encryptedPass,
               });
             var serializedString = JSON.stringify({
                 currentScreen: 'home'
@@ -119,10 +122,10 @@ export default function App() {
       // The item doesn't exist or has already been removed
       console.log('Item not found in localStorage.');
     }
-  }, [])
+  }, [isLogIn])
 
   const handleOnIdle = () => {
-    if (currentScreen!='login'||currentScreen!='register') {
+    if (currentScreen!='login'||currentScreen!='signup') {
       setShowSessionExpiredModal(true);
       setCurrentScreen('login')
     }
@@ -155,11 +158,11 @@ export default function App() {
   console.log(isRegistering)
 
 
-  if (currentScreen=='login') {
+  if (currentScreen==='login') {
     return (LogIn(email, password, setEmail, setPass, handleRegistring, setIsLogIn, setUser, setCurrentScreen, handleLoggin));
-  } else if (currentScreen=='registering') {
+  } else if (currentScreen==='signup') {
     return (SignUp(email, password, CPassword, setEmail, setPass, setCPass, handleRegistring, setIsLogIn, setUser, setCurrentScreen))
-  } else if (currentScreen=='home') {
+  } else if (currentScreen==='home') {
     return (<>
 
         <Navigation setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen}/>
@@ -170,20 +173,29 @@ export default function App() {
 
         </>
     );
-  } else if (currentScreen=='hotel') {
+  } else if (currentScreen==='hotel') {
     return (
       <>
           <Navigation setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
-        <Hotel />
+        <Hotel setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
       </>
     )
-  } else if (currentScreen=='flight') {
+  } else if (currentScreen==='flight') {
     return (
       <>
         <Navigation setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
-        <Flight />
+        <Flight setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
       </>
     )
+  }
+
+  else if (currentScreen==='trip') {
+      return (
+          <>
+              <Navigation setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
+              <Trips setCurrentScreen={setCurrentScreen} currentScreen={currentScreen} user={user}/>
+          </>
+      )
   }
 }
 

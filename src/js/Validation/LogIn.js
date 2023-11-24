@@ -9,29 +9,7 @@ import {EmailAndPass} from "./EmailAndPass";
 import {AuthRegister} from "./AuthRegister";
 
 
-export default function LogIn(email,password,setEmail,setPass,handleRegistring,setIsLogIn,setUser,setCurrentScreen, handleLoggin){
-
-
-const encryptedPass = await EncryptPassword(password);
-            const userInfo = { email, encryptedPass };
-
-// send the username and password to the server
-
-            try{
-                await SignInFunc(userInfo, setUser);
-                setIsLogIn(false);
-            }catch(error){
-                alert(error.response.data.error);
-            }
-        }
-
-        else{
-            // nothin~
-
-        }
-
-    }
-
+export default async function LogIn(email, password, setEmail, setPass, handleRegistring, setIsLogIn, setUser, setCurrentScreen, {HandleLogging}) {
 
 
 
@@ -68,7 +46,7 @@ const encryptedPass = await EncryptPassword(password);
                                             <EmailAndPass email={email} password={password} setEmail={setEmail} setPass={setPass} />
 
                                             <div className="pt-1 mb-4">
-                                                <Button style={{marginTop: '15px'}} variant="dark" size="lg" onClick={handleLoggin}>
+                                                <Button style={{marginTop: '15px'}} variant="dark" size="lg" onClick={HandleLogging}>
                                                     Login
                                                 </Button>
                                             </div>

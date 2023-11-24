@@ -5,7 +5,7 @@ import {useAuth0} from "@auth0/auth0-react";
 
 
 
-export const LogOut = ({setIsLogIn}) => {
+export const LogOut = ({setIsLogIn,setCurrentScreen}) => {
 
     const [isHovered, setIsHovered] = useState(false);
 
@@ -31,9 +31,10 @@ export const LogOut = ({setIsLogIn}) => {
                 size="lg"
                 onClick={() => {
                     logout({
-                        logoutParams: {returnTo: window.location.origin}}).then(r => {setIsLogIn(false);
-                        localStorage.clear('userInfo')
-                        localStorage.clear('currentScreen')
+                        logoutParams: {returnTo: window.location.origin}}).then(() => {setIsLogIn(false);
+                        localStorage.clear('userInfo');
+                        localStorage.clear('currentScreen');
+                        setCurrentScreen('login');
                     })
                  }}
                 onMouseEnter={() => setIsHovered(true)}

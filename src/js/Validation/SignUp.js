@@ -22,7 +22,7 @@ export default function SignUp(email, password, cPassword, setEmail, setPass, se
                     setCurrentScreen('home')
             }catch(error){
                 //alert(error.response.data.error);
-alert(error.response.data.error)
+                alert(error.response.data.error)
             }
 
 
