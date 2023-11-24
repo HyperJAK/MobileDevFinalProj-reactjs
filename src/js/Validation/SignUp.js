@@ -8,7 +8,7 @@ import {EmailAndPass} from "./EmailAndPass";
 import {AuthRegister} from "./AuthRegister";
 
 
-export default function SignUp(email, password, cPassword, setEmail, setPass, setCPass, handleRegistring, setIsLogIn, setUser){
+export default function SignUp(email, password, cPassword, setEmail, setPass, setCPass, handleRegistring, setIsLogIn, setUser, setCurrentScreen){
 
     const handleSignup = async e => {
 
@@ -19,8 +19,10 @@ export default function SignUp(email, password, cPassword, setEmail, setPass, se
 
             try{
                 await SignUpFunc(userInfo, setUser);
+                    setCurrentScreen('home')
             }catch(error){
-                alert(error.response.data.error);
+                //alert(error.response.data.error);
+alert(error.response.data.error)
             }
 
 

@@ -9,15 +9,13 @@ import {EmailAndPass} from "./EmailAndPass";
 import {AuthRegister} from "./AuthRegister";
 
 
-export default function LogIn(email,password,setEmail,setPass,handleRegistring,setIsLogIn,setUser){
+export default function LogIn(email,password,setEmail,setPass,handleRegistring,setIsLogIn,setUser,setCurrentScreen, handleLoggin){
 
 
-    const handleLoggin = async e => {
-        e.preventDefault();
-        if(ValidEmail(email) && ValidPassword(password)){
-            const encryptedPass = await EncryptPassword(password);
+const encryptedPass = await EncryptPassword(password);
             const userInfo = { email, encryptedPass };
-            // send the username and password to the server
+
+// send the username and password to the server
 
             try{
                 await SignInFunc(userInfo, setUser);
@@ -33,6 +31,7 @@ export default function LogIn(email,password,setEmail,setPass,handleRegistring,s
         }
 
     }
+
 
 
 

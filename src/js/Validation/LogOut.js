@@ -30,7 +30,11 @@ export const LogOut = ({setIsLogIn}) => {
                 style={button_style}
                 size="lg"
                 onClick={() => {
-                    logout({logoutParams: {returnTo: window.location.origin}}).then(r => {setIsLogIn(false);})
+                    logout({
+                        logoutParams: {returnTo: window.location.origin}}).then(r => {setIsLogIn(false);
+                        localStorage.clear('userInfo')
+                        localStorage.clear('currentScreen')
+                    })
                  }}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}

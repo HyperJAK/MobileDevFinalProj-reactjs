@@ -48,15 +48,21 @@ padding: '20px',
 
 }
 
-const Navi = ({setIsLogIn})=> {
+const Navi = ({setIsLogIn,setCurrentScreen, currentScreen})=> {
 
     return (
         <>
         <Navbar bg="primary" data-bs-theme="dark">
             <Container style={FullNav_style}>
-                <Navbar.Brand style={{fontSize:'32px'}} href="#home">Go Trip</Navbar.Brand>
+                <Navbar.Brand style={{fontSize:'32px'}} href="#home" onClick={()=>{
+                        setCurrentScreen('home');
+                        var serializedString = JSON.stringify({
+                            currentScreen: currentScreen
+                        });
+                        localStorage.setItem('currentScreen', serializedString);
+                    }}>Go Trip</Navbar.Brand> {/* href? bro kella 1 single page l web kello lol */}
                 <Nav className="me-auto">
-                    <NaviItems />
+                    <NaviItems setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
                 </Nav>
                 <Nav>
                     <LogOut setIsLogIn={setIsLogIn}/>
@@ -67,14 +73,26 @@ const Navi = ({setIsLogIn})=> {
     );
 }
 
-const NaviItems = ({handleNavButtonSelect})=> {
+const NaviItems = ({handleNavButtonSelect,setCurrentScreen, currentScreen})=> {
     return (
         <Nav variant="tabs" onSelect={handleNavButtonSelect} defaultActiveKey="/home">
             <Nav.Item>
-                <Nav.Link eventKey="link-1">Flights</Nav.Link>
+                <Nav.Link eventKey="link-1" onClick={()=>{
+                        setCurrentScreen('flight')
+                        var serializedString = JSON.stringify({
+                            lastScreen: currentScreen,
+                          });
+                        localStorage.setItem('currentScreen', serializedString);
+                    }} >Flights</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link eventKey="link-1">Hotels</Nav.Link>
+                <Nav.Link eventKey="link-1" onClick={()=>{
+                        setCurrentScreen('hotel')
+                        var serializedString = JSON.stringify({
+                            lastScreen: currentScreen,
+                          });
+                        localStorage.setItem('currentScreen', serializedString);
+                    }} >Hotels</Nav.Link>
             </Nav.Item>
             <Nav.Item>
                 <Nav.Link eventKey="link-1">
@@ -89,7 +107,7 @@ const NaviItems = ({handleNavButtonSelect})=> {
 
 
 
-export const Navigation = ({setIsLogIn})=>{
+export const Navigation = ({setIsLogIn,setCurrentScreen, currentScreen})=>{
 
 
 /*    const GlobeSvg = () =>{
@@ -141,7 +159,7 @@ export const Navigation = ({setIsLogIn})=>{
 
 
     return(
-          <Navi setIsLogIn={setIsLogIn}/>
+          <Navi setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
     );
 
 }
