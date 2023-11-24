@@ -4,43 +4,14 @@ import authImg from '../../assets/auth.png'
 import './css/Accounts.css';
 import { Form } from 'react-bootstrap';
 import axios from "axios";
-import {ValidAlphaInput, ValidEmail, ValidPassword} from "../Utilities";
 import {EmailAndPass} from "./EmailAndPass";
 import {AuthRegister} from "./AuthRegister";
 
 
-export default function LogIn(email,password,setEmail,setPass,handleRegistring,setIsLogIn,setUser){
+export default function LogIn(email,password,setEmail,setPass,handleRegistring,setIsLogIn,setUser,setCurrentScreen, handleLoggin){
 
 
-    const handleLoggin = async e => {
-        e.preventDefault();
-        if(ValidEmail(email) && ValidPassword(password)){
-            const userInfo = { email, password };
-            // send the username and password to the server
-            try {
-                const response = await axios.post(
-                    "http://localhost:4000/login",
-                    userInfo
-                );
-                console.log(response);
-                setUser(
-                    response.data.data.id,
-                    response.data.data.username,
-                    response.data.data.password
-                )
-                alert(response.data.message)
-                setIsLogIn(false);
-            }catch(error){
-                alert(error.response.data.error);
-            }
-        }
 
-        else{
-            // nothin~
-
-        }
-
-    }
 
 
 
