@@ -1,0 +1,19 @@
+.main_container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    background-color:antiquewhite;
+}
+.imgContainer{
+    border:1px solid black;
+    border-radius: 150%;
+}
+.profile_img{
+    width: 250px;
+    height:250px;
+}
+table tr td{
+    border: 1px solid rgb(43, 42, 42);
+}

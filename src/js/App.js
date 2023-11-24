@@ -13,6 +13,7 @@ import Flight from "./FlightPage/Flight";
 import styled from "styled-components";
 import {Credits} from "./Credits/Credits";
 import {EncryptPassword, SignInFunc, ValidEmail, ValidPassword} from "./Utilities";
+import {UserSettings} from "./Profile/UserSettings";
 
 
 
@@ -27,7 +28,7 @@ export default function App() {
   const [showSessionExpiredModal, setShowSessionExpiredModal] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [usersData, setUsersData] = useState([]);
-  const [user, setUser] = useState([{id:null, email:null, password:null}]);
+  const [user, setUser] = useState([{id:null, username: null, email:null, password:null}]);
  const [currentScreen, setCurrentScreen] = useState('home');
 
 
@@ -167,8 +168,6 @@ export default function App() {
 
         <Navigation setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen}/>
           <Home />
-          <Hotel />
-          <Flight />
           <Credits />
 
         </>
@@ -178,6 +177,7 @@ export default function App() {
       <>
           <Navigation setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
         <Hotel setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
+          <Credits />
       </>
     )
   } else if (currentScreen==='flight') {
@@ -185,6 +185,7 @@ export default function App() {
       <>
         <Navigation setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
         <Flight setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
+          <Credits />
       </>
     )
   }
@@ -194,6 +195,8 @@ export default function App() {
           <>
               <Navigation setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
               <Trips setCurrentScreen={setCurrentScreen} currentScreen={currentScreen} user={user}/>
+              <UserSettings user={user} setUser={setUser}/>
+              <Credits />
           </>
       )
   }
