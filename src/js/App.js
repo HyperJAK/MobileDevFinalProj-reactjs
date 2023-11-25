@@ -4,7 +4,7 @@ import {LogIn} from "./Validation/LogIn.js";
 import {SignUp} from "./Validation/SignUp.js";
 import {useIdleTimer} from "react-idle-timer"
 import axios from "axios";
-import Trips from "./TripsPage/Trips";
+import {Trips} from "./TripsPage/Trips";
 import {Alert} from "./HomePage/AlertFunction";
 import {Navigation} from "./Nav/Navigation";
 import Home from "./HomePage/Home";
@@ -26,10 +26,12 @@ export default function App() {
   const [cPassword, setCPass] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
   const [showSessionExpiredModal, setShowSessionExpiredModal] = useState(false);
-  const [tableData, setTableData] = useState([]);
-  const [usersData, setUsersData] = useState([]);
   const [user, setUser] = useState([{id:null, username: null, email:null, password:null}]);
- const [currentScreen, setCurrentScreen] = useState('login');
+  const [currentScreen, setCurrentScreen] = useState('login');
+
+  const [hotelsData, setHotelsData] = useState([]);
+  const [flightsData, setFlightsData] = useState([]);
+  const [tripsData, setTripsData] = useState([]);
 
 
 
@@ -206,7 +208,7 @@ export default function App() {
       return (
           <>
               <Navigation user={user} setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
-              <Trips setCurrentScreen={setCurrentScreen} currentScreen={currentScreen} user={user}/>
+              <Trips props={{currentScreen,setCurrentScreen,user,tripsData,setTripsData}}/>
               <UserSettings user={user} setUser={setUser}/>
               <Credits />
           </>
