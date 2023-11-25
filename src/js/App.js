@@ -167,11 +167,11 @@ export default function App() {
 
 
 
-  if (isLogIn) {
+  if (currentScreen === 'login') {
     return (
         <LogIn props={{email,password,setEmail,setPass,handleRegistring,setIsLogIn,setUser,setCurrentScreen,handleLoggin}}/>
     )
-  } else if (isRegistering) {
+  } else if (currentScreen === 'signup') {
     return (
         <SignUp props={{email,password,cPassword,setEmail,setPass,setCPass,handleRegistring,setIsLogIn,setUser,setCurrentScreen}}/>
     )

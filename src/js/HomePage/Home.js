@@ -13,7 +13,9 @@ const FullNav_style = {
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'nowrap',
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-evenly',
+    maxWidth: '3000px',
+    margin: '0 auto'
 }
 
 
