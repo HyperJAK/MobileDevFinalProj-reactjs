@@ -5,6 +5,8 @@ import HomeBody1 from "./HomeBody1";
 import HomeBody2 from "./HomeBody2";
 import {QuickPlanDiv} from "./QuickPlanDiv";
 import {useState} from "react";
+import Spline from '@splinetool/react-spline';
+import {OverDesignText} from "./OverDesignText";
 
 
 const FullNav_style = {
@@ -15,11 +17,12 @@ const FullNav_style = {
 }
 
 
-
 export default function Home(){
 
  return(
      <div style={FullNav_style}>
+         <Spline scene="https://prod.spline.design/kxsypMIN3S8rP06j/scene.splinecode" />
+         <OverDesignText />
 
             <QuickPlanDiv />
              <HomeBody1 />

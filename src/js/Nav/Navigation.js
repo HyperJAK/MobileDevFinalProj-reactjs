@@ -4,6 +4,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Image from 'react-bootstrap/Image';
 import {LogOut} from "../Validation/LogOut";
+import {MenuDropdown} from "./MenuDropdown";
+import {useState} from "react";
 
 
 
@@ -45,10 +47,10 @@ const BottomNavButtons_style = {
     width: '100px',
 padding: '20px',
     borderRadius: '10px'
-
 }
 
 const Navi = ({setIsLogIn,setCurrentScreen, currentScreen})=> {
+
 
     return (
         <>
@@ -65,7 +67,9 @@ const Navi = ({setIsLogIn,setCurrentScreen, currentScreen})=> {
                     <NaviItems setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
                 </Nav>
                 <Nav>
-                    <LogOut setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen}/>
+
+                    <MenuDropdown setCurrentScreen={setCurrentScreen} setIsLogIn={setIsLogIn}/>
+
                 </Nav>
             </Container>
         </Navbar>
@@ -113,7 +117,7 @@ const NaviItems = ({handleNavButtonSelect,setCurrentScreen, currentScreen})=> {
 
 
 
-export const Navigation = ({setIsLogIn,setCurrentScreen,currentScreen})=>{
+export const Navigation = ({setIsLogIn,setCurrentScreen,currentScreen,user})=>{
 
 
 /*    const GlobeSvg = () =>{
@@ -165,7 +169,7 @@ export const Navigation = ({setIsLogIn,setCurrentScreen,currentScreen})=>{
 
 
     return(
-          <Navi setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
+          <Navi setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen} user={user}/>
     );
 
 }

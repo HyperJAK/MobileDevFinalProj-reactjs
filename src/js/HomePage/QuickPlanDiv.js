@@ -58,6 +58,7 @@ export const QuickPlanDiv = () =>{
         backgroundImage: 'url(https://i.ibb.co/RSCv84h/wallpaperflare-com-wallpaper.jpg)',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
+        opacity: '0.93'
     }
 
     const childDiv_style = {
@@ -65,7 +66,7 @@ export const QuickPlanDiv = () =>{
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        gap: '1px'
+        gap: '1px',
     }
 
 
