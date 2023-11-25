@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import LogIn from "./Validation/LogIn.js";
-import SignUp from "./Validation/SignUp.js";
+import {LogIn} from "./Validation/LogIn.js";
+import {SignUp} from "./Validation/SignUp.js";
 import {useIdleTimer} from "react-idle-timer"
 import axios from "axios";
 import Trips from "./TripsPage/Trips";
@@ -23,13 +23,13 @@ export default function App() {
   const [isLogIn, setIsLogIn] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPass] = useState("");
-  const [CPassword, setCPass] = useState("");
+  const [cPassword, setCPass] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
   const [showSessionExpiredModal, setShowSessionExpiredModal] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [usersData, setUsersData] = useState([]);
   const [user, setUser] = useState([{id:null, username: null, email:null, password:null}]);
- const [currentScreen, setCurrentScreen] = useState('home');
+ const [currentScreen, setCurrentScreen] = useState('login');
 
 
 
@@ -56,43 +56,41 @@ export default function App() {
 
   //console.log(usersData);
 
-
   //}, [isLogIn,isRegistering] );
 
   const handleLoggin = async e => {
     if(e!=null){
         e.preventDefault();
     }
+    console.log(email);
+      console.log(password);
+
+
     if(ValidEmail(email) && ValidPassword(password)){
-        const userInfo = { email, password };
-        // send the username and password to the server
+
         try {
+
             const encryptedPass = await EncryptPassword(password);
             const userInfo = {email, encryptedPass};
 
-
-            try {
-                await SignInFunc(userInfo, setUser);
-                setIsLogIn(false);
-            } catch (error) {
-                alert(error.response.data.error);
-            }
+            await SignInFunc(userInfo, setUser);
 
 
-            setCurrentScreen('home')
             // save the user email and password to local storage and on useeffect use the data to log him back in
             var serializedObject = JSON.stringify({
                 email: userInfo.email,
                 password: encryptedPass,
-              });
+            });
             var serializedString = JSON.stringify({
                 currentScreen: 'home'
             });
-              // Store the user in local storage
-              localStorage.setItem('userInfo', serializedObject);
-              localStorage.setItem('currentScreen', serializedString)
+            // Store the user in local storage
+            localStorage.setItem('userInfo', serializedObject);
+            localStorage.setItem('currentScreen', serializedString)
+
+            setCurrentScreen('home')
             setIsLogIn(false);
-        }catch(error){
+        } catch (error) {
             alert(error.response.data.error);
         }
     }
@@ -112,8 +110,12 @@ export default function App() {
     if (userLocalStorage !== null && currentScreenLocalStorage !== null) {
       // The item exists, so you can proceed to remove it
 
-      setEmail(JSON.parse(localStorage.getItem('userInfo')).email)
-      setPass(JSON.parse(localStorage.getItem('userInfo')).password)
+        const localStorageEmail = JSON.parse(localStorage.getItem('userInfo')).email;
+        const localStoragePass = JSON.parse(localStorage.getItem('userInfo')).password;
+
+      setEmail(localStorageEmail)
+      setPass(localStoragePass)
+        setUser([{id:null, username: null, email:localStorageEmail, password:localStoragePass}])
 
       //handleLoggin()
 
@@ -132,8 +134,10 @@ export default function App() {
     }
   };
 
+  console.log(currentScreen)
+
   const {reset} = useIdleTimer({
-    timeout: 60000,
+    timeout: 600000,
     onIdle: handleOnIdle,
   });
 
@@ -148,6 +152,8 @@ export default function App() {
 
   function handleRegistring() {
     setIsRegistering(!isRegistering);
+    setIsLogIn(!isLogIn);
+
   }
 
   const handleCloseSessionExpiredModal = () => {
@@ -159,14 +165,20 @@ export default function App() {
   console.log(isRegistering)
 
 
-  if (currentScreen==='login') {
-    return (LogIn(email, password, setEmail, setPass, handleRegistring, setIsLogIn, setUser, setCurrentScreen, handleLoggin));
-  } else if (currentScreen==='signup') {
-    return (SignUp(email, password, CPassword, setEmail, setPass, setCPass, handleRegistring, setIsLogIn, setUser, setCurrentScreen))
+
+
+  if (isLogIn) {
+    return (
+        <LogIn props={{email,password,setEmail,setPass,handleRegistring,setIsLogIn,setUser,setCurrentScreen,handleLoggin}}/>
+    )
+  } else if (isRegistering) {
+    return (
+        <SignUp props={{email,password,cPassword,setEmail,setPass,setCPass,handleRegistring,setIsLogIn,setUser,setCurrentScreen}}/>
+    )
   } else if (currentScreen==='home') {
     return (<>
 
-        <Navigation setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen}/>
+        <Navigation user={user} setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
           <Home />
           <Credits />
 
@@ -175,7 +187,7 @@ export default function App() {
   } else if (currentScreen==='hotel') {
     return (
       <>
-          <Navigation setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
+          <Navigation user={user} setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
         <Hotel setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
           <Credits />
       </>
@@ -183,7 +195,7 @@ export default function App() {
   } else if (currentScreen==='flight') {
     return (
       <>
-        <Navigation setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
+        <Navigation user={user} setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
         <Flight setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
           <Credits />
       </>
@@ -193,7 +205,7 @@ export default function App() {
   else if (currentScreen==='trip') {
       return (
           <>
-              <Navigation setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
+              <Navigation user={user} setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
               <Trips setCurrentScreen={setCurrentScreen} currentScreen={currentScreen} user={user}/>
               <UserSettings user={user} setUser={setUser}/>
               <Credits />

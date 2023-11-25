@@ -9,8 +9,20 @@ import {EmailAndPass} from "./EmailAndPass";
 import {AuthRegister} from "./AuthRegister";
 
 
-export default async function LogIn(email, password, setEmail, setPass, handleRegistring, setIsLogIn, setUser, setCurrentScreen, {HandleLogging}) {
+export const LogIn = ({props}) =>{
 
+    const {
+        email,
+        password,
+        setEmail,
+        setPass,
+        handleRegistring,
+        setIsLogIn,
+        setUser,
+        setCurrentScreen,
+        handleLoggin,
+
+    } = props;
 
 
     return(
@@ -46,12 +58,12 @@ export default async function LogIn(email, password, setEmail, setPass, handleRe
                                             <EmailAndPass email={email} password={password} setEmail={setEmail} setPass={setPass} />
 
                                             <div className="pt-1 mb-4">
-                                                <Button style={{marginTop: '15px'}} variant="dark" size="lg" onClick={HandleLogging}>
+                                                <Button style={{marginTop: '15px'}} variant="dark" size="lg" onClick={handleLoggin}>
                                                     Login
                                                 </Button>
                                             </div>
 
-                                            <AuthRegister setIsLogIn={setIsLogIn} setUser={setUser}/>
+                                            <AuthRegister setIsLogIn={setIsLogIn} setUser={setUser} setCurrentScreen={setCurrentScreen}/>
                                             <p className="mb-5 pb-lg-2" style={{color: 'rgba(52, 52, 52, 0.8)'}}>
                                                 Don't have an account? <a id={'signUp_link'} onClick={handleRegistring}>
                                                 Register here

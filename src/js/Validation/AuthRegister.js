@@ -5,7 +5,7 @@ import { AES, enc } from "crypto-js";
 import {EncryptPassword, SignInFunc, SignUpFunc, ValidEmail, ValidPassword} from "../Utilities";
 import axios from "axios";
 
-export const AuthRegister = ({setIsLogIn, setUser}) =>{
+export const AuthRegister = ({setIsLogIn, setUser, setCurrentScreen}) =>{
     const [isHovered, setIsHovered] = useState(false);
     const [decryptedText, setDecryptedText] = useState(null);
 
@@ -37,10 +37,12 @@ export const AuthRegister = ({setIsLogIn, setUser}) =>{
             try {
                 await SignInFunc(userInfo, setUser);
                 setIsLogIn(false);
+                setCurrentScreen('home');
 
             }finally {
                 await SignUpFunc(userInfo, setUser);
                 setIsLogIn(false);
+                setCurrentScreen('home');
             }
 
 

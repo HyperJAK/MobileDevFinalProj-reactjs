@@ -8,11 +8,30 @@ import {EmailAndPass} from "./EmailAndPass";
 import {AuthRegister} from "./AuthRegister";
 
 
-export default function SignUp(email, password, cPassword, setEmail, setPass, setCPass, handleRegistring, setIsLogIn, setUser, setCurrentScreen){
+export const SignUp = ({props}) => {
+
+    const {
+        email,
+        password,
+        cPassword,
+        setEmail,
+        setPass,
+        setCPass,
+        handleRegistring,
+        setIsLogIn,
+        setUser,
+        setCurrentScreen,
+
+    } = props;
 
     const handleSignup = async e => {
+        //function to handle setCPass not being updated when calling handleSignUp
+        e.preventDefault();
 
-        if(ValidEmail(email) && ValidPassword(password) && password === cPassword) {
+        console.log(password);
+        console.log(cPassword);
+
+        if((ValidEmail(email) && ValidPassword(password)) && password === cPassword) {
             const encryptedPass = await EncryptPassword(password);
             const userInfo = {email, encryptedPass};
             console.log("Signing up")
@@ -64,9 +83,12 @@ export default function SignUp(email, password, cPassword, setEmail, setPass, se
 
                                                 <EmailAndPass email={email} password={password} setEmail={setEmail} setPass={setPass} />
 
+
                                                 <FloatingLabel controlId="floatingPassword" label="Confirm Password">
                                                     <Form.Control style={{ border: cPassword === password ? '1px solid black' : '1px solid red', marginTop: '20px'}} type="password" placeholder="Confirm Password" value={cPassword} onChange={e => setCPass(e.target.value)} />
                                                 </FloatingLabel>
+
+
 
                                             </div>
                                             <div className="pt-1 mb-4">
@@ -75,7 +97,7 @@ export default function SignUp(email, password, cPassword, setEmail, setPass, se
                                                 </Button>
                                             </div>
 
-                                            <AuthRegister setIsLogIn={setIsLogIn} setUser={setUser}/>
+                                            <AuthRegister setIsLogIn={setIsLogIn} setUser={setUser} setCurrentScreen={setCurrentScreen}/>
 
                                             <p className="mb-5 pb-lg-2" style={{color: 'rgba(52, 52, 52, 0.8)'}}>
                                                 Have an Account? <a  id={'signIn_link'} onClick={handleRegistring}>
