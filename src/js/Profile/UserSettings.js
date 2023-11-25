@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
     MDBCol,
     MDBContainer,
@@ -10,8 +11,6 @@ import {
     MDBBtn,
     MDBBreadcrumb,
     MDBBreadcrumbItem,
-    MDBProgress,
-    MDBProgressBar,
     MDBIcon,
     MDBListGroup,
     MDBListGroupItem
@@ -21,22 +20,19 @@ export const UserSettings = ({user,setUser}) => {
     return (
         <section style={{ backgroundColor: '#eee' }}>
             <MDBContainer className="py-5">
-
-                <MDBRow>
+                <MDBCol style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <MDBCol lg="4">
                         <MDBCard className="mb-4">
                             <MDBCardBody className="text-center">
                                 <MDBCardImage
-                                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
-                                    alt="avatar"
+                                    src={user.image}
+                                    alt="Profile Pic"
                                     className="rounded-circle"
-                                    style={{ width: '150px' }}
+                                    style={{ width: '150px', border: '2px solid black' }}
                                     fluid />
-                                <p className="text-muted mb-1">Full Stack Developer</p>
-                                <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                                <p className="text-muted mb-1">.{user.username}</p>
                                 <div className="d-flex justify-content-center mb-2">
-                                    <MDBBtn>Follow</MDBBtn>
-                                    <MDBBtn outline className="ms-1">Message</MDBBtn>
+                                    <MDBBtn outline className="ms-1">View Trips</MDBBtn>
                                 </div>
                             </MDBCardBody>
                         </MDBCard>
@@ -105,7 +101,13 @@ export const UserSettings = ({user,setUser}) => {
                                     <MDBCol sm="9">
                                         <MDBCardText className="text-muted">Bay Area, San Francisco, CA</MDBCardText>
                                     </MDBCol>
+
                                 </MDBRow>
+                                <hr />
+                                <MDBRow>
+                                    <MDBBtn onClick={'#'}>Edit Profile Info</MDBBtn>
+                                </MDBRow>
+
                             </MDBCardBody>
                         </MDBCard>
 
@@ -175,7 +177,7 @@ export const UserSettings = ({user,setUser}) => {
                             </MDBCol>
                         </MDBRow>*/}
                     </MDBCol>
-                </MDBRow>
+                </MDBCol>
             </MDBContainer>
         </section>
     );
