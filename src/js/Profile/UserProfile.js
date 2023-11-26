@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Form from 'react-bootstrap/Form';
 
 import {
@@ -19,6 +19,7 @@ import {
 import styled from "styled-components";
 import {useAuth0} from "@auth0/auth0-react";
 import axios from "axios";
+import {DecryptPassword, EncryptPassword, ValidEmail, ValidPassword} from "../Utilities";
 
 export const UserProfile = ({user,setUser}) => {
 
@@ -27,16 +28,61 @@ export const UserProfile = ({user,setUser}) => {
     const [isHoveredEditProfile, setIsHoveredEditProfile] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
 
-    const [newEmail, setNewEmail] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [newUsername, setNewUsername] = useState('');
+    let [newEmail, setNewEmail] = useState('');
+    let [newPassword, setNewPassword] = useState('');
+    let [newUsername, setNewUsername] = useState('');
     const [newFullname, setNewFullname] = useState('');
+
+
+    let [validPass, setValidPass] = useState(false);
+    let [validEmail, setValidEmail] = useState(false);
 
 
     const { isAuthenticated } = useAuth0();
 
 
     const HandleProfileSave = async () => {
+
+        if(newEmail.length === 0){
+            newEmail = user.email;
+            validEmail = true;
+        }
+        if(newPassword.length === 0){
+            newPassword = DecryptPassword(user.password);
+            validPass = true;
+        }
+        if(newUsername.length === 0){
+            newUsername = user.username;
+        }
+
+        if (validPass && validEmail) {
+
+            const encryptedPass = await EncryptPassword(newPassword);
+            setNewPassword(encryptedPass);
+            console.log('Entered !!!')
+            console.log(newPassword)
+            console.log(newEmail)
+
+            const data = {user, newEmail, encryptedPass, newUsername};
+
+            try {
+                await axios.post('http://localhost:4000/updateUserInfo', data);
+
+                setUser((prevUser) => ({
+                    ...prevUser,
+                    email: newEmail,
+                    password: newPassword,
+                    username: newUsername
+                }));
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        else{
+            console.log('Not valid credentials')
+        }
+
 
 
 
@@ -142,7 +188,10 @@ export const UserProfile = ({user,setUser}) => {
                                         <MDBCardText>Email</MDBCardText>
                                     </MDBCol>
                                     <MDBCol sm="9">
-                                        {isEditing && !isAuthenticated? <MDBInput style={{border: '1px solid #106cfc'}} id='typeEmail' type='email' placeholder={user.email}/> : <MDBCardText className="text-muted">{user.email}</MDBCardText>}
+                                        {isEditing && !isAuthenticated? <MDBInput style={{border: ValidEmail(newEmail)? '1px solid #106cfc' : '1px solid red'}} id='typeEmail' type='email' placeholder={user.email} onChange={e => {
+                                            setNewEmail(e.target.value)
+                                            setValidEmail(ValidEmail(e.target.value))
+                                        }}/> : <MDBCardText className="text-muted">{user.email}</MDBCardText>}
 
                                     </MDBCol>
                                 </MDBRow>
@@ -152,7 +201,7 @@ export const UserProfile = ({user,setUser}) => {
                                         <MDBCardText>Username</MDBCardText>
                                     </MDBCol>
                                     <MDBCol sm="9">
-                                        {isEditing && !isAuthenticated? <MDBInput style={{border: '1px solid #106cfc'}} id='typeText' type='text' placeholder={user.username}/> : <MDBCardText className="text-muted">{user.username}</MDBCardText>}
+                                        {isEditing && !isAuthenticated? <MDBInput style={{border: '1px solid #106cfc'}} id='typeText' type='text' placeholder={user.username} onChange={e => setNewUsername(e.target.value)}/> : <MDBCardText className="text-muted">{user.username}</MDBCardText>}
 
                                     </MDBCol>
                                 </MDBRow>
@@ -162,8 +211,10 @@ export const UserProfile = ({user,setUser}) => {
                                         <MDBCardText>Password</MDBCardText>
                                     </MDBCol>
                                     <MDBCol sm="9">
-                                        {isEditing && !isAuthenticated? <MDBInput style={{border: '1px solid #106cfc'}} id='typePassword' type='password' /> : <MDBCardText className="text-muted">Password here</MDBCardText>}
-
+                                        {isEditing && !isAuthenticated? <MDBInput style={{border: ValidPassword(newPassword)? '1px solid #106cfc' : '1px solid red'}} id='typePassword' type='password' onChange={e => {
+                                            setNewPassword(e.target.value)
+                                            setValidPass(ValidPassword(e.target.value));
+                                        }} /> : <MDBCardText className="text-muted">Password here</MDBCardText>}
                                     </MDBCol>
 
                                 </MDBRow>

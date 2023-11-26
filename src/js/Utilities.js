@@ -45,6 +45,11 @@ export async function DecryptPassword(pass) {
 export function ValidPassword(pass){
     var passRegex = new RegExp('^((?=.*?[A-Za-z])(?=.*?[0-9]).{6,})*?$');
     const isValid = passRegex.test(pass);
+
+    if(pass.length === 0){
+        return false
+    }
+
     return isValid;
 
     /*
@@ -64,10 +69,11 @@ export function ValidEmail(email){
     var emailRegex = new RegExp(
         '^([a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z])*?$'
     );
+    if(email.length === 0){
+        return false
+    }
 
-    const isValid = emailRegex.test(email);
-
-    return isValid;
+    return emailRegex.test(email);
 }
 
 
