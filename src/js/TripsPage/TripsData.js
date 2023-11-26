@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from "styled-components";
+import axios from "axios";
 
 export const TripsData = ({props}) => {
 
 
-    const{
-        currentScreen,setCurrentScreen,user,tripsData,setTripsData
+    const {
+        currentScreen, setCurrentScreen, user, tripsData, setTripsData
     } = props;
 
 
@@ -18,14 +19,16 @@ export const TripsData = ({props}) => {
       background-color: red;
       border: 1px solid black;
       text-align: center;
-    
-    `;
 
+    `;
 
 
 
     return (
         <>
+            <input type={"button"} value={"Click ME!"} onClick={async() =>{
+                const response = await axios.post('http://localhost:4000/getAllTrips');
+            }}/>
             <DataStyle>Item 1</DataStyle>
             <DataStyle>Item 2</DataStyle>
             <DataStyle>Item 3</DataStyle>
