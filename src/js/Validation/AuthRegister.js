@@ -25,14 +25,17 @@ export const AuthRegister = ({setIsLogIn, setUser, setCurrentScreen}) =>{
         const fetchData = async () => {
 
         if (isAuthenticated && user?.sub) { // Check if user and user.sub are defined
+
             const encryptedPass = await EncryptPassword(user.sub)
             const email = user.email
+            const username = user.name
+            const profilePic = user.picture
+
             console.log(encryptedPass)
             console.log(email)
 
 
-
-            const userInfo = { email, encryptedPass };
+            const userInfo = { email, encryptedPass, username, profilePic };
             // send the username and password to the server
             try {
                 await SignInFunc(userInfo, setUser);
@@ -44,6 +47,14 @@ export const AuthRegister = ({setIsLogIn, setUser, setCurrentScreen}) =>{
                 setIsLogIn(false);
                 setCurrentScreen('home');
             }
+
+            setUser((prevUser) => ({
+                ...prevUser,
+                username: username,
+                email: email,
+                password: encryptedPass,
+                image: profilePic
+            }));
 
 
                     // Try comparing encrypted key and email to the database

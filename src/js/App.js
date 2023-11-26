@@ -13,7 +13,7 @@ import Flight from "./FlightPage/Flight";
 import styled from "styled-components";
 import {Credits} from "./Credits/Credits";
 import {EncryptPassword, SignInFunc, ValidEmail, ValidPassword} from "./Utilities";
-import {UserSettings} from "./Profile/UserSettings";
+import {UserProfile} from "./Profile/UserProfile";
 
 
 
@@ -26,7 +26,7 @@ export default function App() {
   const [cPassword, setCPass] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
   const [showSessionExpiredModal, setShowSessionExpiredModal] = useState(false);
-  const [user, setUser] = useState([{id:null, username: null, email:null, password:null}]);
+  const [user, setUser] = useState([{id:null, username: null, email:null, password:null, image:null}]);
   const [currentScreen, setCurrentScreen] = useState('login');
 
   const [hotelsData, setHotelsData] = useState([]);
@@ -69,12 +69,12 @@ export default function App() {
 
 
     if(ValidEmail(email) && ValidPassword(password)){
-
         try {
 
             const encryptedPass = await EncryptPassword(password);
             const userInfo = {email, encryptedPass};
 
+            console.log("Logging func awaiting")
             await SignInFunc(userInfo, setUser);
 
 
@@ -117,7 +117,11 @@ export default function App() {
 
       setEmail(localStorageEmail)
       setPass(localStoragePass)
-        setUser([{id:null, username: null, email:localStorageEmail, password:localStoragePass}])
+        setUser((prevUser) => ({
+            ...prevUser,
+            email: localStorageEmail,
+            password: localStoragePass
+        }));
 
       //handleLoggin()
 
@@ -209,7 +213,7 @@ export default function App() {
           <>
               <Navigation user={user} setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
               <Trips props={{currentScreen,setCurrentScreen,user,tripsData,setTripsData}}/>
-              <UserSettings user={user} setUser={setUser}/>
+              <UserProfile user={user} setUser={setUser}/>
               <Credits />
           </>
       )

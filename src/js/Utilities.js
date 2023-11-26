@@ -73,7 +73,6 @@ export function ValidEmail(email){
 
 export async function SignInFunc(userInfo, setUser){
 
-    console.log(userInfo.encryptedPass)
     try {
         const response = await axios.post(
             "http://localhost:4000/login",
@@ -85,13 +84,23 @@ export async function SignInFunc(userInfo, setUser){
         const decryptedLocalPass = DecryptPassword(userInfo.encryptedPass);
 
         if((decryptedDbPass === decryptedLocalPass) && (dbMail === userInfo.email)){
-            setUser(
-                response.data.data.id,
-                response.data.data.username,
-                response.data.data.password
-            )
 
-            alert(response.data.message);
+            const profilePicData = response.data.data.profilePic;
+
+            const blob = new Blob([Buffer.from(profilePicData, 'base64')], { type: 'image/jpeg' });
+
+            const imageUrl = URL.createObjectURL(blob);
+
+            setUser((prevUser) => ({
+                ...prevUser,
+                id: response.data.data.id,
+                username: response.data.data.username,
+                email: response.data.data.email,
+                password: response.data.data.password,
+                profilePic: imageUrl
+            }));
+
+            alert(response.data.message)
         }
 
 
