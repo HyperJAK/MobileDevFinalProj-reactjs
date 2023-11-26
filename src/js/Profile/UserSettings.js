@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+import Form from 'react-bootstrap/Form';
 
 import {
     MDBCol,
@@ -17,6 +18,12 @@ import {
 } from 'mdb-react-ui-kit';
 
 export const UserSettings = ({user,setUser}) => {
+
+    const [file, setFile] = useState();
+
+
+
+
     return (
         <section style={{ backgroundColor: '#eee' }}>
             <MDBContainer className="py-5">
@@ -30,7 +37,13 @@ export const UserSettings = ({user,setUser}) => {
                                     className="rounded-circle"
                                     style={{ width: '150px', border: '2px solid black' }}
                                     fluid />
+
+                                <Form.Group style={{width: '89px'}} controlId="formFileSm" className="mb-3">
+                                    <Form.Control type="file" size="sm" onChange={setFile(e.target.value)}/>
+                                </Form.Group>
+
                                 <p className="text-muted mb-1">.{user.username}</p>
+
                                 <div className="d-flex justify-content-center mb-2">
                                     <MDBBtn outline className="ms-1">View Trips</MDBBtn>
                                 </div>
