@@ -159,7 +159,13 @@ export default function App() {
   function handleRegistring() {
     setIsRegistering(!isRegistering);
     setIsLogIn(!isLogIn);
-    setCurrentScreen('signup')
+    if(currentScreen === 'login'){
+        setCurrentScreen('signup')
+    }
+    else if(currentScreen === 'signup'){
+        setCurrentScreen('login')
+    }
+
 
   }
 
