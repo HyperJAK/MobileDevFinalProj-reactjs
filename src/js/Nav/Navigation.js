@@ -8,6 +8,7 @@ import {MenuDropdown} from "./MenuDropdown";
 import {useState} from "react";
 import {NavigationItems} from "./NavigationItems";
 import {MDBCardImage} from "mdb-react-ui-kit";
+import img from '../../assets/images.png';
 
 
 const FullNav_style = {
@@ -38,7 +39,7 @@ export const Navigation = ({setIsLogIn,setCurrentScreen,currentScreen,user})=>{
 
                 <Nav>
 
-                    <MDBCardImage src={user.image}
+                    <MDBCardImage src={user.image? user.image : img}
                                   className="rounded-circle" fluid style={{ width: '50px', padding: '5px' }} onClick={() => setCurrentScreen('profile')}/>
 
                 </Nav>
