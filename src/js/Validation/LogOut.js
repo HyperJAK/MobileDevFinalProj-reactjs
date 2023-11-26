@@ -44,7 +44,6 @@ export const LogOut = ({setIsLogIn,setCurrentScreen}) => {
                         localStorage.clear('userInfo');
                     }catch {
                         console.log('Couldn\'t clear user info from local storage')
-
                     }
                     try{
                         localStorage.clear('currentScreen');

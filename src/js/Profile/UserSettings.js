@@ -19,8 +19,26 @@ import {
 
 export const UserSettings = ({user,setUser}) => {
 
-    const [file, setFile] = useState();
 
+
+    //Function to load selected image in choose file
+    function LoadImage(e){
+        const file = e.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onloadend = () => {
+                setUser((prevUser) => ({
+                    ...prevUser,
+                    image: reader.result,
+                }));
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+    }
 
 
 
@@ -39,7 +57,7 @@ export const UserSettings = ({user,setUser}) => {
                                     fluid />
 
                                 <Form.Group style={{width: '89px'}} controlId="formFileSm" className="mb-3">
-                                    <Form.Control type="file" size="sm" onChange={setFile(e.target.value)}/>
+                                    <Form.Control type="file" size="sm" onChange={e => {LoadImage(e)}}/>
                                 </Form.Group>
 
                                 <p className="text-muted mb-1">.{user.username}</p>

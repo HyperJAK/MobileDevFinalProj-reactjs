@@ -91,7 +91,7 @@ export async function SignInFunc(userInfo, setUser){
                 response.data.data.password
             )
 
-            alert(response.data.message)
+            alert(response.data.message);
         }
 
 
