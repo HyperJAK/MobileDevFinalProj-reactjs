@@ -91,6 +91,10 @@ export async function SignInFunc(userInfo, setUser){
 
             const imageUrl = URL.createObjectURL(blob);
 
+
+            console.log("RESPONSESSSS")
+            console.log(response.data.data)
+
             setUser((prevUser) => ({
                 ...prevUser,
                 id: response.data.data.id,
@@ -99,6 +103,7 @@ export async function SignInFunc(userInfo, setUser){
                 password: response.data.data.password,
                 profilePic: imageUrl
             }));
+
 
             alert(response.data.message)
         }
@@ -118,11 +123,18 @@ export async function SignUpFunc(userInfo, setUser) {
             "http://localhost:4000/signup",
             userInfo
         );
-        //console.log(response.data.message)
-        setUser(
-            response.data.data.email,
-            response.data.data.password
-        )
+        //console.log("RESPONSESSSS")
+        //console.log(response.data.data)
+
+        setUser((prevUser) => ({
+            ...prevUser,
+            id: response.data.data.id,
+            username: response.data.data.username,
+            email: response.data.data.email,
+            password: response.data.data.password,
+            profilePic: response.data.data.profilePic
+        }));
+
         alert(response.data.message)
 
     } catch (error) {

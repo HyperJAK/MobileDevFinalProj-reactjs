@@ -6,6 +6,8 @@ import Image from 'react-bootstrap/Image';
 import {LogOut} from "../Validation/LogOut";
 import {MenuDropdown} from "./MenuDropdown";
 import {useState} from "react";
+import {NavigationItems} from "./NavigationItems";
+import {MDBCardImage} from "mdb-react-ui-kit";
 
 
 
@@ -48,72 +50,6 @@ const BottomNavButtons_style = {
 padding: '20px',
     borderRadius: '10px'
 }
-
-const Navi = ({setIsLogIn,setCurrentScreen, currentScreen})=> {
-
-
-    return (
-        <>
-        <Navbar bg="primary" data-bs-theme="dark">
-            <Container style={FullNav_style}>
-                <Navbar.Brand style={{fontSize:'32px'}} href="#home" onClick={()=>{
-                        setCurrentScreen('home');
-                        var serializedString = JSON.stringify({
-                            currentScreen: currentScreen
-                        });
-                        localStorage.setItem('currentScreen', serializedString);
-                    }}>Go Trip</Navbar.Brand> {/* href? bro kella 1 single page l web kello lol */}
-                <Nav className="me-auto">
-                    <NaviItems setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
-                </Nav>
-                <Nav>
-
-                    <MenuDropdown setCurrentScreen={setCurrentScreen} setIsLogIn={setIsLogIn}/>
-
-                </Nav>
-            </Container>
-        </Navbar>
-        </>
-    );
-}
-
-const NaviItems = ({handleNavButtonSelect,setCurrentScreen, currentScreen})=> {
-    return (
-        <Nav variant="tabs" onSelect={handleNavButtonSelect} defaultActiveKey="/home">
-            <Nav.Item>
-                <Nav.Link eventKey="link-1" onClick={()=>{
-                        setCurrentScreen('flight')
-                        var serializedString = JSON.stringify({
-                            lastScreen: 'flight',
-                          });
-                        localStorage.setItem('currentScreen', serializedString);
-                    }} >Flights</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="link-1" onClick={()=>{
-                        setCurrentScreen('hotel')
-                        var serializedString = JSON.stringify({
-                            lastScreen: 'hotel',
-                          });
-                        localStorage.setItem('currentScreen', serializedString);
-                    }} >Hotels</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="link-1" onClick={() => {
-                    setCurrentScreen('trip')
-                    var serializedString = JSON.stringify({
-                    lastScreen: 'trip',
-                });
-                    localStorage.setItem('currentScreen', serializedString);
-                }}>
-                    Trips
-                </Nav.Link>
-            </Nav.Item>
-        </Nav>
-    );
-}
-
-
 
 
 
@@ -169,7 +105,33 @@ export const Navigation = ({setIsLogIn,setCurrentScreen,currentScreen,user})=>{
 
 
     return(
-          <Navi setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen} user={user}/>
+        <Navbar bg="primary" data-bs-theme="dark">
+            <Container style={FullNav_style}>
+                <Navbar.Brand style={{fontSize:'32px'}} href="#home" onClick={()=>{
+                    setCurrentScreen('home');
+                    var serializedString = JSON.stringify({
+                        currentScreen: currentScreen
+                    });
+                    localStorage.setItem('currentScreen', serializedString);
+                }}>Go Trip</Navbar.Brand> {/* href? bro kella 1 single page l web kello lol */}
+                <Nav className="me-auto">
+                    <NavigationItems setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
+                </Nav>
+
+                <Nav>
+
+                    <MDBCardImage src={user.image}
+                                  className="rounded-circle" fluid style={{ width: '50px', padding: '5px' }} />
+
+                </Nav>
+
+                <Nav>
+
+                    <MenuDropdown setCurrentScreen={setCurrentScreen} setIsLogIn={setIsLogIn}/>
+
+                </Nav>
+            </Container>
+        </Navbar>
     );
 
 }

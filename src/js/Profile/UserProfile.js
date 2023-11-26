@@ -18,6 +18,7 @@ import {
 } from 'mdb-react-ui-kit';
 import styled from "styled-components";
 import {useAuth0} from "@auth0/auth0-react";
+import axios from "axios";
 
 export const UserProfile = ({user,setUser}) => {
 
@@ -42,23 +43,31 @@ export const UserProfile = ({user,setUser}) => {
     }
 
     //Function to load selected image in choose file
-    function LoadImage(e){
+    async function LoadImage(e) {
         const file = e.target.files[0];
 
         if (file) {
             const reader = new FileReader();
 
-            reader.onloadend = () => {
+            reader.onloadend = async () => {
                 setUser((prevUser) => ({
                     ...prevUser,
                     image: reader.result,
                 }));
+
+
+                const data = { user };
+
+                await axios.post(
+                    'http://localhost:4000/updateUserPic',
+                    data
+                );
             };
 
             reader.readAsDataURL(file);
         }
-
     }
+
 
 
     const choose_file_style = {

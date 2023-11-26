@@ -26,7 +26,7 @@ export default function App() {
   const [cPassword, setCPass] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
   const [showSessionExpiredModal, setShowSessionExpiredModal] = useState(false);
-  const [user, setUser] = useState([{id:null, username: null, email:null, password:null, image:null}]);
+  const [user, setUser] = useState({id:null, username: null, email:null, password:null, image:null});
   const [currentScreen, setCurrentScreen] = useState('login');
 
   const [hotelsData, setHotelsData] = useState([]);
@@ -159,6 +159,7 @@ export default function App() {
   function handleRegistring() {
     setIsRegistering(!isRegistering);
     setIsLogIn(!isLogIn);
+    setCurrentScreen('signup')
 
   }
 

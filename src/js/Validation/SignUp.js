@@ -33,7 +33,10 @@ export const SignUp = ({props}) => {
 
         if((ValidEmail(email) && ValidPassword(password)) && password === cPassword) {
             const encryptedPass = await EncryptPassword(password);
-            const userInfo = {email, encryptedPass};
+            const username = null;
+            const profilePic = null;
+
+            const userInfo = {username, email, encryptedPass, profilePic};
             console.log("Signing up")
 
             try{
