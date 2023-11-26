@@ -214,6 +214,15 @@ export default function App() {
           <>
               <Navigation user={user} setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
               <Trips props={{currentScreen,setCurrentScreen,user,tripsData,setTripsData}}/>
+              <Credits />
+          </>
+      )
+  }
+
+  else if (currentScreen==='profile') {
+      return (
+          <>
+              <Navigation user={user} setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
               <UserProfile user={user} setUser={setUser}/>
               <Credits />
           </>
