@@ -1,31 +1,14 @@
 import React from 'react';
-import styled from "styled-components";
 import {TripsData} from "./TripsData";
 import {SearchHeader} from "../SearchHeader";
 
 export const Trips = ({props}) => {
 
 
-    /*const{
-        currentScreen,setCurrentScreen,user,tripsData,setTripsData
-    } = props;*/
+const title = 'All User Trips';
 
-
-    const containerStyle = {
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '20px',
-        maxWidth: '1500px',
-        margin: '0 auto',
-        justifyContent: 'center'
-    };
-
-
-
-
+//You call SearchHeader to display results of search and pass onto it the results and the title of the bar
     return (
-        <div style={containerStyle}>
-            <SearchHeader component={<TripsData props={props}/>}/>
-        </div>
+        <SearchHeader component={<TripsData props={props}/>} title={title}/>
     );
 };

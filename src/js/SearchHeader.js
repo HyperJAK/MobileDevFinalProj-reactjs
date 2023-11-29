@@ -3,13 +3,23 @@ import styled from "styled-components";
 import downArrow from '../assets/icons/down.png';
 import rightArrow from '../assets/icons/next.png';
 
-export const SearchHeader = ({component}) => {
+export const SearchHeader = ({component, title}) => {
 
 
     const [isDropped, setIsDropped] = useState(true);
     /*const{
         currentScreen,setCurrentScreen,user,tripsData,setTripsData
     } = props;*/
+
+    const ResultsWrapper = styled.div`
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      max-width: 1500px;
+      margin: 0 auto;
+      justify-content: center;
+
+    `;
 
 
     const ResultsHeader = styled.div`
@@ -69,26 +79,25 @@ export const SearchHeader = ({component}) => {
 
 
 
+
+
     return (
-        <>
-        <ResultsHeader>
+        <ResultsWrapper>
+            <ResultsHeader>
 
-            <ResultsHeaderTop>
-                <ResultsTitle>All User Trips</ResultsTitle>
-                <ResultsIcon  onClick={() => setIsDropped(!isDropped)}/>
+                <ResultsHeaderTop>
+                    <ResultsTitle>{title}</ResultsTitle>
+                    <ResultsIcon  onClick={() => setIsDropped(!isDropped)}/>
 
-            </ResultsHeaderTop>
+                </ResultsHeaderTop>
 
+            </ResultsHeader>
 
+            <ResultsDisplayer>
+                {component}
+            </ResultsDisplayer>
 
-
-        </ResultsHeader>
-
-        <ResultsDisplayer>
-            {component}
-        </ResultsDisplayer>
-
-        </>
+        </ResultsWrapper>
 
     );
 };
