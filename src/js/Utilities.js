@@ -19,10 +19,6 @@ export async function EncryptPassword(pass) {
     // Encrypt id
     const ciphertext = await AES.encrypt(plaintext, secretKey).toString();
 
-    // Decrypt
-    const bytes = await AES.decrypt(ciphertext, secretKey);
-    const decryptedText = bytes.toString(enc.Utf8);
-
     return ciphertext;
 
 }
