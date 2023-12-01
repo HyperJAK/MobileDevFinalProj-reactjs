@@ -5,7 +5,7 @@ import { AES, enc } from "crypto-js";
 import {EncryptPassword, SignInFunc, SignUpFunc, ValidEmail, ValidPassword} from "../Utilities";
 import axios from "axios";
 
-export const AuthRegister = ({setIsLogIn, setUser}) =>{
+export const AuthRegister = ({setIsLogIn, setUser, setCurrentScreen}) =>{
     const [isHovered, setIsHovered] = useState(false);
     const [decryptedText, setDecryptedText] = useState(null);
 
@@ -25,23 +25,36 @@ export const AuthRegister = ({setIsLogIn, setUser}) =>{
         const fetchData = async () => {
 
         if (isAuthenticated && user?.sub) { // Check if user and user.sub are defined
+
             const encryptedPass = await EncryptPassword(user.sub)
             const email = user.email
+            const username = user.name
+            const profilePic = user.picture
+
             console.log(encryptedPass)
             console.log(email)
 
 
-
-            const userInfo = { email, encryptedPass };
+            const userInfo = { email, encryptedPass, username, profilePic };
             // send the username and password to the server
             try {
                 await SignInFunc(userInfo, setUser);
                 setIsLogIn(false);
+                setCurrentScreen('home');
 
             }finally {
                 await SignUpFunc(userInfo, setUser);
                 setIsLogIn(false);
+                setCurrentScreen('home');
             }
+
+            setUser((prevUser) => ({
+                ...prevUser,
+                username: username,
+                email: email,
+                password: encryptedPass,
+                image: profilePic
+            }));
 
 
                     // Try comparing encrypted key and email to the database

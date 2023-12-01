@@ -19,10 +19,6 @@ export async function EncryptPassword(pass) {
     // Encrypt id
     const ciphertext = await AES.encrypt(plaintext, secretKey).toString();
 
-    // Decrypt
-    const bytes = await AES.decrypt(ciphertext, secretKey);
-    const decryptedText = bytes.toString(enc.Utf8);
-
     return ciphertext;
 
 }
@@ -45,6 +41,11 @@ export async function DecryptPassword(pass) {
 export function ValidPassword(pass){
     var passRegex = new RegExp('^((?=.*?[A-Za-z])(?=.*?[0-9]).{6,})*?$');
     const isValid = passRegex.test(pass);
+
+    if(pass.length === 0){
+        return false
+    }
+
     return isValid;
 
     /*
@@ -64,16 +65,16 @@ export function ValidEmail(email){
     var emailRegex = new RegExp(
         '^([a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z])*?$'
     );
+    if(email.length === 0){
+        return false
+    }
 
-    const isValid = emailRegex.test(email);
-
-    return isValid;
+    return emailRegex.test(email);
 }
 
 
 export async function SignInFunc(userInfo, setUser){
 
-    console.log(userInfo.encryptedPass)
     try {
         const response = await axios.post(
             "http://localhost:4000/login",
@@ -85,11 +86,26 @@ export async function SignInFunc(userInfo, setUser){
         const decryptedLocalPass = DecryptPassword(userInfo.encryptedPass);
 
         if((decryptedDbPass === decryptedLocalPass) && (dbMail === userInfo.email)){
-            setUser(
-                response.data.data.id,
-                response.data.data.username,
-                response.data.data.password
-            )
+
+            const profilePicData = response.data.data.profilePic;
+
+            const blob = new Blob([Buffer.from(profilePicData, 'base64')], { type: 'image/jpeg' });
+
+            const imageUrl = URL.createObjectURL(blob);
+
+
+            console.log("RESPONSESSSS")
+            console.log(response.data.data)
+
+            setUser((prevUser) => ({
+                ...prevUser,
+                id: response.data.data.id,
+                username: response.data.data.username,
+                email: response.data.data.email,
+                password: response.data.data.password,
+                profilePic: imageUrl
+            }));
+
 
             alert(response.data.message)
         }
@@ -109,11 +125,18 @@ export async function SignUpFunc(userInfo, setUser) {
             "http://localhost:4000/signup",
             userInfo
         );
-        //console.log(response.data.message)
-        setUser(
-            response.data.data.email,
-            response.data.data.password
-        )
+        //console.log("RESPONSESSSS")
+        //console.log(response.data.data)
+
+        setUser((prevUser) => ({
+            ...prevUser,
+            id: response.data.data.id,
+            username: response.data.data.username,
+            email: response.data.data.email,
+            password: response.data.data.password,
+            profilePic: response.data.data.profilePic
+        }));
+
         alert(response.data.message)
 
     } catch (error) {

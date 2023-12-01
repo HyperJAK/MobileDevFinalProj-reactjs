@@ -12,11 +12,11 @@ export const LogOut = ({setIsLogIn,setCurrentScreen}) => {
 
     const button_style = {
         width: "100%",
-        marginTop: "15px",
         borderRadius: "30px",
-        height: "60px",
-        color: isHovered ? "white" : "white",
-        border: "1px solid black",
+        height: "40px",
+        fontWeight: isHovered? 'bold' : 'normal',
+        color: isHovered ? "white" : "black",
+        border: "1px solid rgba(13,110,253,255)",
         backgroundColor: isHovered ? "#333333" : "transparent",
     };
 
@@ -28,14 +28,31 @@ export const LogOut = ({setIsLogIn,setCurrentScreen}) => {
         <div className="pt-1 mb-4">
             <Button
                 style={button_style}
-                size="lg"
+                size="md"
                 onClick={() => {
-                    logout({
-                        logoutParams: {returnTo: window.location.origin}}).then(() => {setIsLogIn(false);
+
+                    if(isAuthenticated){
+                        logout().then(() => {
+                            setIsLogIn(true);
+                            setCurrentScreen('login');
+
+                        })
+                    }
+
+
+                    try{
                         localStorage.clear('userInfo');
+                    }catch {
+                        console.log('Couldn\'t clear user info from local storage')
+                    }
+                    try{
                         localStorage.clear('currentScreen');
-                        setCurrentScreen('login');
-                    })
+                    }catch {
+                        console.log('Couldn\'t clear currentScreen from local storage')
+                    }
+                    setCurrentScreen('login');
+                    setIsLogIn(true);
+
                  }}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
