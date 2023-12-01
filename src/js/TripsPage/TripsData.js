@@ -1,14 +1,140 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import axios from "axios";
 import cutePic from '../../assets/homeImg.jpg';
 
+
+
+async function GetMainData(){
+
+    try {
+        const response = await axios.post(
+            "http://localhost:4000/getAllTrips"
+        );
+        //console.log("RESPONSESSSS")
+        //console.log(response.data.data)
+
+
+        alert(response.data.message)
+        console.log(response.data.jsonData)
+
+    } catch (error) {
+        //alert(error.response.data.error);
+        alert(error)
+    }
+
+}
+
+async function GetImageData(flightId, hotelId, roomId) {
+    try {
+        const flightImages = await GetFlightImages(flightId);
+        const hotelImages = await GetHotelImages(hotelId);
+        const roomImages = await GetRoomImages(roomId);
+
+
+        console.log('Flight Images:', flightImages);
+        console.log('Hotel Images:', hotelImages);
+        console.log('Room Images:', roomImages);
+
+        //Here fill the images in the corresponding components that can be given to function
+
+    } catch (error) {
+        console.error('Error fetching images:', error);
+    }
+
+
+}
+
+
+async function GetFlightImages(flightId){
+
+    const dataFlight = {flightId};
+
+    try {
+        const response = await axios.post(
+            "http://localhost:4000/getFlightImages",
+            dataFlight
+        );
+
+
+        alert(response.data.message)
+        return (response.data.jsonFlightImages)
+
+    } catch (error) {
+        //alert(error.response.data.error);
+        alert(error)
+        return false;
+    }
+
+}
+
+async function GetHotelImages(hotelId){
+
+    const dataHotel = {hotelId};
+
+    try {
+        const response = await axios.post(
+            "http://localhost:4000/getHotelImages",
+            dataHotel
+        );
+
+
+        alert(response.data.message)
+        return (response.data.jsonHotelImages)
+
+    } catch (error) {
+        //alert(error.response.data.error);
+        alert(error)
+        return false;
+    }
+
+}
+
+async function GetRoomImages(roomId){
+
+    const dataRoom = {roomId};
+
+    try {
+        const response = await axios.post(
+            "http://localhost:4000/getRoomImages",
+            dataRoom
+        );
+
+
+        alert(response.data.message)
+        return (response.data.jsonRoomImages)
+
+    } catch (error) {
+        //alert(error.response.data.error);
+        alert(error)
+        return false;
+    }
+
+
+
+}
+
+
 export const TripsData = ({props}) => {
 
-
     const {
-        currentScreen, setCurrentScreen, user, tripsData, setTripsData
+        currentScreen, setCurrentScreen, user, tripsData, setTripsData, refreshData
     } = props;
+
+
+
+    //Refreshes the data
+    useEffect(() =>{
+
+        GetMainData().then(r => {
+            GetImageData(1,1,1);
+        });
+
+
+    },[refreshData])
+
+
+
 
 
     const DataStyle = styled.div`
@@ -50,7 +176,6 @@ export const TripsData = ({props}) => {
       color: white;
       height: 20%;
     `;
-
 
 
     return (
