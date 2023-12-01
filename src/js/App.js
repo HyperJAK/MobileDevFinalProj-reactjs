@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {LogIn} from "./Validation/LogIn.js";
 import {SignUp} from "./Validation/SignUp.js";
@@ -15,6 +15,12 @@ import {Credits} from "./Credits/Credits";
 import {EncryptPassword, SignInFunc, ValidEmail, ValidPassword} from "./Utilities";
 import {UserProfile} from "./Profile/UserProfile";
 
+export const Spline = React.lazy(() => import("@splinetool/react-spline"));
+export const SplineHotelScene = <Spline scene="https://prod.spline.design/9FI0ZU1nnSTP8Xwt/scene.splinecode" />;
+
+export const SplineFlightScene = <Spline scene="https://prod.spline.design/BOGpfRiHRnN9C-Wa/scene.splinecode" />;
+
+export const SplineHomeScene = <Spline scene="https://prod.spline.design/kxsypMIN3S8rP06j/scene.splinecode" />;
 
 
 export default function App() {
@@ -31,6 +37,7 @@ export default function App() {
 
   const [hotelsData, setHotelsData] = useState([]);
   const [flightsData, setFlightsData] = useState([]);
+  const [roomsData, setRoomsData] = useState([]);
   const [tripsData, setTripsData] = useState([]);
 
 
@@ -143,7 +150,7 @@ export default function App() {
   console.log(currentScreen)
 
   const {reset} = useIdleTimer({
-    timeout: 600000,
+    timeout: 120000,
     onIdle: handleOnIdle,
   });
 
