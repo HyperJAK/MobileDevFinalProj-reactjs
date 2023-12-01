@@ -57,7 +57,7 @@ export const SignUp = ({props}) => {
 
 
     return(
-        <section style={{ backgroundColor: '#d0bec3', backgroundSize: 'cover', height: '100vh', overflow: 'auto' }}>
+        <section style={{ backgroundColor: '#a8d2f0', backgroundSize: 'cover', height: '100vh', overflow: 'auto' }}>
             <Container className="py-5 h-100">
                 <Row className="d-flex justify-content-center align-items-center h-100">
                     <Col xl={10}>
@@ -84,11 +84,16 @@ export const SignUp = ({props}) => {
                                             </h5>
                                             <div className="form-outline mb-4">
 
-                                                <EmailAndPass email={email} password={password} setEmail={setEmail} setPass={setPass} />
+                                                <EmailAndPass props={{email,password,setEmail,setPass}} />
 
 
                                                 <FloatingLabel controlId="floatingPassword" label="Confirm Password">
-                                                    <Form.Control style={{ border: cPassword === password ? '1px solid black' : '1px solid red', marginTop: '20px'}} type="password" placeholder="Confirm Password" value={cPassword} onChange={e => setCPass(e.target.value)} />
+                                                    <Form.Control style={{ border: cPassword === password ? '1px solid black' : '1px solid red', marginTop: '20px'}} type="password" placeholder="Confirm Password" value={cPassword} onChange={e => {
+                                                        if(e.target.value.length < 50){
+                                                            setCPass(e.target.value)
+                                                        }
+
+                                                    }} />
                                                 </FloatingLabel>
 
 

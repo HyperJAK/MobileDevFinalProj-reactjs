@@ -26,7 +26,7 @@ export const LogIn = ({props}) =>{
 
 
     return(
-        <section style={{ backgroundColor: '#d0bec3', backgroundSize: 'cover', height: '100vh', overflow: 'auto' }}>
+        <section style={{ backgroundColor: '#a8d2f0', backgroundSize: 'cover', height: '100vh', overflow: 'auto' }}>
             <Container className="py-5 h-100">
                 <Row className="d-flex justify-content-center align-items-center h-100">
                     <Col xl={10}>
@@ -55,7 +55,7 @@ export const LogIn = ({props}) =>{
 
                                             </div>
 
-                                            <EmailAndPass email={email} password={password} setEmail={setEmail} setPass={setPass} />
+                                            <EmailAndPass props={{email,password,setEmail,setPass}} />
 
                                             <div className="pt-1 mb-4">
                                                 <Button style={{marginTop: '15px'}} variant="dark" size="lg" onClick={handleLoggin}>
