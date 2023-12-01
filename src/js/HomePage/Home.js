@@ -5,8 +5,8 @@ import HomeBody1 from "./HomeBody1";
 import HomeBody2 from "./HomeBody2";
 import {QuickPlanDiv} from "./QuickPlanDiv";
 import {useState} from "react";
-import Spline from '@splinetool/react-spline';
-import {OverDesignText} from "./OverDesignText";
+import {SplineHomeScene} from '../App';
+import {OverDesignText} from "../OverDesignText";
 
 
 const FullNav_style = {
@@ -21,10 +21,15 @@ const FullNav_style = {
 
 export default function Home(){
 
+    var title = 'Book Your Trip';
+    var description = 'We are a dedicated platform that allows you to book any kind of flight, hotel, or even both.';
+
  return(
      <div style={FullNav_style}>
-         <Spline scene="https://prod.spline.design/kxsypMIN3S8rP06j/scene.splinecode" />
-         <OverDesignText />
+
+         {SplineHomeScene}
+
+         <OverDesignText props={{title, description}}/>
 
             <QuickPlanDiv />
              <HomeBody1 />

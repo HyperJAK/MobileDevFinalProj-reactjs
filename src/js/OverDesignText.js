@@ -22,12 +22,14 @@ const P = styled.p`
   font-size: 1vw; /* Use vw for responsive font size */
 `;
 
-export const OverDesignText = () => {
+export const OverDesignText = ({props}) => {
+
+    const {title, description} = props;
     return (
         <LeftDiv>
-            <H1>Book Your Trip</H1>
+            <H1>{title}</H1>
             <br></br>
-            <P>We are a dedicated platform that allows you to book any kind of flight, hotel, or even both.</P>
+            <P>{description}</P>
             <br></br>
             <P>Feel like going on a trip?</P>
             <P>We have your back!</P>

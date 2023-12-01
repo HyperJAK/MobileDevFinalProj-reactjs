@@ -21,7 +21,7 @@ export default function HotelSearchResults({hotelsResults, destination}) {
   return (
     <Container>
         <div>
-            <h1>Reasults for '{destination}'</h1>
+            <h1>Results for '{destination}'</h1>
             <ul style={{ display:'flex', flexDirection: 'row', flexWrap: 'wrap' }}>{hotelsResults==null?<p>NO RESULTS</p>:arrayDataItems}</ul>
         </div>
     </Container>
