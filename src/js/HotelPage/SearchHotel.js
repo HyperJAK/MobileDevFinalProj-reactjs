@@ -49,6 +49,7 @@ export default function SearchHotel() {
             // console.log(hotelInfo.data.data)
             setSearching(true)
             setHotelsResults(hotelInfo.data.data)
+            console.log(hotelsResults)
         }catch(error){
             // alert(error.response.data.error);
             setHotelsResults(null)
