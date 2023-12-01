@@ -4,6 +4,8 @@ import HomeBody1 from '../HomePage/HomeBody1'
 import HotelBody2 from './HotelBody2'
 import Spline from "@splinetool/react-spline";
 import {OverDesignText} from "../HomePage/OverDesignText";
+import HotelsData from './HotelsData';
+
 export default function Hotel() {
   return (
     <>
@@ -14,6 +16,7 @@ export default function Hotel() {
         <SearchHotel />
         <HomeBody1 />
         <HotelBody2 />
+        <HotelsData />
     </>
   )
 }

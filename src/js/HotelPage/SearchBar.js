@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './css/hotel.css'
 
-export default function SearchBar() {
+export default function SearchBar({destination,setDestination,searchHotels}) {
     const searchBoxStyles = {
         backgroundColor: '#08243c', // #e1d699
         display: 'flex',
@@ -22,7 +22,6 @@ export default function SearchBar() {
     const [reservationDate, setReservationDate] = useState('');
     const [leaveDate, setLeaveDate] = useState('');
     const [numberOfPeople, setNumberOfPeople] = useState(1);
-    const [destination, setDestination] = useState('');
 
     var currentDate = new Date();
     currentDate.setDate(currentDate.getDate() + 7); // most people come in 7 days before so for better ux we do this, fuck whatever chatgpt told you
@@ -77,6 +76,7 @@ export default function SearchBar() {
                     value='Search'
                     onClick={() => {
                         console.log(`${destination} ${reservationDate} ${leaveDate} ${numberOfPeople}`);
+                        searchHotels()
                     }}
                 />
             </div>
