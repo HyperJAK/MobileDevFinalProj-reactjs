@@ -5,7 +5,7 @@ import cutePic from '../../assets/homeImg.jpg';
 
 
 
-async function GetMainData(){
+async function GetMainData({setTripsData}){
 
     try {
         const response = await axios.post(
@@ -14,9 +14,10 @@ async function GetMainData(){
         //console.log("RESPONSESSSS")
         //console.log(response.data.data)
 
+        const data = response.data.jsonData;
 
-        alert(response.data.message)
-        console.log(response.data.jsonData)
+        setTripsData(data);
+
 
     } catch (error) {
         //alert(error.response.data.error);
@@ -25,25 +26,27 @@ async function GetMainData(){
 
 }
 
-async function GetImageData(flightId, hotelId, roomId) {
+async function GetImageData({ flightId, hotelId, roomId, setTripsData }) {
     try {
         const flightImages = await GetFlightImages(flightId);
         const hotelImages = await GetHotelImages(hotelId);
         const roomImages = await GetRoomImages(roomId);
 
-
-        console.log('Flight Images:', flightImages);
-        console.log('Hotel Images:', hotelImages);
-        console.log('Room Images:', roomImages);
-
-        //Here fill the images in the corresponding components that can be given to function
-
+        return {
+            flightImages: flightImages,
+            hotelImages: hotelImages,
+            roomImages: roomImages,
+        };
     } catch (error) {
         console.error('Error fetching images:', error);
+        return {
+            flightImages: [],
+            hotelImages: [],
+            roomImages: [],
+        };
     }
-
-
 }
+
 
 
 async function GetFlightImages(flightId){
@@ -56,8 +59,6 @@ async function GetFlightImages(flightId){
             dataFlight
         );
 
-
-        alert(response.data.message)
         return (response.data.jsonFlightImages)
 
     } catch (error) {
@@ -78,8 +79,6 @@ async function GetHotelImages(hotelId){
             dataHotel
         );
 
-
-        alert(response.data.message)
         return (response.data.jsonHotelImages)
 
     } catch (error) {
@@ -100,8 +99,6 @@ async function GetRoomImages(roomId){
             dataRoom
         );
 
-
-        alert(response.data.message)
         return (response.data.jsonRoomImages)
 
     } catch (error) {
@@ -118,20 +115,58 @@ async function GetRoomImages(roomId){
 export const TripsData = ({props}) => {
 
     const {
-        currentScreen, setCurrentScreen, user, tripsData, setTripsData, refreshData
+        currentScreen,
+        setCurrentScreen,
+        user,
+        tripsData,
+        setTripsData,
+        refreshTripsData,
+        setRefreshTripsData
     } = props;
 
 
 
     //Refreshes the data
-    useEffect(() =>{
+    useEffect(() => {
+        let isMounted = true;
 
-        GetMainData().then(r => {
-            GetImageData(1,1,1);
-        });
+        const fetchData = async () => {
+            if (refreshTripsData) {
+                await GetMainData({setTripsData: setTripsData});
+                try {
+                    const newTripsData = await Promise.all(
+                        tripsData.map(async (trip) => {
+                            const imageData = await GetImageData({
+                                flightId: trip.flight.flightId,
+                                hotelId: trip.hotel.hotelId,
+                                roomId: trip.room.roomId,
+                                setTripsData: setTripsData,
+                            });
+
+                            return {
+                                ...trip,
+                                ...imageData,
+                            };
+                        })
+                    );
 
 
-    },[refreshData])
+                    setTripsData(newTripsData);
+                    setRefreshTripsData(false);
+
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                }
+            }
+        };
+
+        fetchData();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [refreshTripsData]);
+
 
 
 
@@ -157,7 +192,7 @@ export const TripsData = ({props}) => {
       max-width: 100%;
       height: 150px;
       border-radius: 20px;
-      background-image: url(${cutePic});
+      background-image: url(${props => props.imageUrl});
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
@@ -177,40 +212,37 @@ export const TripsData = ({props}) => {
       height: 20%;
     `;
 
+    let tripsDivs;
+
+    if(tripsData !== undefined){
+
+        tripsDivs = tripsData.map((trip) => {
+        console.log(trip)
+
+            return (
+
+                <DataStyle>
+
+                    <DataPicStyle imageUrl={""}/>
+                    <P>{trip.trip_name}</P>
+                    <ViewTrip>View Trip</ViewTrip>
+
+
+                </DataStyle>
+            )
+        })
+
+    }
+
+
 
     return (
         <>
             {/*<input type={"button"} value={"Click ME!"} onClick={async() =>{
                 const response = await axios.post('http://localhost:4000/getAllTrips');
             }}/>*/}
-            <DataStyle>
 
-                <DataPicStyle></DataPicStyle>
-                <P>Trip Name</P>
-                <ViewTrip>View Trip</ViewTrip>
-
-
-            </DataStyle>
-
-
-            <DataStyle>
-
-                <DataPicStyle></DataPicStyle>
-                <P>Trip Name</P>
-                <ViewTrip>View Trip</ViewTrip>
-
-
-            </DataStyle>
-
-
-            <DataStyle>
-
-                <DataPicStyle></DataPicStyle>
-                <P>Trip Name</P>
-                <ViewTrip>View Trip</ViewTrip>
-
-
-            </DataStyle>
+            {tripsDivs}
 
         </>
     );
