@@ -11,8 +11,6 @@ export default function Rating({star}) {
     }
     
   return (
-    <div>
-     {addStars()}
-    </div>
+     addStars()
   )
 }
