@@ -89,7 +89,7 @@ export async function SignInFunc(userInfo, setUser){
 
             const profilePicData = response.data.data.profilePic;
 
-            const blob = new Blob([Buffer.from(profilePicData, 'base64')], { type: 'image/jpeg' });
+            const blob = new Blob([Buffer.from(profilePicData, 'base64')], { type: 'image/png' });
 
             const imageUrl = URL.createObjectURL(blob);
 
@@ -107,7 +107,7 @@ export async function SignInFunc(userInfo, setUser){
             }));
 
 
-            alert(response.data.message)
+            console.log(response.data.message)
         }
 
 
@@ -137,10 +137,10 @@ export async function SignUpFunc(userInfo, setUser) {
             profilePic: response.data.data.profilePic
         }));
 
-        alert(response.data.message)
+        console.log(response.data.message)
 
     } catch (error) {
         //alert(error.response.data.error);
-        alert(error)
+        console.log(error)
     }
 }

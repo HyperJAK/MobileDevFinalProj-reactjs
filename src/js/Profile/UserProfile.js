@@ -92,6 +92,8 @@ export const UserProfile = ({user,setUser}) => {
     async function LoadImage(e) {
         const file = e.target.files[0];
 
+        console.log(e.target.value)
+
         if (file) {
             const reader = new FileReader();
 

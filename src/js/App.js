@@ -38,7 +38,8 @@ export default function App() {
   const [hotelsData, setHotelsData] = useState([]);
   const [flightsData, setFlightsData] = useState([]);
   const [roomsData, setRoomsData] = useState([]);
-  const [tripsData, setTripsData] = useState([]);
+  const [tripsData, setTripsData] = useState();
+  const [refreshTripsData, setRefreshTripsData] = useState(true);
 
 
 
@@ -226,7 +227,7 @@ export default function App() {
       return (
           <>
               <Navigation user={user} setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
-              <Trips props={{currentScreen,setCurrentScreen,user,tripsData,setTripsData}}/>
+              <Trips props={{currentScreen,setCurrentScreen,user,tripsData,setTripsData,refreshTripsData,setRefreshTripsData}}/>
               <Credits />
           </>
       )
