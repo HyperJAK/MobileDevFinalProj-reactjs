@@ -151,8 +151,11 @@ export const TripsData = ({props}) => {
                     );
 
 
-                    setTripsData(newTripsData);
-                    setRefreshTripsData(false);
+                    if(tripsData !== undefined){
+                        setTripsData(newTripsData);
+                        setRefreshTripsData(false);
+                    }
+
 
                 } catch (error) {
                     console.error('Error fetching data:', error);
@@ -214,16 +217,20 @@ export const TripsData = ({props}) => {
 
     let tripsDivs;
 
-    if(tripsData !== undefined){
+    if(tripsData !== undefined && (tripsData[0].flightImages !== undefined || tripsData[0].hotelImages !== undefined || tripsData[0].roomImages !== undefined)){
 
+        console.log('entered')
         tripsDivs = tripsData.map((trip) => {
         console.log(trip)
+
+            const flightImageUrl = trip.flightImages[0].flight.imageUrl;
+
 
             return (
 
                 <DataStyle>
 
-                    <DataPicStyle imageUrl={""}/>
+                    <DataPicStyle imageUrl={flightImageUrl}/>
                     <P>{trip.trip_name}</P>
                     <ViewTrip>View Trip</ViewTrip>
 
