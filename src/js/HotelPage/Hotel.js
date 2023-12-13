@@ -50,9 +50,10 @@ export default function Hotel({setCurrentScreen,handleAddHotel}) {
               <SearchHotel handleAddHotel={handleAddHotel}/>
           </BackgroundGrey>
           <HotelsData />
-          <div style={BackgroundPrimary}>
+
+          <BackgroundWhite>
               <HomeBody1 setCurrentScreen={setCurrentScreen}/>
-          </div>
+          </BackgroundWhite>
 
           <BackgroundGrey>
               <HotelBody2 />

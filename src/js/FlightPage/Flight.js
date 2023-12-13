@@ -48,9 +48,9 @@ export default function Flight({setCurrentScreen,handleAddFlight}) {
               <SearchFlight handleAddFlight={handleAddFlight}/>
           </BackgroundGrey>
 
-          <div style={BackgroundPrimary}>
-        <HomeBody1 setCurrentScreen={setCurrentScreen}/>
-          </div>
+          <BackgroundWhite>
+            <HomeBody1 setCurrentScreen={setCurrentScreen}/>
+          </BackgroundWhite>
 
           <BackgroundGrey>
               <FlightBody2 />

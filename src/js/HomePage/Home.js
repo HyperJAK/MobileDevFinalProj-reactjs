@@ -54,9 +54,9 @@ export default function Home({setCurrentScreen}){
              <QuickPlanDiv />
          </BackgroundGrey>
 
-         <div style={BackgroundPrimary}>
+         <BackgroundWhite>
              <HomeBody1 setCurrentScreen={setCurrentScreen}/>
-         </div>
+         </BackgroundWhite>
 
          <BackgroundGrey>
              <HomeBody2 />
