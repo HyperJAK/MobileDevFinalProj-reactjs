@@ -40,6 +40,7 @@ export default function SearchBar({destination,setDestination,searchHotels,hotel
       padding: 10px;
       margin: 5px;
       gap: 50px;
+      justify-content: left;
     `;
 
     const SuggestionElementPic = styled.div`
@@ -58,7 +59,7 @@ export default function SearchBar({destination,setDestination,searchHotels,hotel
       gap: 50px;
       flex-wrap: nowrap;
       border-radius: 10px;
-      padding-right: 10px;
+/*      padding-right: 10px;*/
     `;
 
     const SuggestionElementInfo = styled.p`

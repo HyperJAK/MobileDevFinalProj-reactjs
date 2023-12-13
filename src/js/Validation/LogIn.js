@@ -1,12 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Container, Row, Col, Card, FloatingLabel} from 'react-bootstrap';
-import authImg from '../../assets/auth.png'
+import authImg from '../../assets/logo.svg'
 import './css/Accounts.css';
 import { Form } from 'react-bootstrap';
 import axios from "axios";
 import {EncryptPassword, SignInFunc, ValidAlphaInput, ValidEmail, ValidPassword} from "../Utilities";
 import {EmailAndPass} from "./EmailAndPass";
 import {AuthRegister} from "./AuthRegister";
+import {useState} from "react";
+import {DarkBlue, NormalBlue} from "../../assets/colors/Colors";
 
 
 export const LogIn = ({props}) =>{
@@ -23,6 +25,17 @@ export const LogIn = ({props}) =>{
         handleLoggin,
 
     } = props;
+
+    const [isHovered, setIsHovered] = useState(false);
+
+    const button_style = {
+        width: "100%",
+        marginTop: "15px",
+        borderRadius: "30px",
+        height: "60px",
+        color: "white",
+        backgroundColor: isHovered ? DarkBlue : NormalBlue,
+    };
 
 
     return(
@@ -44,8 +57,6 @@ export const LogIn = ({props}) =>{
                                     <Card.Body className="p-4 p-lg-5 text-black">
                                         <form>
                                             <div className="d-flex align-items-center mb-3 pb-1">
-                                                <i className="fas fa-cubes fa-2x me-3"
-                                                   style={{color: '#ff6219'}}></i>
                                                 <span className="h1 fw-bold mb-0">Sign In</span>
                                             </div>
                                             <h5 className="fw-normal mb-3 pb-3" style={{letterSpacing: '1px'}}>
@@ -58,7 +69,7 @@ export const LogIn = ({props}) =>{
                                             <EmailAndPass props={{email,password,setEmail,setPass}} />
 
                                             <div className="pt-1 mb-4">
-                                                <Button style={{marginTop: '15px'}} variant="dark" size="lg" onClick={handleLoggin}>
+                                                <Button style={button_style} variant="dark" size="lg" onMouseEnter={() =>setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} onClick={handleLoggin}>
                                                     Login
                                                 </Button>
                                             </div>

@@ -12,8 +12,7 @@ export const LogOut = ({setIsLogIn,setCurrentScreen}) => {
 
     const button_style = {
         width: "100%",
-        borderRadius: "30px",
-        height: "40px",
+        height: "50px",
         fontWeight: isHovered? 'bold' : 'normal',
         color: isHovered ? "white" : "black",
         border: "1px solid rgba(13,110,253,255)",
