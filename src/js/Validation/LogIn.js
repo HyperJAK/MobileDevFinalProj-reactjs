@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Container, Row, Col, Card, FloatingLabel} from 'react-bootstrap';
-import authImg from '../../assets/auth.png'
+import authImg from '../../assets/logo.svg'
 import './css/Accounts.css';
 import { Form } from 'react-bootstrap';
 import axios from "axios";

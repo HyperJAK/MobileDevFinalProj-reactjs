@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Container, Row, Col, Card, Form, FloatingLabel} from 'react-bootstrap';
 import axios from "axios";
-import authImg from '../../assets/auth.png'
+import authImg from '../../assets/logo.svg'
 import './css/Accounts.css';
 import {EncryptPassword, ValidEmail, ValidPassword, SignUpFunc} from "../Utilities";
 import {EmailAndPass} from "./EmailAndPass";
