@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import axios from "axios";
 import cutePic from '../../assets/homeImg.jpg';
+import imageHotel from '../../assets/hotelImg.jpg'
 
 
 
@@ -234,7 +235,7 @@ export const TripsData = ({props}) => {
 
                 <DataStyle>
 
-                    <DataPicStyle imageUrl={flightImageUrl}/>
+                    <DataPicStyle imageUrl={imageHotel}/>
                     <P>{trip.trip_name}</P>
                     <ViewTrip>View Trip</ViewTrip>
 

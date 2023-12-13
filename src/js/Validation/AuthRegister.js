@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import { AES, enc } from "crypto-js";
 import {EncryptPassword, SignInFunc, SignUpFunc, ValidEmail, ValidPassword} from "../Utilities";
 import axios from "axios";
+import {DarkBlue} from "../../assets/colors/Colors";
 
 export const AuthRegister = ({setIsLogIn, setUser, setCurrentScreen}) =>{
     const [isHovered, setIsHovered] = useState(false);
@@ -18,7 +19,7 @@ export const AuthRegister = ({setIsLogIn, setUser, setCurrentScreen}) =>{
         height: "60px",
         color: isHovered ? "white" : "black",
         border: "1px solid red",
-        backgroundColor: isHovered ? "#333333" : "transparent",
+        backgroundColor: isHovered ? DarkBlue : "transparent",
     };
 
     useEffect(() => {
