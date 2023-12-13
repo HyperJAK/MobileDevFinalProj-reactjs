@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import { AES, enc } from "crypto-js";
 import {EncryptPassword, SignInFunc, SignUpFunc, ValidEmail, ValidPassword} from "../Utilities";
 import axios from "axios";
+import {DarkBlue} from "../../assets/colors/Colors";
 
 export const AuthRegister = ({setIsLogIn, setUser, setCurrentScreen}) =>{
     const [isHovered, setIsHovered] = useState(false);
@@ -18,7 +19,7 @@ export const AuthRegister = ({setIsLogIn, setUser, setCurrentScreen}) =>{
         height: "60px",
         color: isHovered ? "white" : "black",
         border: "1px solid red",
-        backgroundColor: isHovered ? "#333333" : "transparent",
+        backgroundColor: isHovered ? DarkBlue : "transparent",
     };
 
     useEffect(() => {
@@ -48,13 +49,32 @@ export const AuthRegister = ({setIsLogIn, setUser, setCurrentScreen}) =>{
                 setCurrentScreen('home');
             }
 
-            setUser((prevUser) => ({
-                ...prevUser,
-                username: username,
-                email: email,
-                password: encryptedPass,
-                image: profilePic
-            }));
+            const data = {email};
+
+            try {
+                const response = await axios.post(
+                    "http://localhost:4000/getUserId",
+                    data
+                );
+
+                const userId =  (response.data.user.id)
+
+                setUser((prevUser) => ({
+                    ...prevUser,
+                    id: userId,
+                    username: username,
+                    email: email,
+                    password: encryptedPass,
+                    image: profilePic
+                }));
+
+            } catch (error) {
+                //alert(error.response.data.error);
+                alert(error)
+                return false;
+            }
+
+
 
 
                     // Try comparing encrypted key and email to the database

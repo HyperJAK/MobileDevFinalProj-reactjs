@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 
 
 
-export default function SearchFlight(){
+export default function SearchFlight({handleAddFlight}){
 
   const [flightsResults,setFlightsResults] = useState(null)
   const [flights,setFlights] = useState([])
@@ -57,8 +57,8 @@ export default function SearchFlight(){
     }, [])
 
     const searchFlights = () => {
-      const tmp = flights.filter((element) => element.departure == source)
-      setFlightsResults(tmp.filter((element)=> element.destination == destination))
+      const tmp = flights.filter((element) => element.departure.toUpperCase() === source.toUpperCase())
+      setFlightsResults(tmp.filter((element)=> element.destination.toUpperCase() === destination.toUpperCase()))
       console.log(flightsResults)
       setSearching(true)
     }
@@ -76,7 +76,7 @@ export default function SearchFlight(){
               </div>
 
       </div>
-      { searching && <FlightSearchResults destination={destination} source={source} flightsResults={flightsResults}/>}
+      { searching && <FlightSearchResults destination={destination} source={source} flightsResults={flightsResults} handleAddFlight={handleAddFlight}/>}
     </>
   )
 }

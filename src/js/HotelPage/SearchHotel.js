@@ -8,7 +8,7 @@ import HotelSearchResults from './HotelSearchResults'
 import { useState } from 'react';
 import axios from 'axios';
 
-export default function SearchHotel() {
+export default function SearchHotel({handleAddHotel}) {
 
   const [hotelsResults,setHotelsResults] = useState([]);
   const [destination, setDestination] = useState('');
@@ -67,7 +67,7 @@ export default function SearchHotel() {
             </div>
 
     </div>
-    { searching && <HotelSearchResults destination={destination} hotelsResults={hotelsResults}/>}
+    { searching && <HotelSearchResults destination={destination} hotelsResults={hotelsResults} handleAddHotel={handleAddHotel}/>}
     </>
   )
 }

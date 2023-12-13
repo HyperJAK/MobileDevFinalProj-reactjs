@@ -7,6 +7,8 @@ import {QuickPlanDiv} from "./QuickPlanDiv";
 import {useState} from "react";
 import {SplineHomeScene} from '../App';
 import {OverDesignText} from "../OverDesignText";
+import styled from "styled-components";
+import {NormalBlue} from "../../assets/colors/Colors";
 
 
 const FullNav_style = {
@@ -18,8 +20,24 @@ const FullNav_style = {
     margin: '0 auto'
 }
 
+const BackgroundWhite = styled.div`
+background-color: white;
+  padding: 80px;
 
-export default function Home(){
+`;
+
+const BackgroundGrey = styled.div`
+background-color: #F7F7F7;
+  padding: 80px;
+`;
+
+const BackgroundPrimary = {
+    backgroundColor: NormalBlue,
+    margin: '80px 0 80px 0'
+}
+
+
+export default function Home({setCurrentScreen}){
 
     var title = 'Book Your Trip';
     var description = 'We are a dedicated platform that allows you to book any kind of flight, hotel, or even both.';
@@ -31,9 +49,19 @@ export default function Home(){
 
          <OverDesignText props={{title, description}}/>
 
-            <QuickPlanDiv />
-             <HomeBody1 />
+
+         <BackgroundGrey>
+             <QuickPlanDiv />
+         </BackgroundGrey>
+
+         <BackgroundWhite>
+             <HomeBody1 setCurrentScreen={setCurrentScreen}/>
+         </BackgroundWhite>
+
+         <BackgroundGrey>
              <HomeBody2 />
+         </BackgroundGrey>
+
 
      </div>
 

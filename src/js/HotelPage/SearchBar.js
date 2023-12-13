@@ -12,17 +12,26 @@ const mainDiv_style = {
 }
 
 
-const SuggestionDiv = styled.div`
+
+
+export default function SearchBar({destination,setDestination,searchHotels,hotelsResults,setSearching}) {
+
+    const [isHovered, setIsHovered] = useState(false);
+
+
+    const SuggestionDiv = styled.div`
       display: flex;
       flex-direction: column;
       flex-wrap: nowrap;
       background-color: #08243c;
       width: 100%;
+      max-height: 300px;
       color: white;
       border-radius: 20px;
+      overflow: auto;
     `;
 
-const SuggestionElementDiv = styled.div`
+    const SuggestionElementDiv = styled.div`
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
@@ -31,9 +40,10 @@ const SuggestionElementDiv = styled.div`
       padding: 10px;
       margin: 5px;
       gap: 50px;
+      justify-content: left;
     `;
 
-const SuggestionElementPic = styled.div`
+    const SuggestionElementPic = styled.div`
       width: 100px;
       height: 100%;
       border-radius: 20px;
@@ -43,22 +53,23 @@ const SuggestionElementPic = styled.div`
       background-size: cover;
     `;
 
-const SuggestionElementInfoDiv = styled.div`
+    const SuggestionElementInfoDiv = styled.div`
       display: flex;
       flex-direction: row;
       gap: 50px;
       flex-wrap: nowrap;
       border-radius: 10px;
-      padding-right: 10px;
+/*      padding-right: 10px;*/
     `;
 
-const SuggestionElementInfo = styled.p`
+    const SuggestionElementInfo = styled.p`
       font-size: 0.9em;
       font-family: Roboto;
       padding: 10px;
     `;
 
-export default function SearchBar({destination,setDestination,searchHotels,hotelsResults,setSearching}) {
+
+
 
     const searchBoxStyles = {
         backgroundColor: '#08243c', // #e1d699
@@ -150,7 +161,7 @@ export default function SearchBar({destination,setDestination,searchHotels,hotel
 
                         return(
 
-                            <SuggestionElementDiv key={hotelObj.hotelId}>
+                            <SuggestionElementDiv key={hotelObj.hotelId} onClick={() => setDestination(hotelObj.hotelCity)}>
                                 <SuggestionElementPic imageUrl={imageHotel}/>
 
                                 <SuggestionElementInfoDiv>

@@ -16,6 +16,7 @@ import {
     MDBListGroup,
     MDBListGroupItem, MDBInput
 } from 'mdb-react-ui-kit';
+
 import styled from "styled-components";
 import {useAuth0} from "@auth0/auth0-react";
 import axios from "axios";
@@ -82,9 +83,6 @@ export const UserProfile = ({user,setUser}) => {
         else{
             console.log('Not valid credentials')
         }
-
-
-
 
     }
 

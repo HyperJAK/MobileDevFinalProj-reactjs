@@ -5,6 +5,8 @@ import HotelBody2 from './HotelBody2'
 import {SplineHotelScene} from '../App';
 import {OverDesignText} from "../OverDesignText";
 import HotelsData from './HotelsData';
+import styled from "styled-components";
+import {NormalBlue} from "../../assets/colors/Colors";
 
 const FullNav_style = {
     display: 'flex',
@@ -15,7 +17,24 @@ const FullNav_style = {
     margin: '0 auto'
 }
 
-export default function Hotel() {
+
+const BackgroundWhite = styled.div`
+background-color: white;
+  padding: 80px;
+
+`;
+
+const BackgroundGrey = styled.div`
+background-color: #F7F7F7;
+  padding: 80px;
+`;
+
+const BackgroundPrimary = {
+    backgroundColor: NormalBlue,
+    margin: '80px 0 80px 0'
+}
+
+export default function Hotel({setCurrentScreen,handleAddHotel}) {
 
     var title = 'Reserve your room !';
     var description = 'Dig deep into our multinational database of hotels that can be reserved on the spot.';
@@ -27,10 +46,20 @@ export default function Hotel() {
 
         <OverDesignText props={{title,description}}/>
 
-        <SearchHotel />
+          <BackgroundGrey>
+              <SearchHotel handleAddHotel={handleAddHotel}/>
+          </BackgroundGrey>
           <HotelsData />
-        <HomeBody1 />
-        <HotelBody2 />
+
+          <BackgroundWhite>
+              <HomeBody1 setCurrentScreen={setCurrentScreen}/>
+          </BackgroundWhite>
+
+          <BackgroundGrey>
+              <HotelBody2 />
+          </BackgroundGrey>
+
+
 
     </div>
   )

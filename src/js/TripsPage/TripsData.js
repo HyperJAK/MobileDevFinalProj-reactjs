@@ -2,14 +2,19 @@ import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import axios from "axios";
 import cutePic from '../../assets/homeImg.jpg';
+import imageHotel from '../../assets/hotelImg.jpg'
 
 
 
-async function GetMainData({setTripsData}){
+async function GetMainData({setTripsData, user}){
+
+    const email = user.email;
+    const info = {email};
 
     try {
         const response = await axios.post(
-            "http://localhost:4000/getAllTrips"
+            "http://localhost:4000/getAllTrips",
+            info
         );
         //console.log("RESPONSESSSS")
         //console.log(response.data.data)
@@ -132,7 +137,7 @@ export const TripsData = ({props}) => {
 
         const fetchData = async () => {
             if (refreshTripsData) {
-                await GetMainData({setTripsData: setTripsData});
+                await GetMainData({setTripsData: setTripsData, user:user});
                 try {
                     const newTripsData = await Promise.all(
                         tripsData.map(async (trip) => {
@@ -230,7 +235,7 @@ export const TripsData = ({props}) => {
 
                 <DataStyle>
 
-                    <DataPicStyle imageUrl={flightImageUrl}/>
+                    <DataPicStyle imageUrl={imageHotel}/>
                     <P>{trip.trip_name}</P>
                     <ViewTrip>View Trip</ViewTrip>
 
