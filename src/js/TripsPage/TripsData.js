@@ -5,11 +5,15 @@ import cutePic from '../../assets/homeImg.jpg';
 
 
 
-async function GetMainData({setTripsData}){
+async function GetMainData({setTripsData, user}){
+
+    const email = user.email;
+    const info = {email};
 
     try {
         const response = await axios.post(
-            "http://localhost:4000/getAllTrips"
+            "http://localhost:4000/getAllTrips",
+            info
         );
         //console.log("RESPONSESSSS")
         //console.log(response.data.data)
@@ -132,7 +136,7 @@ export const TripsData = ({props}) => {
 
         const fetchData = async () => {
             if (refreshTripsData) {
-                await GetMainData({setTripsData: setTripsData});
+                await GetMainData({setTripsData: setTripsData, user:user});
                 try {
                     const newTripsData = await Promise.all(
                         tripsData.map(async (trip) => {

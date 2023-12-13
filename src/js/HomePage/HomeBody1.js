@@ -4,9 +4,7 @@ import {Button} from "react-bootstrap";
 
 
 
-
-
-const SwitchElementButtons = () => {
+export default function HomeBody1({setCurrentScreen}){
 
     const Button = styled.button`
     height: 80px;
@@ -21,32 +19,31 @@ const SwitchElementButtons = () => {
 
 
     return(
-
-        <Container style={{ maxWidth: '1200px', marginTop: '50px', marginBottom: '50px'}}>
-            <div className="d-flex justify-content-between gap-3">
-                <Button variant="primary" className="flex-fill">Flights</Button>
-                <Button variant="secondary" className="flex-fill">Hotels</Button>
-                <Button variant="success" className="flex-fill">Trips</Button>
-            </div>
-        </Container>
-
-    );
-
-}
-
-
-
-
-
-
-export default function HomeBody1(){
-
-
-
-    return(
-        <div>
-            <SwitchElementButtons />
-        </div>
+            <Container style={{ maxWidth: '1200px', marginTop: '50px', marginBottom: '50px'}}>
+                <div className="d-flex justify-content-between gap-3">
+                    <Button variant="primary" className="flex-fill" onClick={()=>{
+                        setCurrentScreen('flight')
+                        var serializedString = JSON.stringify({
+                            lastScreen: 'flight',
+                        });
+                        localStorage.setItem('currentScreen', serializedString);
+                    }} >Flights</Button>
+                    <Button variant="secondary" className="flex-fill" onClick={()=>{
+                        setCurrentScreen('hotel')
+                        var serializedString = JSON.stringify({
+                            lastScreen: 'hotel',
+                        });
+                        localStorage.setItem('currentScreen', serializedString);
+                    }} >Hotels</Button>
+                    <Button variant="success" className="flex-fill" onClick={()=>{
+                        setCurrentScreen('trip')
+                        var serializedString = JSON.stringify({
+                            lastScreen: 'trip',
+                        });
+                        localStorage.setItem('currentScreen', serializedString);
+                    }} >Trips</Button>
+                </div>
+            </Container>
 
     );
 

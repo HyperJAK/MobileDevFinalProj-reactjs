@@ -6,7 +6,7 @@ import imageHotel from '../../assets/hotelImg.jpg'
 
 export default function PopularHotels() {
 
-    let [topPopularHotels,setTopPopularHotels] = useState([])
+    const [topPopularHotels,setTopPopularHotels] = useState([])
 
     useEffect( ()=>{
         async function getData(){

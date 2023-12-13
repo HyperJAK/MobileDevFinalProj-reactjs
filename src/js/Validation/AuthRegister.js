@@ -48,13 +48,32 @@ export const AuthRegister = ({setIsLogIn, setUser, setCurrentScreen}) =>{
                 setCurrentScreen('home');
             }
 
-            setUser((prevUser) => ({
-                ...prevUser,
-                username: username,
-                email: email,
-                password: encryptedPass,
-                image: profilePic
-            }));
+            const data = {email};
+
+            try {
+                const response = await axios.post(
+                    "http://localhost:4000/getUserId",
+                    data
+                );
+
+                const userId =  (response.data.user.id)
+
+                setUser((prevUser) => ({
+                    ...prevUser,
+                    id: userId,
+                    username: username,
+                    email: email,
+                    password: encryptedPass,
+                    image: profilePic
+                }));
+
+            } catch (error) {
+                //alert(error.response.data.error);
+                alert(error)
+                return false;
+            }
+
+
 
 
                     // Try comparing encrypted key and email to the database

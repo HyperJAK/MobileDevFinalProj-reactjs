@@ -82,8 +82,8 @@ export async function SignInFunc(userInfo, setUser){
         );
 
         const dbMail = response.data.data.email;
-        const decryptedDbPass =  DecryptPassword(response.data.data.password);
-        const decryptedLocalPass = DecryptPassword(userInfo.encryptedPass);
+        const decryptedDbPass =  await DecryptPassword(response.data.data.password);
+        const decryptedLocalPass = await DecryptPassword(userInfo.encryptedPass);
 
         if((decryptedDbPass === decryptedLocalPass) && (dbMail === userInfo.email)){
 
@@ -93,6 +93,7 @@ export async function SignInFunc(userInfo, setUser){
 
             const imageUrl = URL.createObjectURL(blob);
 
+            console.log(imageUrl)
 
             console.log("RESPONSESSSS")
             console.log(response.data.data)
@@ -112,7 +113,7 @@ export async function SignInFunc(userInfo, setUser){
 
 
     }catch(error){
-        alert(error.response.data.error);
+        console.log(error);
     }
 
 }

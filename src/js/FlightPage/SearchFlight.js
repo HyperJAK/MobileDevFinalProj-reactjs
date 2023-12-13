@@ -9,9 +9,9 @@ import { useEffect } from 'react';
 
 
 
-export default function SearchFlight(){
+export default function SearchFlight({handleAddFlight}){
 
-  const [flightsResults,setFlightsResults] = useState([])
+  const [flightsResults,setFlightsResults] = useState(null)
   const [flights,setFlights] = useState([])
   const [destination, setDestination] = useState('');
   const [source, setSource] = useState('');
@@ -56,23 +56,9 @@ export default function SearchFlight(){
     getData();  
     }, [])
 
-    function searchFlights() {
-        console.log(flights)
-      const dep = flights.filter((flight) => flight.departure === source)
-        const dest = flights.filter((flight) => flight.destination === destination)
-
-        if(dep !== undefined && dest !== undefined){
-            setFlightsResults((prevRes) => ({
-                ...prevRes,
-                dep
-            }))
-
-            setFlightsResults((prevRes) => ({
-                ...prevRes,
-                dest
-            }))
-
-        }
+    const searchFlights = () => {
+      const tmp = flights.filter((element) => element.departure.toUpperCase() === source.toUpperCase())
+      setFlightsResults(tmp.filter((element)=> element.destination.toUpperCase() === destination.toUpperCase()))
       console.log(flightsResults)
       setSearching(true)
     }
@@ -90,7 +76,7 @@ export default function SearchFlight(){
               </div>
 
       </div>
-      { searching && <FlightSearchResults destination={destination} source={source} flightsResults={flightsResults}/>}
+      { searching && <FlightSearchResults destination={destination} source={source} flightsResults={flightsResults} handleAddFlight={handleAddFlight}/>}
     </>
   )
 }

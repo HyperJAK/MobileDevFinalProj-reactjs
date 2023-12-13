@@ -50,7 +50,7 @@ export const QuickPlanDiv = () =>{
         display: 'flex',
         flexDirection: 'column',
         flexWrap: 'nowrap',
-        width: '100%',
+        width: '80%',
         height: '550px',
         margin: '0 auto',
         gap: '50px',
@@ -58,7 +58,8 @@ export const QuickPlanDiv = () =>{
         backgroundImage: 'url(https://i.ibb.co/RSCv84h/wallpaperflare-com-wallpaper.jpg)',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
-        opacity: '0.93'
+        opacity: '0.93',
+        borderRadius: '20px'
     }
 
     const childDiv_style = {
@@ -67,6 +68,7 @@ export const QuickPlanDiv = () =>{
         flexWrap: 'wrap',
         justifyContent: 'center',
         gap: '1px',
+        textAlign: 'center'
     }
 
 

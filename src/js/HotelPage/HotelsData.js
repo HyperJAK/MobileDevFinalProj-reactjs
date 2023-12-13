@@ -12,7 +12,7 @@ export default function HotelsData(props) {
     return (
         <Container style={{ marginTop: 20 }}>
             <h1>Popular Hotels</h1>
-            <div>
+           <div>
                 <PopularHotels />
             </div>
         </Container>

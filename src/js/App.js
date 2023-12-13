@@ -37,11 +37,42 @@ export default function App() {
 
   const [hotelsData, setHotelsData] = useState([]);
   const [flightsData, setFlightsData] = useState([]);
-  const [roomsData, setRoomsData] = useState([]);
+  const [roomsData, setRoomsData] = useState([{}]);
   const [tripsData, setTripsData] = useState();
   const [refreshTripsData, setRefreshTripsData] = useState(true);
 
+  const [userTrip, setUserTrip] = useState([{hotel: null, flight: null}]);
 
+
+    function addHotel(hotelInfo) {
+        setUserTrip(prevTrips => {
+            const lastTrip = prevTrips[prevTrips.length - 1];
+            if (lastTrip && lastTrip.hotel === null) {
+                // Update the last hotel in the existing trips
+                return prevTrips.map((trip, index) =>
+                    index === prevTrips.length - 1 ? { ...trip, hotel: hotelInfo } : trip
+                );
+            } else {
+                // Add a new trip with the hotel information
+                return [...prevTrips, { hotel: hotelInfo, flight: null }];
+            }
+        });
+    }
+
+    function addFlight(flightInfo) {
+        setUserTrip(prevTrips => {
+            const lastTrip = prevTrips[prevTrips.length - 1];
+            if (lastTrip && lastTrip.flight === null) {
+                // Update the last flight in the existing trips
+                return prevTrips.map((trip, index) =>
+                    index === prevTrips.length - 1 ? { ...trip, flight: flightInfo } : trip
+                );
+            } else {
+                // Add a new trip with the flight information
+                return [...prevTrips, { hotel: null, flight: flightInfo }];
+            }
+        });
+    }
 
   // useEffect(() => {
 
@@ -177,6 +208,48 @@ export default function App() {
 
   }
 
+  async function handleAddHotel(hotelId) {
+console.log(hotelId)
+      const data = {hotelId};
+      try {
+          const response = await axios.post('http://localhost:4000/getRooms', data);
+
+          setRoomsData((prevRooms) => ({
+              ...prevRooms,
+              response
+          }));
+
+          addHotel(response.data.jsonCurrentHotelRooms[0].room.roomId);
+          console.log(response.data.jsonCurrentHotelRooms);
+      } catch (error) {
+          console.log(error);
+      }
+
+      console.log(userTrip)
+
+  }
+
+    async function handleAddFlight(flightId) {
+        addFlight(flightId);
+        console.log(flightId);
+    }
+
+    async function addNewTrip(tripName){
+      try{
+          const id = user.id;
+          console.log('User id: ' + user.id)
+
+          const data = {tripName,id,userTrip}
+
+          const response = await axios.post('http://localhost:4000/addNewTrip', data);
+
+
+      }catch (error){
+          console.log(error)
+      }
+
+    };
+
   const handleCloseSessionExpiredModal = () => {
     setIsLogIn(true);
     setIsRegistering(false);
@@ -200,7 +273,7 @@ export default function App() {
     return (<>
 
         <Navigation user={user} setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
-          <Home />
+          <Home setCurrentScreen={setCurrentScreen}/>
           <Credits />
 
         </>
@@ -209,7 +282,7 @@ export default function App() {
     return (
       <>
           <Navigation user={user} setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
-        <Hotel setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
+        <Hotel setCurrentScreen={setCurrentScreen} currentScreen={currentScreen} handleAddHotel={handleAddHotel}/>
           <Credits />
       </>
     )
@@ -217,7 +290,7 @@ export default function App() {
     return (
       <>
         <Navigation user={user} setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
-        <Flight setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
+        <Flight setCurrentScreen={setCurrentScreen} currentScreen={currentScreen} handleAddFlight={handleAddFlight}/>
           <Credits />
       </>
     )
@@ -227,7 +300,7 @@ export default function App() {
       return (
           <>
               <Navigation user={user} setIsLogIn={setIsLogIn} setCurrentScreen={setCurrentScreen} currentScreen={currentScreen}/>
-              <Trips props={{currentScreen,setCurrentScreen,user,tripsData,setTripsData,refreshTripsData,setRefreshTripsData}}/>
+              <Trips props={{currentScreen,setCurrentScreen,user,tripsData,setTripsData,refreshTripsData,setRefreshTripsData,addNewTrip}}/>
               <Credits />
           </>
       )

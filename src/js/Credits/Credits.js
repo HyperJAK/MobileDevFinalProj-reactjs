@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {DarkGrey, JeansBlue, LightBlue, LighterBlue, NormalBlue, Purple, Red} from "../../assets/colors/Colors";
 
 
 export const Credits = () =>{
@@ -18,7 +19,7 @@ export const Credits = () =>{
                     <a
                         data-mdb-ripple-init
                         className="btn text-white btn-floating m-1"
-                        style={{backgroundColor: '#3b5998'}}
+                        style={{backgroundColor: JeansBlue}}
                         href="#!"
                         role="button"
                     ><i className="fab fa-facebook-f"></i
@@ -27,7 +28,7 @@ export const Credits = () =>{
                     <a
                         data-mdb-ripple-init
                         className="btn text-white btn-floating m-1"
-                        style={{backgroundColor: '#55acee'}}
+                        style={{backgroundColor: LighterBlue}}
                         href="#!"
                         role="button"
                     ><i className="fab fa-twitter"></i
@@ -36,7 +37,7 @@ export const Credits = () =>{
                     <a
                         data-mdb-ripple-init
                         className="btn text-white btn-floating m-1"
-                        style={{backgroundColor: '#dd4b39'}}
+                        style={{backgroundColor: Red}}
                         href="#!"
                         role="button"
                     ><i className="fab fa-google"></i
@@ -45,7 +46,7 @@ export const Credits = () =>{
                     <a
                         data-mdb-ripple-init
                         className="btn text-white btn-floating m-1"
-                        style={{backgroundColor: '#ac2bac'}}
+                        style={{backgroundColor: Purple}}
                         href="#!"
                         role="button"
                     ><i className="fab fa-instagram"></i
@@ -54,7 +55,7 @@ export const Credits = () =>{
                     <a
                         data-mdb-ripple-init
                         className="btn text-white btn-floating m-1"
-                        style={{backgroundColor: '#0082ca'}}
+                        style={{backgroundColor: LightBlue}}
                         href="#!"
                         role="button"
                     ><i className="fab fa-linkedin-in"></i
@@ -62,7 +63,7 @@ export const Credits = () =>{
                     <a
                         data-mdb-ripple-init
                         className="btn text-white btn-floating m-1"
-                        style={{backgroundColor: '#333333'}}
+                        style={{backgroundColor: DarkGrey}}
                         href="#!"
                         role="button"
                     ><i className="fab fa-github"></i
@@ -70,9 +71,9 @@ export const Credits = () =>{
                 </section>
             </div>
 
-            <div className="text-center p-3"  style={{backgroundColor: 'rgba(13,110,253,255)'}}>
+            <div className="text-center p-3"  style={{backgroundColor: NormalBlue}}>
                 © 2020 Copyright:
-                <Copyright href="#">   MDBootstrap.com</Copyright>
+                <Copyright href="#">   Test.com</Copyright>
             </div>
         </footer>
     );
