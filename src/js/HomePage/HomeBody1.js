@@ -33,24 +33,23 @@ export default function HomeBody1({setCurrentScreen}){
     }
 
     const images_style = {
-        maxWidth: '800px',
-        maxHeight: '600px',
+        maxWidth: '600px',
+        maxHeight: '400px',
         borderRadius: '30px',
         filter: 'brightness(70%)',
-        marginBottom: '10%'
+        marginBottom: '12%'
 
     }
 
     const title_text_style = {
-        fontFamily: 'roboto',
-        fontSize: '26px',
-        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
+        fontFamily: 'Inter',
+        fontSize: '40px',
 
     }
 
     const paragraph_text_style = {
-            fontFamily: 'Open Sans',
-            fontSize: '18px',
+            fontFamily: 'roboto',
+            fontSize: '20px',
         marginBottom: '10%'
     }
 
