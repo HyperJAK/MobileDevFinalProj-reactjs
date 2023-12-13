@@ -30,7 +30,7 @@ const textStyle = {
 
 export default function HotelBody2() {
     const textFiller =
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.';
+        'Embark on a journey of unparalleled comfort with our extraordinary hotel booking service! At [Your Hotel Booking Platform], we redefine the way you experience accommodation. Offering a diverse selection of hotels worldwide, we take pride in providing a seamless and delightful stay for every traveler. Explore a range of accommodations, from cozy retreats to luxurious resorts, all designed to meet different tastes and budgets. Your perfect stay awaits – book with us for an exceptional and memorable hotel experience!';
 
     return (
         <div style={containerStyle}>

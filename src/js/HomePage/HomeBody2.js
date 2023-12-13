@@ -30,7 +30,7 @@ const textStyle = {
 
 export default function HotelBody2() {
     const textFiller =
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.';
+        'Embark on a virtual journey to discover who we are! At [Your Company Name], we are more than just a platform – we\'re your travel companion, here to redefine the way you explore the world. With a passion for seamless travel experiences, we curate exceptional services that go beyond expectations.';
 
     return (
         <div style={containerStyle}>
