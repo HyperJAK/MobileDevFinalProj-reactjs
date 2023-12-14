@@ -1,23 +1,3 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-
-## Available Scripts for main web
-
-In the project directory, you can run:
-
-To install all dependencies from default json package lock file run:
-### `npm install`
-## To install all dependencies for Server:
-### First clone server from: `https://github.com/PeekMe01/MobileDevServer`
-## Then open cmd and run: `npm install`
-## OR: Run `Install.cmd` file
-### Finally run `Run.cmd` or manually open cmd and type: `npm run start`
-
-
-etc...(rest of command at bottom)
-
 # Mobile Dev Project
 Web created using ReactJs, it tests user login / logout to Db and implements multiple security layers for safe Data storage.
 
@@ -30,10 +10,13 @@ Web created using ReactJs, it tests user login / logout to Db and implements mul
 create database mobileDevdb;
 use mobileDevdb;
 
-create table account(
+create table accounts(
 id int primary key auto_increment,
+username varchar(255),
 email varchar(255),
-password varchar(400)
+password varchar(612),
+profilePic LONGBLOB,
+authenticated boolean
 );
 
 create table location(
@@ -46,16 +29,34 @@ description varchar(512),
 timeZone varchar(255)
 );
 
-create table hotels(
-hotelId int primary key auto_increment,
-name varchar(255),
-rating float,
-description varchar(9999),
-location int,
-imageHDUrl varchar(512),
-imageUrl varchar(512),
-FOREIGN KEY (location) REFERENCES location(id)
+CREATE TABLE hotels (
+    hotelId INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255),
+    rating FLOAT,
+    description VARCHAR(9999),
+    location INT,
+    FOREIGN KEY (location) REFERENCES location(id)
 );
+
+CREATE TABLE hotelImages (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    hotelId int,
+    alt VARCHAR(255),
+    imageHDUrl LONGBLOB,
+    imageUrl LONGBLOB,
+    FOREIGN KEY (hotelId) REFERENCES hotels(hotelId)
+);
+
+
+
+-- Example of querry selection of all images of hotel with id = 2:
+/*  SELECT hi.*
+FROM hotelImages hi
+JOIN hotelImageMapping him ON hi.id = him.imageId
+WHERE him.hotelId = 2;  */
+
+
+
 
 create table rooms(
 roomId int primary key auto_increment,
@@ -64,6 +65,18 @@ size varchar(100),
 hotelId int,
 FOREIGN KEY (hotelId) REFERENCES hotels(hotelId)
 );
+
+CREATE TABLE roomImages (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    alt VARCHAR(255),
+    imageHDUrl LONGBLOB,
+    imageUrl LONGBLOB,
+    roomId int,
+    FOREIGN KEY (roomId) REFERENCES rooms(roomId)
+);
+
+
+
 
 create table flights(
 flightId int primary key auto_increment,
@@ -75,6 +88,15 @@ FOREIGN KEY (departure_location) REFERENCES location(id),
 FOREIGN KEY (destination) REFERENCES location(id)
 );
 
+CREATE TABLE flightImages (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    alt VARCHAR(255),
+    imageHDUrl LONGBLOB,
+    imageUrl LONGBLOB,
+    flightId int,
+    FOREIGN KEY (flightId) REFERENCES flights(flightId)
+);
+
 
 create table trips(
 id int primary key auto_increment,
@@ -82,7 +104,7 @@ trip_name varchar(255),
 user_id int ,
 flight_id int,
 booked_roomId int,
-FOREIGN KEY (user_id) REFERENCES account(id),
+FOREIGN KEY (user_id) REFERENCES accounts(id),
 FOREIGN KEY (flight_id) REFERENCES flights(flightId),
 FOREIGN KEY (booked_roomId) REFERENCES rooms(roomId)
 );
@@ -92,12 +114,12 @@ DROP TRIGGER IF EXISTS denyDuplicateAccount;
 DELIMITER //
 CREATE TRIGGER denyDuplicateAccount
 BEFORE INSERT 
-ON account 
+ON accounts 
 FOR EACH ROW 
 BEGIN
     DECLARE duplicateCount INT;
 
-    SELECT COUNT(*) INTO duplicateCount FROM account WHERE email = NEW.email;
+    SELECT COUNT(*) INTO duplicateCount FROM accounts WHERE email = NEW.email;
 
     IF duplicateCount > 0 THEN
         SIGNAL SQLSTATE '45000'
@@ -106,7 +128,6 @@ BEGIN
 END;
 //
 DELIMITER ;
-
 ```
 
 </details>
@@ -132,9 +153,27 @@ npm run devStart
 </details>
 
 #
-
-
 # Overview  
+
+# Getting Started with Create React App
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+
+## Available Scripts for main web
+
+In the project directory, you can run:
+
+To install all dependencies from default json package lock file run:
+### `npm install`
+## To install all dependencies for Server:
+### First clone server from: `https://github.com/PeekMe01/MobileDevServer`
+## Then open cmd and run: `npm install`
+## OR: Run `Install.cmd` file
+### Finally run `Run.cmd` or manually open cmd and type: `npm run start`
+
+
+etc...(rest of command at bottom)
 
 
 Runs the app in the development mode.\
