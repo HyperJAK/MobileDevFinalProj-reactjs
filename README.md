@@ -1,5 +1,34 @@
 # Mobile Dev Project
-Web created using ReactJs, it tests user login / logout to Db and implements multiple security layers for safe Data storage.
+Web created using ReactJs, it tests user login / logout to Db and implements multiple security layers for safe Data storage.  
+
+### To Install Dependencies  
+<details>
+<summary>Project deps:</summary>
+<br>  
+  
+```
+npm install 
+```
+
+</details>
+<details>
+<summary>Server deps:</summary>
+<br>  
+  
+```
+Server currently private
+``` 
+
+  
+```
+npm install 
+``` 
+
+</details>
+
+--Then change .env files in base project dir and in Server dir accordingly  
+
+
 
 ### To Start
 <details>
