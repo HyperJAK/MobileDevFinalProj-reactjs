@@ -3,7 +3,7 @@ Web created using ReactJs, it tests user login / logout to Db and implements mul
 
 ### To Start
 <details>
-<summary>mySQL Script for Db: (Needs to be edited)</summary>
+<summary>mySQL Script for Db:</summary>
 <br>  
 
 ```sql
@@ -128,6 +128,147 @@ BEGIN
 END;
 //
 DELIMITER ;
+```
+
+</details>  
+
+<details>
+<summary>mySQL Insert test data:</summary>
+<br>  
+
+```sql
+-- Insert test data into the location table
+INSERT INTO location (address, city, latitude, longitude, description, timeZone)
+VALUES
+    ('123 Main St', 'Beirut', 12.34, 56.78, 'Beirut Description', 'UTC+3'),
+    ('456 Oak St', 'Oklahoma', 23.45, 67.89, 'Oklahoma Description', 'UTC-5'),
+    ('123 Main St', 'Paris', 12.34, 56.78, 'Paris Description', 'UTC+3'),
+    ('456 Oak St', 'Baabda', 23.45, 67.89, 'Baabda Description', 'UTC-5'),
+    ('123 Main St', 'Moscow', 12.34, 56.78, 'Moscow Description', 'UTC+3'),
+    ('456 Oak St', 'Tokyo', 23.45, 67.89, 'Tokyo Description', 'UTC-5');
+
+-- Insert test data into the hotels table
+INSERT INTO hotels (name, rating, description, location)
+VALUES
+    ('Luxury Hotel beirut', 4.5, 'Luxury Hotel beirut Description', 1),
+    ('Comfort Inn Oklahoma', 2.0, 'Comfort Inn Oklahoma Description', 2),
+    ('Comfort Inn Paris', 3.8, 'Comfort Inn Paris Description', 3),
+    ('Luxury Hotel Baabda', 4.5, 'Luxury Hotel Baabda Description', 4),
+    ('Comfort Inn Moscow', 3.8, 'Comfort Inn Moscow Description', 5),
+    ('Comfort Inn Tokyo', 5.0, 'Comfort Inn Tokyo Description', 6);
+
+-- Insert test data into the hotelImages table
+INSERT INTO hotelImages (hotelId, alt, imageHDUrl, imageUrl)
+VALUES
+    (1, 'Hotel beirut Image 1', 'url/to/hotelA/hd/image1', 'url/to/hotelA/image1'),
+    (1, 'Hotel beirut Image 2', 'url/to/hotelA/hd/image2', 'url/to/hotelA/image2'),
+    
+    (2, 'Hotel Oklahoma Image 1', 'url/to/hotelB/hd/image1', 'url/to/hotelB/image1'),
+    (2, 'Hotel Oklahoma Image 2', 'url/to/hotelB/hd/image2', 'url/to/hotelB/image2'),
+    
+    (3, 'Hotel Paris Image 1', 'url/to/hotelB/hd/image1', 'url/to/hotelB/image1'),
+    (3, 'Hotel Paris Image 2', 'url/to/hotelB/hd/image2', 'url/to/hotelB/image2'),
+    
+    (4, 'Hotel Baabda Image 1', 'url/to/hotelB/hd/image1', 'url/to/hotelB/image1'),
+    (4, 'Hotel Baabda Image 2', 'url/to/hotelB/hd/image2', 'url/to/hotelB/image2'),
+    
+    (5, 'Hotel Moscow Image 1', 'url/to/hotelB/hd/image1', 'url/to/hotelB/image1'),
+    (5, 'Hotel Moscow Image 2', 'url/to/hotelB/hd/image2', 'url/to/hotelB/image2'),
+    
+    (6, 'Hotel Tokyo Image 1', 'url/to/hotelB/hd/image1', 'url/to/hotelB/image1'),
+    (6, 'Hotel Tokyo Image 2', 'url/to/hotelB/hd/image2', 'url/to/hotelB/image2');
+
+-- Insert test data into the rooms table
+INSERT INTO rooms (price, size, hotelId)
+VALUES
+    (150.0, 'King Suite', 1),
+    (100.0, 'Double Room', 2),
+    (150.0, 'King Suite', 3),
+    (100.0, 'Double Room', 4),
+    (150.0, 'King Suite', 5),
+    (100.0, 'Double Room', 6);
+
+-- Insert test data into the roomImages table
+INSERT INTO roomImages (roomId, alt, imageHDUrl, imageUrl)
+VALUES
+    (1, 'Room beirut Image 1', 'url/to/roomA/hd/image1', 'url/to/roomA/image1'),
+    (1, 'Room beirut Image 2', 'url/to/roomA/hd/image2', 'url/to/roomA/image2'),
+    
+    (2, 'Room Oklahoma Image 1', 'url/to/roomB/hd/image1', 'url/to/roomB/image1'),
+    (2, 'Room Oklahoma Image 2', 'url/to/roomB/hd/image2', 'url/to/roomB/image2'),
+    
+    (3, 'Room Paris Image 1', 'url/to/roomB/hd/image1', 'url/to/roomB/image1'),
+    (3, 'Room Paris Image 2', 'url/to/roomB/hd/image2', 'url/to/roomB/image2'),
+    
+    (4, 'Room Baabda Image 1', 'url/to/roomB/hd/image1', 'url/to/roomB/image1'),
+    (4, 'Room Baabda Image 2', 'url/to/roomB/hd/image2', 'url/to/roomB/image2'),
+    
+    (5, 'Room Moscow Image 1', 'url/to/roomB/hd/image1', 'url/to/roomB/image1'),
+    (5, 'Room Moscow Image 2', 'url/to/roomB/hd/image2', 'url/to/roomB/image2'),
+    
+    (6, 'Room Tokyo Image 1', 'url/to/roomB/hd/image1', 'url/to/roomB/image1'),
+    (6, 'Room Tokyo Image 2', 'url/to/roomB/hd/image2', 'url/to/roomB/image2');
+
+-- Insert test data into the flights table
+INSERT INTO flights (name, departure_location, destination, departure_time)
+VALUES
+	('Flight 123', 1, 2, '2023-01-01T12:00:00'),
+  ('Flight 220', 2, 1, '2023-02-01T14:30:00'),
+  ('Flight 221', 1, 3, '2023-01-01T12:00:00'),
+  ('Flight 222', 3, 1, '2023-02-01T14:30:00'),
+  ('Flight 223', 1, 4, '2023-01-01T12:00:00'),
+  ('Flight 224', 4, 1, '2023-02-01T14:30:00'),
+  ('Flight 325', 2, 3, '2023-01-01T12:00:00'),
+  ('Flight 332', 3, 2, '2023-02-01T14:30:00'),
+  ('Flight 333', 2, 4, '2023-01-01T12:00:00'),
+  ('Flight 334', 4, 2, '2023-02-01T14:30:00'),
+  ('Flight 435', 3, 4, '2023-01-01T12:00:00'),
+  ('Flight 436', 4, 3, '2023-02-01T14:30:00'),
+  ('Flight 536', 5, 6, '2023-01-01T12:00:00'),
+  ('Flight 635', 6, 5, '2023-02-01T14:30:00'),
+  ('Flight 136', 1, 6, '2023-01-01T12:00:00'),
+  ('Flight 631', 6, 1, '2023-02-01T14:30:00');
+    
+
+-- Insert test data into the flightImages table
+INSERT INTO flightImages (flightId, alt, imageHDUrl, imageUrl)
+VALUES
+    (1, 'Flight123 Image', 'url/to/flight123/hd/image', 'url/to/flight123/image'),
+    (2, 'Flight220 Image', 'url/to/flight456/hd/image', 'url/to/flight456/image'),
+    
+    (3, 'Flight221 Image', 'url/to/flight123/hd/image', 'url/to/flight123/image'),
+    (4, 'Flight222 Image', 'url/to/flight456/hd/image', 'url/to/flight456/image'),
+    
+    (5, 'Flight223 Image', 'url/to/flight123/hd/image', 'url/to/flight123/image'),
+    (6, 'Flight224 Image', 'url/to/flight456/hd/image', 'url/to/flight456/image'),
+    
+    (7, 'Flight123 Image', 'url/to/flight123/hd/image', 'url/to/flight123/image'),
+    (8, 'Flight456 Image', 'url/to/flight456/hd/image', 'url/to/flight456/image'),
+    
+    (9, 'Flight123 Image', 'url/to/flight123/hd/image', 'url/to/flight123/image'),
+    (10, 'Flight456 Image', 'url/to/flight456/hd/image', 'url/to/flight456/image'),
+    
+    (11, 'Flight123 Image', 'url/to/flight123/hd/image', 'url/to/flight123/image'),
+    (12, 'Flight456 Image', 'url/to/flight456/hd/image', 'url/to/flight456/image'),
+    
+    (13, 'Flight123 Image', 'url/to/flight123/hd/image', 'url/to/flight123/image'),
+    (14, 'Flight456 Image', 'url/to/flight456/hd/image', 'url/to/flight456/image'),
+    
+    (15, 'Flight123 Image', 'url/to/flight123/hd/image', 'url/to/flight123/image'),
+    (16, 'Flight456 Image', 'url/to/flight456/hd/image', 'url/to/flight456/image');
+
+-- Insert test data into the accounts table
+INSERT INTO accounts (username, email, password, profilePic, authenticated)
+VALUES
+    ('UserA', 'userAF@example.com', 'passwordA', NULL, true),
+    ('UserB', 'userBG@example.com', 'passwordB', NULL, true);
+
+-- Insert test data into the trips table
+INSERT INTO trips (trip_name, user_id, flight_id, booked_roomId)
+VALUES
+    ('Trip to Somewhere AF', 1, 1, 1),
+    ('Trip to Somewhere BG', 2, 2, 2);
+
 ```
 
 </details>
