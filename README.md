@@ -1,7 +1,7 @@
 # Mobile Dev Project
 Web created using ReactJs, it tests user login / logout to Db and implements multiple security layers for safe Data storage.  
 
-Dont forget to get your AuthId from auth0.com for Google/Facebook/Apple account creation
+Dont forget to get your AuthId from [Auth0](https://auth0.com). for Google/Facebook/Apple account creation
 
 ### To Install Dependencies  
 <details>
